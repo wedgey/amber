@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804214149) do
+ActiveRecord::Schema.define(version: 20160805191309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,8 +26,10 @@ ActiveRecord::Schema.define(version: 20160804214149) do
   create_table "crops", force: :cascade do |t|
     t.string   "name"
     t.integer  "duration"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.decimal  "seed_weight"
+    t.decimal  "product_plant"
   end
 
   create_table "farms", force: :cascade do |t|
@@ -94,8 +96,10 @@ ActiveRecord::Schema.define(version: 20160804214149) do
     t.datetime "start_date"
     t.datetime "harvest_date"
     t.string   "layout"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "active",       default: true
+    t.float    "yield"
     t.index ["crop_id"], name: "index_sub_farms_on_crop_id", using: :btree
     t.index ["farm_id"], name: "index_sub_farms_on_farm_id", using: :btree
   end

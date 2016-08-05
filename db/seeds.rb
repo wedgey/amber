@@ -22,7 +22,8 @@ end
 
 seed_weather_logs()
 
-rice = Crop.create(name: "Rice", duration: 100)
+# 4g/plant is theoretical yield weight
+rice = Crop.create(name: "Rice", duration: 100, seed_weight: 0.023, product_plant: 1.3);
 rice.stages << Stage.create(name: "Vegetative", start_date: 0, tmax: 31, tmin: 25.2, precip: 30, order: 1)
 rice.stages << Stage.create(name: "Reproductive", start_date: 31, tmax: 32, tmin: 25, precip: 20, order: 2)
 rice.stages << Stage.create(name: "Maturity", start_date: 65, tmax: 29, tmin: 25, precip: 10, order: 3)
