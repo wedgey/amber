@@ -10,7 +10,7 @@ default: &default
   pool: 5
   timeout: 5000
   host: localhost
-  username: amber_development
+  username: amber
   password: amberisthebest
 
 development:

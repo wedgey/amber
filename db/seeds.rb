@@ -8,7 +8,7 @@
 
 require 'date'
 def seed_weather_logs
-  file = File.new("weather_data.csv","r")
+  file = File.new("./db/weather_data.csv","r")
   while (line1 = file.gets)
     unless line1.strip == ""
 
