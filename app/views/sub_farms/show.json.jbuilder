@@ -1,0 +1,1 @@
+json.partial! "sub_farms/sub_farm", sub_farm: @sub_farm

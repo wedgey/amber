@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sub farm:</strong>
+  <%= @sub_farm_activity.sub_farm %>
+</p>
+
+<p>
+  <strong>Activity:</strong>
+  <%= @sub_farm_activity.activity %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @sub_farm_activity.amount %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @sub_farm_activity.date %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @sub_farm_activity.title %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @sub_farm_activity.note %>
+</p>
+
+<%= link_to 'Edit', edit_sub_farm_activity_path(@sub_farm_activity) %> |
+<%= link_to 'Back', sub_farm_activities_path %>

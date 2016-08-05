@@ -1,0 +1,47 @@
+<%= form_for(sub_farm_activity) do |f| %>
+  <% if sub_farm_activity.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sub_farm_activity.errors.count, "error") %> prohibited this sub_farm_activity from being saved:</h2>
+
+      <ul>
+      <% sub_farm_activity.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :sub_farm_id %>
+    <%= f.text_field :sub_farm_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :activity_id %>
+    <%= f.text_field :activity_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :amount %>
+    <%= f.text_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date %>
+    <%= f.datetime_select :date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :note %>
+    <%= f.text_area :note %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,1 @@
+json.array! @sub_farms, partial: 'sub_farms/sub_farm', as: :sub_farm

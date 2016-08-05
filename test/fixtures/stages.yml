@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  start_date: 2016-08-04 21:17:29
+  crop: one
+  tmax: 
+  tmin: 
+  precip: 1.5
+  order: 1
+
+two:
+  name: MyString
+  start_date: 2016-08-04 21:17:29
+  crop: two
+  tmax: 
+  tmin: 
+  precip: 1.5
+  order: 1

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @weather_log.lat %>
+</p>
+
+<p>
+  <strong>Lng:</strong>
+  <%= @weather_log.lng %>
+</p>
+
+<p>
+  <strong>Tmax:</strong>
+  <%= @weather_log.tmax %>
+</p>
+
+<p>
+  <strong>Tmin:</strong>
+  <%= @weather_log.tmin %>
+</p>
+
+<p>
+  <strong>Precip:</strong>
+  <%= @weather_log.precip %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @weather_log.date %>
+</p>
+
+<%= link_to 'Edit', edit_weather_log_path(@weather_log) %> |
+<%= link_to 'Back', weather_logs_path %>

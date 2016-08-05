@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Sub Farms</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Farm</th>
+      <th>Crop</th>
+      <th>Size</th>
+      <th>Crop weight</th>
+      <th>Start date</th>
+      <th>Harvest date</th>
+      <th>Layout</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sub_farms.each do |sub_farm| %>
+      <tr>
+        <td><%= sub_farm.farm %></td>
+        <td><%= sub_farm.crop %></td>
+        <td><%= sub_farm.size %></td>
+        <td><%= sub_farm.crop_weight %></td>
+        <td><%= sub_farm.start_date %></td>
+        <td><%= sub_farm.harvest_date %></td>
+        <td><%= sub_farm.layout %></td>
+        <td><%= link_to 'Show', sub_farm %></td>
+        <td><%= link_to 'Edit', edit_sub_farm_path(sub_farm) %></td>
+        <td><%= link_to 'Destroy', sub_farm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sub Farm', new_sub_farm_path %>

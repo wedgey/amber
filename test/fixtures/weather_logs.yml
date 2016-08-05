@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lat: 9.99
+  lng: 9.99
+  tmax: 9.99
+  tmin: 9.99
+  precip: 1.5
+  date: 2016-08-04 21:41:49
+
+two:
+  lat: 9.99
+  lng: 9.99
+  tmax: 9.99
+  tmin: 9.99
+  precip: 1.5
+  date: 2016-08-04 21:41:49

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  farm_code: MyString
+  lat: 9.99
+  lng: 9.99
+  layout: MyString
+  size: 9.99
+
+two:
+  name: MyString
+  farm_code: MyString
+  lat: 9.99
+  lng: 9.99
+  layout: MyString
+  size: 9.99

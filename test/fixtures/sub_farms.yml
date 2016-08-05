@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  farm: one
+  crop: one
+  size: 1.5
+  crop_weight: 1.5
+  start_date: 2016-08-04 19:59:54
+  harvest_date: 2016-08-04 19:59:54
+  layout: MyString
+
+two:
+  farm: two
+  crop: two
+  size: 1.5
+  crop_weight: 1.5
+  start_date: 2016-08-04 19:59:54
+  harvest_date: 2016-08-04 19:59:54
+  layout: MyString

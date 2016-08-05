@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Farm:</strong>
+  <%= @sub_farm.farm %>
+</p>
+
+<p>
+  <strong>Crop:</strong>
+  <%= @sub_farm.crop %>
+</p>
+
+<p>
+  <strong>Size:</strong>
+  <%= @sub_farm.size %>
+</p>
+
+<p>
+  <strong>Crop weight:</strong>
+  <%= @sub_farm.crop_weight %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @sub_farm.start_date %>
+</p>
+
+<p>
+  <strong>Harvest date:</strong>
+  <%= @sub_farm.harvest_date %>
+</p>
+
+<p>
+  <strong>Layout:</strong>
+  <%= @sub_farm.layout %>
+</p>
+
+<%= link_to 'Edit', edit_sub_farm_path(@sub_farm) %> |
+<%= link_to 'Back', sub_farms_path %>

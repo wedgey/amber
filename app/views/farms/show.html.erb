@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @farm.name %>
+</p>
+
+<p>
+  <strong>Farm code:</strong>
+  <%= @farm.farm_code %>
+</p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @farm.lat %>
+</p>
+
+<p>
+  <strong>Lng:</strong>
+  <%= @farm.lng %>
+</p>
+
+<p>
+  <strong>Layout:</strong>
+  <%= @farm.layout %>
+</p>
+
+<p>
+  <strong>Size:</strong>
+  <%= @farm.size %>
+</p>
+
+<%= link_to 'Edit', edit_farm_path(@farm) %> |
+<%= link_to 'Back', farms_path %>
