@@ -30,16 +30,28 @@
     <%= f.label :lng %>
     <%= f.text_field :lng %>
   </div>
-
+<!-- 
   <div class="field">
     <%= f.label :layout %>
     <%= f.text_field :layout %>
-  </div>
+  </div> -->
 
   <div class="field">
     <%= f.label :size %>
     <%= f.text_field :size %>
   </div>
+
+
+  <div class="farm-layout">
+    <div class="draw-template"></div>
+  </div>
+
+  <section class="layout-template">
+    <div class="farm-template square" data-template="square"></div>
+    <!-- <div class="triangle"></div> -->
+    <div class="farm-template circle" data-template="circle"></div>
+  </section>
+
 
   <div class="actions">
     <%= f.submit %>
