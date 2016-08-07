@@ -10,6 +10,8 @@ class FarmsController < ApplicationController
   # GET /farms/1
   # GET /farms/1.json
   def show
+    @farm = Farm.find(1)
+    @forecast = WeatherLog.forecast(@farm.lat,@farm.lng)
   end
 
   # GET /farms/new
