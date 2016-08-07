@@ -4,11 +4,17 @@
     <title>Amber</title>
     <%= csrf_meta_tags %>
 
+    <script src="http://cdn.babylonjs.com/2-4/babylon.max.js"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- Highcharts -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
   </head>
 
   <body>
+    <%= render 'layouts/nav' %>
     <%= yield %>
   </body>
 </html>

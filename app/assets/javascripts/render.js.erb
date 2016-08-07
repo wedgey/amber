@@ -1,0 +1,196 @@
+$(function() {
+
+  function init() {
+    var engine = initEngine();
+    var scene = createScene(engine);
+
+    // Create a transparent scene background
+    scene.clearColor = new BABYLON.Color4(1,1,1,1);
+
+    // Create the main player camera
+    var camera = createFreeCamera(scene);
+
+    // Attach control from the canvas' user input
+    // the attachControl function registers the native JS event listeners needed for the specific camera, ie. mouse, touch, keyboard
+    camera.attachControl(engine.getRenderingCanvas());
+
+    // Set the camera to be the main active camera of the scene
+    scene.activeCamera = camera;
+
+    // var light = createLight(scene);
+     var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 50), scene);
+    light.intensity = 0.5;
+
+    // var pl = new BABYLON.PointLight("pl", BABYLON.Vector3.Zero(), scene);
+    // pl.diffuse = new BABYLON.Color3(1, 1, 1);
+    // pl.specular = new BABYLON.Color3(1, 1, 1);
+    // pl.intensity = 0.8;
+
+    var farmbase = createFarmBase(scene);
+
+    var grassBlades = createGrassBlades(scene);
+
+
+    // scene.registerBeforeRender(function() {
+    // });
+
+  }
+
+  // Initialize the engine
+  function initEngine() {
+    // Get the canvas element from DOM
+    // var canvas = document.getElementById("renderCanvas");
+    var canvas = document.getElementById("farmPlot");
+
+    // Initialize the BABYLON 3D engine
+    var engine = new BABYLON.Engine(canvas, true);
+
+    // Watch for browser/canvas resize events and resize engine accordingly since canvas is being resized
+    window.addEventListener("resize", function() {
+      engine.resize();
+    });
+
+    return engine;
+  }
+
+  // Create the scene
+  function createScene(engine) {
+    // Create a scene 
+    var scene = new BABYLON.Scene(engine);
+    // Register a render loop to repeatedly render the scene
+    engine.runRenderLoop(function() {
+      scene.render();
+    });
+
+    return scene;
+  }
+
+  // Create a Free Camera. It's a camera that is like a fps game camerea and allows you to freely move throughout the scene.
+  function createFreeCamera(scene) {
+    var camera = new BABYLON.ArcRotateCamera(
+      "cam", 0, 0, 50, BABYLON.Vector3.Zero(), scene); // Set the camera's initial position to 1.7 meters above the ground (y axis)
+      // "player camera", BABYLON.Vector3.Zero(), scene); // Creates a camera called 'player camera' at location 0,0,0 of the scene
+    camera.setPosition(new BABYLON.Vector3(0,-30,20));
+    return camera;
+  }
+
+  function createLight(scene) {
+    // var light = new BABYLON.DirectionalLight(
+    var light = new BABYLON.HemisphericLight(
+      "dir01", new BABYLON.Vector3(-0.5, -1, -0.5), scene
+    );
+
+    // Set a position in order to enable shadows later
+    light.position = new BABYLON.Vector3(20,40,20);
+    return light;
+  }
+
+  function createFarmBase(scene) {
+    var base = new BABYLON.MeshBuilder.CreateBox("base", {height: 21, width: 21, depth: 3}, scene);
+    // var material = new BABYLON.StandardMaterial("groundMaterial", scene);
+    // var texture = new BABYLON.GrassProceduralTexture("groundColor", 256, scene);
+    // texture.grassColor = new BABYLON.Color3().RED;
+
+    // material.diffuseTexture = texture;
+    // base.material = material;
+    var baseMaterial = new BABYLON.StandardMaterial("baseMaterial", scene);
+    // baseMaterial.diffuseColor = new BABYLON.Color3(0.2, 0.101, 0); // Brown
+    // baseMaterial.emissiveColor = new BABYLON.Color3(0.2, 0.101, 0);
+    baseMaterial.diffuseColor = new BABYLON.Color3(0.4, 0.404, 0);
+    baseMaterial.emissiveColor = new BABYLON.Color3(0.8, 0.404, 0);
+    var texture = new BABYLON.GrassProceduralTexture("groundTexture", 256, scene);
+    baseMaterial.diffuseTexture = texture;
+    base.material = baseMaterial;
+
+    return base;
+  }
+
+  function createGrassBlades(scene) {
+    function radiusFunction(idx, distance) {
+      return 0.3 * (1 - distance/10);
+    }
+
+    var path = [];
+    for (var i = 0; i < 20; i++) {
+      var x = 0;
+      var y = 0;
+      var z = i * 0.5;
+      path.push(new BABYLON.Vector3(x,y,z));
+    }
+
+    var grassTemplate = new BABYLON.MeshBuilder.CreateTube("tube", { path: path, radius: 1, tesselation: 16, radiusFunction: radiusFunction, cap: 0 }, scene);
+
+
+    var material = new BABYLON.StandardMaterial("grassMaterial", scene);
+    // material.diffuseColor = new BABYLON.Color3(0, 0.8, 0);
+    material.emissiveColor = new BABYLON.Color3(0, 0.8, 0);
+    var texture = new BABYLON.Texture("<%= image_path('Grass-Blade_01.jpg') %>", scene);
+    // material.emissiveTexture = texture;
+    // var texture = new BABYLON.GrassProceduralTexture("grassColor", 256, scene);
+
+    material.diffuseTexture = texture;
+    grassTemplate.material = material;
+
+    grassTemplate.setEnabled(false);
+
+    var grassPositions = [];
+    for (var x = -10; x < 10; x+=2) {
+      for (var z = -10; z < 10; z+=2) {
+        grassPositions.push(new BABYLON.Vector3(x+(1 - Math.random() * 0.4), z+(1-Math.random() * 0.4), 0));
+      }
+    }
+
+    function growPlants(grass) {
+      var grassAnimation = new BABYLON.Animation("grassAnimation", "scaling.z", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+      var keys = [];
+      keys.push({
+        frame: 0,
+        value: 0.2
+      });
+      keys.push({
+        frame: 600,
+        value: 0.5
+      });
+      keys.push({
+        frame: 1000,
+        value: 1
+      });
+
+      grassAnimation.setKeys(keys);
+      grass.animations.push(grassAnimation);
+    }
+
+    return grassPositions.map(function(positionInSpace, idx) {
+      var grass = new BABYLON.InstancedMesh("grass-" + idx, grassTemplate);
+      // var grassAnimation = new BABYLON.Animation("grassAnimation", "scaling.z", 30, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+      // var keys = [];
+      // keys.push({
+      //   frame: 0,
+      //   value: 0
+      // });
+      // keys.push({
+      //   frame: 200,
+      //   value: 0.5
+      // });
+      // keys.push({
+      //   frame: 1000,
+      //   value: 1
+      // });
+
+      // grassAnimation.setKeys(keys);
+      // grass.animations.push(grassAnimation);
+      // scene.beginAnimation(grass, 0, 1000, true);
+
+      var grassAnimation = growPlants(grass);
+      scene.beginAnimation(grass, 0, 1000, true);
+      grass.position = positionInSpace;
+      return grass;
+    });
+  }
+
+
+  init();
+
+});
