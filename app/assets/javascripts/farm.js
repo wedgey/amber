@@ -14,31 +14,31 @@ $(function(){
   });
 
   $('.draw-template')
-  .draggable({
-    stop: function(){
-      // var offset = $(this).offset();
+  // .draggable({
+  //   stop: function(){
+  //     // var offset = $(this).offset();
 
-      var thisPos = $(this).position();
-      var parentPos = $(this).parent().position();
+  //     var thisPos = $(this).position();
+  //     var parentPos = $(this).parent().position();
 
-      var x = thisPos.left - parentPos.left;
-      var y = thisPos.top - parentPos.top;
+  //     var x = thisPos.left - parentPos.left;
+  //     var y = thisPos.top - parentPos.top;
 
-      $("input[name='x']").val(x);
-      $("input[name='y']").val(y);
-      console.log('x: ' + x);
-      console.log('y: ' + y);
-    }
-  })
-  .resizable({
-    stop: function(event, ui) {
-      var width = ui.size.width;
-      var height = ui.size.height;
+  //     $("input[name='x']").val(x);
+  //     $("input[name='y']").val(y);
+  //     console.log('x: ' + x);
+  //     console.log('y: ' + y);
+  //   }
+  // })
+  // .resizable({
+  //   stop: function(event, ui) {
+  //     var width = ui.size.width;
+  //     var height = ui.size.height;
 
-      $("input[name='w']").val(width);
-      $("input[name='h']").val(height);
+  //     $("input[name='w']").val(width);
+  //     $("input[name='h']").val(height);
 
-      console.log(width + ',' + height);
-    }
-  });
+  //     console.log(width + ',' + height);
+  //   }
+  // });
 });

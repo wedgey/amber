@@ -3,7 +3,9 @@
 // # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(function () {
-    $('#container').highcharts({
+  // if(!$('#weather-chart')) return;
+
+    $('#weather-chart').highcharts({
         chart: {
             zoomType: 'xy'
         },
@@ -76,4 +78,14 @@ $(function () {
             }
         }]
     });
+
+    $("#special-button").on('click',function(){
+      console.log("hello");
+    });
+
+
+
+
+
+
 });
