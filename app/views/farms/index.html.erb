@@ -10,7 +10,6 @@
       <div class="row">
         <div class="col-xs-6 col-md-5" id="farm-render-container">
           <canvas id="farmPlot"></canvas>
-          <!-- <img src="./assets/images/floating-island.png" class="img-responsive" /> -->
         </div>
         <div class="col-xs-6 col-md-5" id="notifications-container">
           <div class="panel panel-warning">
@@ -43,3 +42,37 @@
     <div role="tabpanel" class="tab-pane" id="farm2">This is profile</div>
   </div>
 </div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Farm code</th>
+      <th>Lat</th>
+      <th>Lng</th>
+      <th>Layout</th>
+      <th>Size</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @farms.each do |farm| %>
+      <tr>
+        <td><%= farm.name %></td>
+        <td><%= farm.farm_code %></td>
+        <td><%= farm.lat %></td>
+        <td><%= farm.lng %></td>
+        <td><%= farm.layout %></td>
+        <td><%= farm.size %></td>
+        <td><%= link_to 'Show', farm %></td>
+        <td><%= link_to 'Edit', edit_farm_path(farm) %></td>
+        <td><%= link_to 'Destroy', farm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Farm', new_farm_path %>
