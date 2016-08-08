@@ -33,6 +33,38 @@ class WeatherLog < ApplicationRecord
       p "Forecasted First Tmax: #{(first_avgs[:avg_tmax] * tmax_diff).to_f}"
       p "Forecasted First Tmin: #{(first_avgs[:avg_tmin] * tmin_diff).to_f}"
 
+      {
+        history: {
+          first: first_avgs,
+          second: second_avgs,
+          third: third_avgs
+        },
+        current: {
+          avg_tmax: fore_avg_tmax,
+          avg_tmin: fore_avg_tmin
+        },
+        forecasts: {
+          diff: {
+            tmax: tmax_diff,
+            tmin: tmin_diff
+          },
+          avgs: {
+            first: {
+              avg_tmax: (first_avgs[:avg_tmax] * tmax_diff).to_f,
+              avg_tmin: (first_avgs[:avg_tmin] * tmin_diff).to_f
+            },
+            second: {
+              avg_tmax: (second_avgs[:avg_tmax] * tmax_diff).to_f,
+              avg_tmin: (second_avgs[:avg_tmin] * tmin_diff).to_f
+            },
+            third: {
+              avg_tmax: (third_avgs[:avg_tmax] * tmax_diff).to_f,
+              avg_tmin: (third_avgs[:avg_tmin] * tmin_diff).to_f
+            }
+          },
+        }
+      } 
+
     end
   end
 
