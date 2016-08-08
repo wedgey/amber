@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :crops
   resources :farms
   resources :users
+
+  root 'welcome#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root 'farms#index'
