@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'welcome/index'
+
   resources :weather_logs
   resources :sub_farm_activities
   resources :stocks
