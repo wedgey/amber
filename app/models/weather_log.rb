@@ -30,6 +30,8 @@ class WeatherLog < ApplicationRecord
       second_avgs = calc_avg(get_duration(31.days.since(current_past), 64.days.since(current_past)))
       third_avgs = calc_avg(get_duration(65.days.since(current_past), 100.days.since(current_past)))
 
+      p "Tmax diff: #{tmax_diff.to_f}"
+      p "Tmin diff: #{tmin_diff.to_f}"
       p "Forecasted First Tmax: #{(first_avgs[:avg_tmax] * tmax_diff).to_f}"
       p "Forecasted First Tmin: #{(first_avgs[:avg_tmin] * tmin_diff).to_f}"
 
