@@ -5,6 +5,10 @@ class WeatherLogsController < ApplicationController
   # GET /weather_logs.json
   def index
     @weather_logs = WeatherLog.all
+
+    # Here you would make the api call to weather server and populate all the arrays
+    # @dates = []
+    # @temperatures = []
   end
 
   # GET /weather_logs/1
