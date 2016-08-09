@@ -7,28 +7,28 @@ class SubFarm < ApplicationRecord
 
   def calculate_yield
     forecasts = WeatherLog.forecast(farm.lat, farm.lng)
-    p "hello #{farm.lat}"
     stages = crop.stages
 
     #TODO calculate yield
+
 
   end
 
   private
 
-  def calculate_differential(idealTmax, idealTmin, pasTmax, pasTmin, curTmax, curTmin, TmaxDiff, TminDiff)
-    if (idealTmax - curTmax).abs >= (idealTmax - pasTmax).abs
-      TmaxProb = MAX_PROB * TmaxDiff
+  def calculate_differential(ideal_tmax, ideal_tmin, pas_max, pas_tmin, cur_tmax, cur_tmin, tmax_diff, tmin_diff)
+    if (ideal_tmax - cur_tmax).abs >= (ideal_tmax - pas_tmax).abs
+      tmax_prob = MAX_PROB * tmax_diff
     else
-      TmaxProb = MAX_PROB / TmaxDiff
+      tmax_prob = MAX_PROB / tmax_diff
     end
 
-    if (idealTmin - curTmin).abs >= (idealTmin - pasTmin).abs
-      TminProb = MAX_PROB * TminDiff
+    if (ideal_tmin - cur_tmin).abs >= (ideal_tmin - pas_tmin).abs
+      tmin_prob = MAX_PROB * tmin_diff
     else
-      TminProb = MAX_PROB / TminDiff
+      tmin_prob = MAX_PROB / tmin_diff
     end
 
-    (TmaxProb - TminProb) / 2
+    (tmax_prob - tmin_prob) / 2
   end
 end
