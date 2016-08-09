@@ -10,6 +10,7 @@
       <div class="row">
         <div class="col-xs-6 col-md-5" id="farm-render-container">
           <canvas id="farmPlot"></canvas>
+          <!-- <img src="./assets/images/floating-island.png" class="img-responsive" /> -->
         </div>
         <div class="col-xs-6 col-md-5" id="notifications-container">
           <div class="panel panel-warning">
@@ -42,57 +43,3 @@
     <div role="tabpanel" class="tab-pane" id="farm2">This is profile</div>
   </div>
 </div>
-
-<script>
-  run_render();
-</script>
-
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
-
-<p>
-  <strong>Password digest:</strong>
-  <%= @user.password_digest %>
-</p>
-
-<p>
-  <strong>Firstname:</strong>
-  <%= @user.firstname %>
-</p>
-
-<p>
-  <strong>Lastname:</strong>
-  <%= @user.lastname %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Country:</strong>
-  <%= @user.country %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @user.city %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @user.phone %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @user.address %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>

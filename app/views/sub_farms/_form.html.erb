@@ -46,6 +46,24 @@
     <%= f.text_field :layout %>
   </div>
 
+
+<input readonly="readonly" name="x">
+<input readonly="readonly" name="y">
+<input readonly="readonly" name="w">
+<input readonly="readonly" name="h">
+
+<div class="farm-layout" ondragover="allowDrop(event)">
+  <div class="draw-template"></div>
+</div>
+
+
+<section class="layout-template">
+  <div class="farm-template square" data-template="square"></div>
+  <!-- <div class="triangle"></div> -->
+  <div class="farm-template circle" data-template="circle"></div>
+</section>
+
+
   <div class="actions">
     <%= f.submit %>
   </div>
