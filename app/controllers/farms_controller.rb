@@ -10,6 +10,7 @@ class FarmsController < ApplicationController
   # GET /farms/1
   # GET /farms/1.json
   def show
+    @farm = Farm.find(1)
   end
 
   # GET /farms/new

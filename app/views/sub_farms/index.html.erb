@@ -30,9 +30,9 @@
         <td><%= sub_farm.layout %></td>
         <td><%= sub_farm.active %></td>
         <td><%= sub_farm.yield %></td>
-        <td><%= link_to 'Show', sub_farm %></td>
-        <td><%= link_to 'Edit', edit_sub_farm_path(sub_farm) %></td>
-        <td><%= link_to 'Destroy', sub_farm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [sub_farm.farm, sub_farm] %></td>
+        <td><%= link_to 'Edit', edit_farm_sub_farm_path(sub_farm.farm, sub_farm) %></td>
+        <td><%= link_to 'Destroy', [sub_farm.farm, sub_farm], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -40,4 +40,4 @@
 
 <br>
 
-<%= link_to 'New Sub Farm', new_sub_farm_path %>
+<%= link_to 'New Sub Farm', new_farm_sub_farm_path %>

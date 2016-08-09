@@ -1,5 +1,6 @@
-$(function() {
-
+function run_render() {
+  console.log($('#farm-render-container').length);
+  if($('#farm-render-container').length == 0) { return true }
   function init() {
     var engine = initEngine();
     var scene = createScene(engine);
@@ -192,5 +193,4 @@ $(function() {
 
 
   init();
-
-});
+}

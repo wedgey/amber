@@ -8,9 +8,12 @@ Rails.application.routes.draw do
   resources :sub_farm_activities
   resources :stocks
   resources :resources
-  resources :sub_farms
+  
   resources :crops
-  resources :farms
+  resources :farms do
+    resources :sub_farms
+  end
+
   resources :users
 
   root 'welcome#index'

@@ -1,10 +1,10 @@
-<%= form_for(sub_farm) do |f| %>
-  <% if sub_farm.errors.any? %>
+<%= form_for([@farm, @sub_farm]) do |f| %>
+  <% if @sub_farm.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(sub_farm.errors.count, "error") %> prohibited this sub_farm from being saved:</h2>
+      <h2><%= pluralize(@sub_farm.errors.count, "error") %> prohibited this @sub_farm from being saved:</h2>
 
       <ul>
-      <% sub_farm.errors.full_messages.each do |message| %>
+      <% @sub_farm.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -13,12 +13,12 @@
 
   <div class="field">
     <%= f.label :farm_id %>
-    <%= f.text_field :farm_id %>
+    <%= f.text_field :farm_id, value: @farm.id, readonly: true %>
   </div>
 
   <div class="field">
     <%= f.label :crop_id %>
-    <%= f.text_field :crop_id %>
+    <%= f.text_field :crop_id, value: '1' %>
   </div>
 
   <div class="field">
@@ -46,23 +46,26 @@
     <%= f.text_field :layout %>
   </div>
 
-
-<input readonly="readonly" name="x">
-<input readonly="readonly" name="y">
-<input readonly="readonly" name="w">
-<input readonly="readonly" name="h">
-
-<div class="farm-layout" ondragover="allowDrop(event)">
-  <div class="draw-template"></div>
+<div class="field">
+    <%= f.text_field :x, :readonly => true %>
+    <%= f.text_field :y, :readonly => true %>
+    <%= f.text_field :width, :readonly => true %>
+    <%= f.text_field :height, :readonly => true %>
 </div>
 
 
-<section class="layout-template">
-  <div class="farm-template square" data-template="square"></div>
-  <!-- <div class="triangle"></div> -->
-  <div class="farm-template circle" data-template="circle"></div>
-</section>
+<section class="draw-section">
+  <div class="farm-layout">
+    <div class="draw-template"></div>
+  </div>
 
+
+  <section class="layout-template">
+    <div class="farm-template square" data-template="square"></div>
+    <!-- <div class="triangle"></div> -->
+    <div class="farm-template circle" data-template="circle"></div>
+  </section>
+</section>
 
   <div class="actions">
     <%= f.submit %>
