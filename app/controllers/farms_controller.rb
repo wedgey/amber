@@ -25,6 +25,7 @@ class FarmsController < ApplicationController
   # POST /farms.json
   def create
     @farm = Farm.new(farm_params)
+    @farm.user_id = current_user.id
 
     respond_to do |format|
       if @farm.save
