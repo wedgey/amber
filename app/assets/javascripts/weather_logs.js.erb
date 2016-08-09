@@ -4,6 +4,41 @@
 
 $(function () {
   // if(!$('#weather-chart')) return;
+  $.ajax({
+      url: "http://api.wunderground.com/api/<%= ENV['WUNDERGROUND_API_KEY'] %>/forecast10day/q/4.944,114.928.json",
+      dataType: 'jsonp',
+      success: function(datavalue) {
+        console.log(datavalue);
+        forecast_array = datavalue.forecast.simpleforecast.forecastday;
+
+          var dtags2 = $('<th></th>').text('Day');
+         $('#hello-wo').append(dtags2);
+         // $('#hello-wo').append('<tr>')
+
+        for (var i=0; i < forecast_array.length; i++) {
+          var month_array = (forecast_array[i].date.monthname);
+          var day_array = (forecast_array[i].date.day);
+          var dtags1 = $('<th></th>').text(month_array + day_array);
+          $('#day-data').append(dtags1);
+
+          var max_temp = (forecast_array[i].high.celsius);
+          var max_tags = $('<th></th>').text(max_temp);
+          $('#tmax-data').append(max_tags);
+
+
+          var low_temp = (forecast_array[i].low.celsius);
+          var low_tags = $('<th></th>').text(low_temp);
+          $('#tmin-data').append(low_tags);
+          
+          var precip_array = (forecast_array[i].qpf_allday.in);
+          var precip_tags = $('<th></th>').text(precip_array);
+          $('#precip-data').append(precip_tags);
+
+        }
+      
+      }
+
+    });
 
     $('#weather-chart').highcharts({
         chart: {
@@ -79,11 +114,12 @@ $(function () {
         }]
     });
 
-    $("#special-button").on('click',function(){
+    $("#request-button").on('click',function(){
       console.log("hello");
     });
 
-
+    
+    
 
 
 

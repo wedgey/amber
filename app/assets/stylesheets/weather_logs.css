@@ -33,13 +33,18 @@
 
 #table-two {
   background-color: lightblue;
-  margin-left: 250px;
-  margin-right: 250px;
+  /*padding-right: 100px;
+  padding-top: 200px;*/
+  margin-left: 100px;
+  margin-right: 100px;
   border: 2px solid;
+  /*border-spacing: 20px;*/
 }
 
 #table-value {
-  padding: 100px 100px;
+  text-align: center;
+  border-spacing: 15px;
+  border-collapse: separate;
 
 }
 
