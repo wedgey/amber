@@ -6,7 +6,6 @@
   <thead>
     <tr>
       <th>Username</th>
-      <th>Password digest</th>
       <th>Firstname</th>
       <th>Lastname</th>
       <th>Email</th>
@@ -22,7 +21,6 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.username %></td>
-        <td><%= user.password_digest %></td>
         <td><%= user.firstname %></td>
         <td><%= user.lastname %></td>
         <td><%= user.email %></td>
@@ -30,6 +28,7 @@
         <td><%= user.city %></td>
         <td><%= user.phone %></td>
         <td><%= user.address %></td>
+        <td><%= link_to 'log in', sessions_path(username: user.username), method: :post %></td>
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>

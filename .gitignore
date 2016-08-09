@@ -19,7 +19,7 @@
 
 # Ignore Byebug command history file.
 .byebug_history
-<<<<<<< HEAD
-=======
+
+# Ignore DS_Store
+*.DS_Store
 .env
->>>>>>> b86141915b4a9faee6b33ad5c263093332c3dab3
