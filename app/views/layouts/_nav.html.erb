@@ -9,6 +9,7 @@
         <span class="icon-bar"></span>
       </button>
       <div class="col-xs-1">
+
         <a class="navbar-brand" href="/">Amber</a>
       </div>
     </div>
@@ -21,8 +22,8 @@
         <li class="active">
           <a href="/users/<%= current_user.id %>">Dashboard <span class="sr-only">(current)</span></a>
         </li>
-        <li><a href="#">Farm</a></li>
-        
+        <li><%= link_to "Add Farm", new_farm_path %></li>
+        <li><%= link_to "Weather logs", weather_logs_path %></li>
       </ul>
     <% end %>
 
