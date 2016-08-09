@@ -1,15 +1,29 @@
-<div id="wrapper" class="clearfix">
-<h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+  <%= javascript_include_tag "jquerytubular" %>
+  <title>Amber</title>
+</head>
+<body>
+  <div id="wrapper" class="clearfix">
+  <h1>Welcome#index</h1>
+  <p>Find me in app/views/welcome/index.html.erb</p>
 
-<%= link_to 'Log in', farms_path %>
-</div>
+  <%= link_to 'Log in', farms_path %>
+  <%= link_to 'All users', users_path %>
+  </div>
 
-<script>
-  $(function(){
-    // alert();
-    var options = { videoId: 'EBApHaNJjtg', start: 56 };
-    $('#wrapper').tubular(options);
-    // $('#wrapper').tubular({videoId: 'q7DexQ6j0xA'});
-  });
-</script>
+  <script>
+    $(function(){
+      // alert();
+      var options = { videoId: 'EBApHaNJjtg', start: 56 };
+      $('#wrapper').tubular(options);
+      // $('#wrapper').tubular({videoId: 'q7DexQ6j0xA'});
+    });
+  </script>
+</body>
+</html>
+
