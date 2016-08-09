@@ -2,6 +2,10 @@ class WeatherLog < ApplicationRecord
   scope :get_duration, -> (start_date, end_date) { where("date >= ? AND date <= ?", start_date, end_date) }
 
   class << self
+
+    # Forecasts weather for the next 100 days
+    # Inputs lat:float (Latitude of city we want to forecast for), lng:float (Longitude of same city)
+    # Outputs Object with avg history for each crop stage, the current avgs, and the forecasts for each stage along with the diffs used
     def forecast(lat,lng)
       current = open("http://api.wunderground.com/api/#{Rails.application.secrets.wunderground_api_key}/forecast10day/q/#{lat},#{lng}.json");
       forecast = JSON.parse(current.read)['forecast']['simpleforecast']['forecastday']
@@ -29,11 +33,6 @@ class WeatherLog < ApplicationRecord
       first_avgs = calc_avg(get_duration(current_past, 30.days.since(current_past)))
       second_avgs = calc_avg(get_duration(31.days.since(current_past), 64.days.since(current_past)))
       third_avgs = calc_avg(get_duration(65.days.since(current_past), 100.days.since(current_past)))
-
-      p "Tmax diff: #{tmax_diff.to_f}"
-      p "Tmin diff: #{tmin_diff.to_f}"
-      p "Forecasted First Tmax: #{(first_avgs[:avg_tmax] * tmax_diff).to_f}"
-      p "Forecasted First Tmin: #{(first_avgs[:avg_tmin] * tmin_diff).to_f}"
 
       {
         history: {
