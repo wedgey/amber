@@ -1,0 +1,51 @@
+/*// Place all the styles related to the weather_logs controller here.*/
+/*// They will automatically be included in application.css.*/
+/*// You can use Sass (SCSS) here: http://sass-lang.com/*/
+
+.container-weather {
+  background-color: lightblue;
+  height: 1000px;
+  margin-left: 100px;
+  margin-top: 70px;
+}
+
+.logo {
+  background-color: lightblue;
+}
+
+#weather-header {
+  background-color: lightblue;
+  border-radius: 200px;
+  font-size: 60px;
+  margin-left: 250px;
+  margin-right: 250px;
+  text-align: center;
+  border: 2px solid;
+}
+
+#logo-image {
+  border: 1px solid black;
+  height: 50px;
+  float: left;
+  margin-top: 0px;
+}
+
+
+#table-two {
+  background-color: lightblue;
+  margin-left: 250px;
+  margin-right: 250px;
+  border: 2px solid;
+}
+
+#table-value {
+  padding: 100px 100px;
+
+}
+
+td {
+  padding: 10px !important;
+}
+
+
+

@@ -35,5 +35,16 @@
   <%= @sub_farm.layout %>
 </p>
 
+<p>
+  <strong>Active:</strong>
+  <%= @sub_farm.active %>
+</p>
+
+<p>
+  <strong>Yield:</strong>
+  <%= @sub_farm.yield %>
+</p>
+
+
 <%= link_to 'Edit', edit_sub_farm_path(@sub_farm) %> |
 <%= link_to 'Back', sub_farms_path %>

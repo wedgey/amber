@@ -1,37 +1,120 @@
-<p id="notice"><%= notice %></p>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    <!-- <div class="navbar-logo"> -->
+      <a class="navbar-brand" href="#">
+      <!-- <div class="logo"> -->
+      <img id="logo-image" class="img-responsive" src="<%= image_path('amber-logo.jpg') %>">
+      AMBER</a>
+    <!-- </div> -->
+    </div>
 
-<h1>Weather Logs</h1>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+      </ul>
+      <form class="navbar-form navbar-right">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sign In <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 
-<table>
-  <thead>
-    <tr>
-      <th>Lat</th>
-      <th>Lng</th>
-      <th>Tmax</th>
-      <th>Tmin</th>
-      <th>Precip</th>
-      <th>Date</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div>
+ <h1 id="weather-header">Weather Data</h1>
+</div>
 
-  <tbody>
-    <% @weather_logs.each do |weather_log| %>
-      <tr>
-        <td><%= weather_log.lat %></td>
-        <td><%= weather_log.lng %></td>
-        <td><%= weather_log.tmax %></td>
-        <td><%= weather_log.tmin %></td>
-        <td><%= weather_log.precip %></td>
-        <td><%= weather_log.date %></td>
-        <td><%= link_to 'Show', weather_log %></td>
-        <td><%= link_to 'Edit', edit_weather_log_path(weather_log) %></td>
-        <td><%= link_to 'Destroy', weather_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
+
+<div id="table-two">
+  <table id="table-value">
+  <tr>
+    <th>Day</th>
+    <td>Day 1</td>
+    <td>Day 2</td>
+    <td>Day 3</td>
+    <td>Day 4</td>
+    <td>Day 5</td>
+    <td>Day 6</td>
+    <td>Day 7</td>
+    <td>Day 8</td>
+    <td>Day 9</td>
+    <td>Day 10</td>
+  </tr>
+  <tr>
+    <th>Tmax</th>
+    <td>30</td>
+    <td>31</td>
+    <td>30</td>
+    <td>32</td>
+    <td>30</td>
+    <td>30.5</td>
+    <td>31.2</td>
+    <td>32</td>
+    <td>30</td>
+    <td>30</td>
+  </tr>
+  <tr>
+    <th>Tmin</th>
+    <td>26</td>
+    <td>25</td>
+    <td>28</td>
+    <td>27</td>
+    <td>26</td>
+    <td>27.5</td>
+    <td>27</td>
+    <td>24</td>
+    <td>28</td>
+    <td>27</td>
+  </tr>
+  <tr>
+    <th>Precipitation</th>
+    <td>0</td>
+    <td>2</td>
+    <td>5</td>
+    <td>0</td>
+    <td>12</td>
+    <td>0</td>
+    <td>0</td>
+    <td>5</td>
+    <td>10</td>
+    <td>10</td>
+  </tr>
+  <button id="request-button">Request</button>
+  </table>
+
+</div>
+
+<div class="container-weather" id="weather-chart" style="min-width: 310px; height: 500px; margin-left: 50px; margin-right: 50px;"></div>
+
+<footer>
+<div>
+<a>Terms&Conditions</a>
+<a>@Amber</a>
+</div>
+</footer>
 
 <br>
 
-<%= link_to 'New Weather Log', new_weather_log_path %>

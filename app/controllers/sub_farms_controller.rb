@@ -26,15 +26,18 @@ class SubFarmsController < ApplicationController
   def create
     @sub_farm = SubFarm.new(sub_farm_params)
 
-    respond_to do |format|
-      if @sub_farm.save
-        format.html { redirect_to @sub_farm, notice: 'Sub farm was successfully created.' }
-        format.json { render :show, status: :created, location: @sub_farm }
-      else
-        format.html { render :new }
-        format.json { render json: @sub_farm.errors, status: :unprocessable_entity }
-      end
-    end
+    p 'aaa'
+    p params
+
+    # respond_to do |format|
+    #   if @sub_farm.save
+    #     format.html { redirect_to @sub_farm, notice: 'Sub farm was successfully created.' }
+    #     format.json { render :show, status: :created, location: @sub_farm }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @sub_farm.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /sub_farms/1

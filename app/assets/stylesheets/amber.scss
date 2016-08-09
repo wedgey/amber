@@ -1,0 +1,16 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+#actions-container button {
+  width: 100%;
+  margin: 5px 0;
+}
+
+body div.tab-content {
+  margin-top: 10px;
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+}
