@@ -11,10 +11,6 @@ $(function () {
         console.log(datavalue);
         forecast_array = datavalue.forecast.simpleforecast.forecastday;
 
-          var dtags2 = $('<th></th>').text('Day');
-         $('#hello-wo').append(dtags2);
-         // $('#hello-wo').append('<tr>')
-
         for (var i=0; i < forecast_array.length; i++) {
           var month_array = (forecast_array[i].date.monthname);
           var day_array = (forecast_array[i].date.day);
@@ -35,12 +31,22 @@ $(function () {
           $('#precip-data').append(precip_tags);
 
         }
-      
-      }
 
-    });
+        var dates = forecast_array.map(function (dateObject) {
+  return dateObject.date.monthname_short + ' ' + dateObject.date.day;
+});
+        console.log('dates', dates);
+        var averageTemps = forecast_array.map(function (dateObject) {
+          return (parseInt(dateObject.high.celsius) + parseInt(dateObject.low.celsius)) / 2.0;
+        });
+        console.log('average temps', averageTemps);
 
-    $('#weather-chart').highcharts({
+        var averageRainfall = forecast_array.map(function (dateObject) {
+          return dateObject.qpf_allday.mm;
+        });
+        console.log('average rainfall', averageRainfall);
+
+        $('#weather-chart').highcharts({
         chart: {
             zoomType: 'xy'
         },
@@ -51,8 +57,7 @@ $(function () {
             text: 'Source: WeatherPrediction'
         },
         xAxis: [{
-            categories: ['Aug 1', 'Aug 2', 'Aug 3', 'Aug 4', 'Aug 5', 'Aug 6',
-                'Aug 7', 'Aug 8', 'Aug 9', 'Aug 10'],
+            categories: dates,
             crosshair: true
         }],
         yAxis: [{ // Primary yAxis
@@ -99,7 +104,7 @@ $(function () {
             name: 'Rainfall',
             type: 'column',
             yAxis: 1,
-            data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1],
+            data: averageRainfall,
             tooltip: {
                 valueSuffix: ' mm'
             }
@@ -107,12 +112,20 @@ $(function () {
         }, {
             name: 'Temperature',
             type: 'spline',
-            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3],
+            data: averageTemps,
             tooltip: {
                 valueSuffix: '°C'
             }
         }]
     });
+      }
+
+    });
+
+
+
+
+    
 
     $("#request-button").on('click',function(){
       console.log("hello");
