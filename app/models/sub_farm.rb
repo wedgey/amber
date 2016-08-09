@@ -7,6 +7,7 @@ class SubFarm < ApplicationRecord
 
   def calculate_yield
     forecasts = WeatherLog.forecast(farm.lat, farm.lng)
+    p "hello #{farm.lat}"
     stages = crop.stages
 
     #TODO calculate yield
