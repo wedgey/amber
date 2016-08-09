@@ -1,8 +1,8 @@
 <h1>New Sub Farm</h1>
 
-<%= render 'form', sub_farm: @sub_farm %>
+<%= render 'form', sub_farm: [@farm, @sub_farm]%>
 
-<%= link_to 'Back', sub_farms_path %>
+<%= link_to 'Back', farm_sub_farms_path %>
 
 
 <!-- <input type="" name="x">

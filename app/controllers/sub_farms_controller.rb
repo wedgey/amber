@@ -14,11 +14,13 @@ class SubFarmsController < ApplicationController
 
   # GET /sub_farms/new
   def new
+    @farm = Farm.find(params[:farm_id])
     @sub_farm = SubFarm.new
   end
 
   # GET /sub_farms/1/edit
   def edit
+    @farm = Farm.find(params[:farm_id])
   end
 
   # POST /sub_farms
