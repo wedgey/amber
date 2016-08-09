@@ -1,10 +1,10 @@
-<%= form_for(sub_farm) do |f| %>
-  <% if sub_farm.errors.any? %>
+<%= form_for([@farm, @sub_farm]) do |f| %>
+  <% if @sub_farm.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(sub_farm.errors.count, "error") %> prohibited this sub_farm from being saved:</h2>
+      <h2><%= pluralize(@sub_farm.errors.count, "error") %> prohibited this @sub_farm from being saved:</h2>
 
       <ul>
-      <% sub_farm.errors.full_messages.each do |message| %>
+      <% @sub_farm.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
