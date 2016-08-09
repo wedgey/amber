@@ -28,7 +28,14 @@
   height: 50px;
   float: left;
   margin-top: 0px;
+  display: inline-block;
+  padding: 0px;
 }
+
+/*.navbar-brand{
+  padding: 0px;
+  width: 200px;
+}*/
 
 
 #table-two {
