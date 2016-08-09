@@ -13,12 +13,12 @@
 
   <div class="field">
     <%= f.label :farm_id %>
-    <%= f.text_field :farm_id %>
+    <%= f.text_field :farm_id, value: @farm.id, readonly: true %>
   </div>
 
   <div class="field">
     <%= f.label :crop_id %>
-    <%= f.text_field :crop_id %>
+    <%= f.text_field :crop_id, value: '1' %>
   </div>
 
   <div class="field">
@@ -46,11 +46,13 @@
     <%= f.text_field :layout %>
   </div>
 
+<div class="field">
+    <%= f.text_field :x, :readonly => true %>
+    <%= f.text_field :y, :readonly => true %>
+    <%= f.text_field :width, :readonly => true %>
+    <%= f.text_field :height, :readonly => true %>
+</div>
 
-<input readonly="readonly" name="x">
-<input readonly="readonly" name="y">
-<input readonly="readonly" name="w">
-<input readonly="readonly" name="h">
 
 <div class="farm-layout" ondragover="allowDrop(event)">
   <div class="draw-template"></div>
