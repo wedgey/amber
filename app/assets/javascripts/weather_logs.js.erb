@@ -5,16 +5,16 @@
 $(function () {
   // if(!$('#weather-chart')) return;
   $.ajax({
-      url: "http://api.wunderground.com/api/<%= ENV['WUNDERGROUND_API_KEY'] %>/forecast10day/q/4.944,114.928.json",
+      url: "http://api.wunderground.com/api/<%= Rails.application.secrets.wunderground_api_key %>/forecast10day/q/4.944,114.928.json",
       dataType: 'jsonp',
       success: function(datavalue) {
         console.log(datavalue);
         forecast_array = datavalue.forecast.simpleforecast.forecastday;
 
         for (var i=0; i < forecast_array.length; i++) {
-          var month_array = (forecast_array[i].date.monthname);
+          var month_array = (forecast_array[i].date.monthname_short);
           var day_array = (forecast_array[i].date.day);
-          var dtags1 = $('<th></th>').text(month_array + day_array);
+          var dtags1 = $('<th></th>').text(month_array + ' ' + day_array);
           $('#day-data').append(dtags1);
 
           var max_temp = (forecast_array[i].high.celsius);
@@ -26,7 +26,7 @@ $(function () {
           var low_tags = $('<th></th>').text(low_temp);
           $('#tmin-data').append(low_tags);
           
-          var precip_array = (forecast_array[i].qpf_allday.in);
+          var precip_array = (forecast_array[i].qpf_allday.mm);
           var precip_tags = $('<th></th>').text(precip_array);
           $('#precip-data').append(precip_tags);
 
@@ -51,10 +51,10 @@ $(function () {
             zoomType: 'xy'
         },
         title: {
-            text: 'Average Daily Temperature & Rainfall for Farm 1, Brunei'
+            text: 'Average Daily Temperature & Rainfall  Forecast for Farm 1, Brunei'
         },
         subtitle: {
-            text: 'Source: WeatherPrediction'
+            text: 'Source: Weather Underground.com'
         },
         xAxis: [{
             categories: dates,
