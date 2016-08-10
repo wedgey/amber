@@ -19,11 +19,9 @@
 
     <% if(session[:user_id]) %>
       <ul class="nav navbar-nav">
-        <li class="active">
-          <a href="/users/<%= current_user.id %>">Dashboard <span class="sr-only">(current)</span></a>
-        </li>
+        <li><%= link_to "Dashboard", user_path(current_user), method: :get %>
         <li><%= link_to "Add Farm", new_farm_path %></li>
-        <li><%= link_to "Weather logs", weather_logs_path %></li>
+        <li><%= link_to "Weather logs", weather_logs_path, method: :get %></li>
       </ul>
     <% end %>
 
