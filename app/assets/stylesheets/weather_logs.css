@@ -28,18 +28,30 @@
   height: 50px;
   float: left;
   margin-top: 0px;
+  display: inline-block;
+  padding: 0px;
 }
+
+/*.navbar-brand{
+  padding: 0px;
+  width: 200px;
+}*/
 
 
 #table-two {
   background-color: lightblue;
+  /*padding-right: 100px;
+  padding-top: 200px;*/
   margin-left: 250px;
   margin-right: 250px;
   border: 2px solid;
+  /*border-spacing: 20px;*/
 }
 
 #table-value {
-  padding: 100px 100px;
+  text-align: center;
+  border-spacing: 15px;
+  border-collapse: separate;
 
 }
 

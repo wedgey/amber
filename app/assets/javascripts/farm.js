@@ -1,4 +1,7 @@
 $(function(){
+
+  $( "#sub-farm-tabs" ).tabs();
+  
   $("[draggable='true']").on('dragend', function(){
     // alert('');
   });
@@ -19,13 +22,13 @@ $(function(){
       // var offset = $(this).offset();
 
       var thisPos = $(this).position();
-      var parentPos = $(this).parent().position();
+      var parentPos = $('.farm-layout').position();
 
       var x = thisPos.left - parentPos.left;
       var y = thisPos.top - parentPos.top;
 
-      $("input[name='x']").val(x);
-      $("input[name='y']").val(y);
+      $("#sub_farm_x").val(x);
+      $("#sub_farm_y").val(y);
       console.log('x: ' + x);
       console.log('y: ' + y);
     }
@@ -35,8 +38,8 @@ $(function(){
       var width = ui.size.width;
       var height = ui.size.height;
 
-      $("input[name='w']").val(width);
-      $("input[name='h']").val(height);
+      $("#sub_farm_width").val(width);
+      $("#sub_farm_height").val(height);
 
       console.log(width + ',' + height);
     }

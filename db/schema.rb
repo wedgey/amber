@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160805191309) do
+ActiveRecord::Schema.define(version: 20160809204841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,10 @@ ActiveRecord::Schema.define(version: 20160805191309) do
     t.datetime "updated_at",                  null: false
     t.boolean  "active",       default: true
     t.float    "yield"
+    t.float    "x"
+    t.float    "y"
+    t.float    "width"
+    t.float    "height"
     t.index ["crop_id"], name: "index_sub_farms_on_crop_id", using: :btree
     t.index ["farm_id"], name: "index_sub_farms_on_farm_id", using: :btree
   end
@@ -128,6 +132,7 @@ ActiveRecord::Schema.define(version: 20160805191309) do
     t.datetime "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_weather_logs_on_date", using: :btree
   end
 
   add_foreign_key "activities", "resources"

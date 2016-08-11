@@ -1,35 +1,86 @@
-<p id="notice"><%= notice %></p>
+<section class="text-center">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @farm.name %>
-</p>
 
-<p>
-  <strong>Farm code:</strong>
-  <%= @farm.farm_code %>
-</p>
+  <p>
+    <strong>Name:</strong>
+    <%= @farm.name %>
+  </p>
 
-<p>
-  <strong>Lat:</strong>
-  <%= @farm.lat %>
-</p>
+  <p>
+    <strong>Farm code:</strong>
+    <%= @farm.farm_code %>
+  </p>
 
-<p>
-  <strong>Lng:</strong>
-  <%= @farm.lng %>
-</p>
+  <p>
+    <strong>Lat:</strong>
+    <%= @farm.lat %>
+  </p>
 
-<p>
-  <strong>Layout:</strong>
-  <div draggable="true">a</div>
-  <%= @farm.layout %>
-</p>
+  <p>
+    <strong>Lng:</strong>
+    <%= @farm.lng %>
+  </p>
 
-<p>
-  <strong>Size:</strong>
-  <%= @farm.size %>
-</p>
+  <p>
+    <strong>Layout:</strong>
+    <div draggable="true">a</div>
+    <%= @farm.layout %>
+  </p>
 
-<%= link_to 'Edit', edit_farm_path(@farm) %> |
-<%= link_to 'Back', farms_path %>
+  <p>
+    <strong>Size:</strong>
+    <%= @farm.size %>
+  </p>
+
+
+<!--   <section class="draw-section">
+    <div class="farm-layout">
+    </div>
+
+  </section> -->
+
+<canvas id="farm-layout-show" width="400" height="400" style="border:1px solid #000000;">
+</canvas>
+
+<div id="sub-farm-tabs">
+  <ul>
+    <li><a href="#tabs-1">Sub Farm 1</a></li>
+    <li><a href="#tabs-2">Sub Farm 2</a></li>
+    <li><a href="#tabs-3">Sub Farm 3</a></li>
+  </ul>
+  <div id="tabs-1">
+    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. </p>
+  </div>
+  <div id="tabs-2">
+    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut p eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+  </div>
+  <div id="tabs-3">
+    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, plibero vitae lectus hendrerit hendrerit.</p>
+  </div>
+</div>
+
+  <%= link_to 'Add Sub Farm', new_farm_sub_farm_path(@farm), method: 'GET' %> |
+  <%= link_to 'Edit', edit_farm_path(@farm) %> |
+  <%= link_to 'Back', farms_path %>
+</section>
+
+<script>
+  $(function(){
+
+    var farm = document.getElementById('farm-layout-show');
+    var ctx = farm.getContext("2d");
+    ctx.fillStyle = "#FF0000";
+
+    <% @sub_farms.each do |subfarm| %>
+      <% if subfarm.x and subfarm.y and subfarm.width and subfarm.height %>
+        <% p 'aaa', subfarm.x, subfarm.y, subfarm.width, subfarm.height %>
+        
+        ctx.fillRect(<%= subfarm.x.to_f %>, <%= subfarm.y.to_f %>, <%= subfarm.x.to_f + subfarm.width.to_f %>, <%= subfarm.y.to_f + subfarm.height.to_f %>);
+      <% end %>
+    <% end %>
+    
+    // ctx.fillRect(0,0,150,75);
+  });
+</script>
+
