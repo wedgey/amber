@@ -65,7 +65,6 @@
 
     var farm = document.getElementById('farm-layout-show');
     var ctx = farm.getContext("2d");
-    ctx.fillStyle = "#FF0000";
 
     <% @sub_farms.each do |subfarm| %>
       var a = $('<a data-toggle="pill" href="#subfarm<%= subfarm.id %>">').text('Subfarm <%= subfarm.id %>');
@@ -88,7 +87,8 @@
 
       <% if subfarm.x and subfarm.y and subfarm.width and subfarm.height %>
         
-        ctx.fillRect(<%= subfarm.x.to_f %>, <%= subfarm.y.to_f %>, <%= subfarm.x.to_f + subfarm.width.to_f %>, <%= subfarm.y.to_f + subfarm.height.to_f %>);
+        ctx.rect(<%= subfarm.x.to_f %>, <%= subfarm.y.to_f %>, <%= subfarm.x.to_f + subfarm.width.to_f %>, <%= subfarm.y.to_f + subfarm.height.to_f %>);
+        ctx.stroke();
       <% end %>
     <% end %>
     $('.sub_farm_tabs li:first-child').addClass('active');
