@@ -1,16 +1,91 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+
+* {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1em;
+  font-weight: 300;
+}
+
 #actions-container button {
   width: 100%;
-  margin: 5px 0;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 
-body div.tab-content {
-  margin-top: 10px;
+#actions-container button.btn:hover {
+  background-color: red;
 }
 
-// canvas {
+#actions-container button.chemical-btn {
+  background-color: black;
+  color: white;
+}
+
+#actions-container button.fertilize-btn {
+  background-color: #9e2062;
+  color: white;
+}
+
+#actions-container button.miscellaneous-btn {
+  background-color: #d6e025;
+  color: white;
+}
+
+#actions-container button.water-btn {
+  background-color: #5bc0de;
+  color: white;
+}
+
+#custom-navbar {
+  background-color: white;
+  border-bottom: 2px solid green;
+  height: 75px;
+}
+
+#custom-navbar a.navbar-brand {
+  color: red;
+  font-size: 1.4em;
+  font-weight: 400;
+  line-height: 43px;
+  vertical-align: middle;
+}
+
+#custom-navbar .logo {
+  width: 75px;
+  height: 75px;
+  margin-top: -5px;
+  margin-right: -20px;
+}
+
+#custom-navbar .navbar-nav a {
+  color: #007a55;
+  font-size: 1.2em;
+  font-weight: 400;
+  line-height: 43px;
+  transition: all 0.5s;
+  vertical-align: middle;
+}
+
+#custom-navbar .navbar-nav a:hover {
+  color: red;
+}
+
+#notifications-container .panel {
+  border-color: #ec910a;
+}
+
+#notifications-container .panel > .panel-heading {
+  background-color: #fbb143;
+}
+
+.tab-pane {
+  padding-top: 10px;
+}
+
+/*// canvas {
 //   width: 100%;
 //   height: auto;
 // }
+*/
