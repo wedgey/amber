@@ -1,7 +1,46 @@
 <section class="text-center">
   <p id="notice"><%= notice %></p>
 
+<section class="container">
+  <div class="row">
+    <div class="col-sm-5">
+<canvas id="farm-layout-show" width="400" height="400" style="border:1px solid #000000;">
+</canvas>
+    </div>
+    <div class="col-sm-7">
 
+<!-- start tabs -->
+      <ul class="nav nav-pills sub_farm_tabs">
+        <li class='to-new-subfarm'><%= link_to 'Add Sub Farm', new_farm_sub_farm_path(@farm), class: 'btn btn-success', method: 'GET' %></li>
+<!--         <li class="active"><a data-toggle="pill" href="#home">Farm 1</a></li>
+        <li><a data-toggle="pill" href="#menu1">Farm 2</a></li>
+        <li><a data-toggle="pill" href="#menu2">Farm 2</a></li>
+        <li><a data-toggle="pill" href="#menu3">Farm 3</a></li> -->
+      </ul>
+
+      <div class="tab-content sub_farm_content">
+  <!--       <div id="home" class="tab-pane fade in active">
+          <h3>HOME</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+          <h3>Menu 1</h3>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+          <h3>Menu 2</h3>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+        </div>
+        <div id="menu3" class="tab-pane fade">
+          <h3>Menu 3</h3>
+          <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+        </div> -->
+      </div>
+
+
+    </div>
+  </div>
+</section>
   <p>
     <strong>Name:</strong>
     <%= @farm.name %>
@@ -34,31 +73,6 @@
   </p>
 
 
-<!--   <section class="draw-section">
-    <div class="farm-layout">
-    </div>
-
-  </section> -->
-
-<canvas id="farm-layout-show" width="400" height="400" style="border:1px solid #000000;">
-</canvas>
-
-<div id="sub-farm-tabs">
-  <ul>
-    <li><a href="#tabs-1">Sub Farm 1</a></li>
-    <li><a href="#tabs-2">Sub Farm 2</a></li>
-    <li><a href="#tabs-3">Sub Farm 3</a></li>
-  </ul>
-  <div id="tabs-1">
-    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. </p>
-  </div>
-  <div id="tabs-2">
-    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut p eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
-  </div>
-  <div id="tabs-3">
-    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, plibero vitae lectus hendrerit hendrerit.</p>
-  </div>
-</div>
 
   <%= link_to 'Add Sub Farm', new_farm_sub_farm_path(@farm), method: 'GET' %> |
   <%= link_to 'Edit', edit_farm_path(@farm) %> |
@@ -73,13 +87,30 @@
     ctx.fillStyle = "#FF0000";
 
     <% @sub_farms.each do |subfarm| %>
+      var a = $('<a data-toggle="pill" href="#subfarm<%= subfarm.id %>">').text('Subfarm <%= subfarm.id %>');
+      var subfarm = $('<li>').append(a);
+      subfarm.insertBefore('.to-new-subfarm');
+      // $('.sub_farm_tabs').append(subfarm);
+
+
+      var crop = $('<p>').text('Crop : <%= Crop.find(subfarm.crop_id).name %>');
+      var size = $('<p>').text('Size : <%= subfarm.size %>');
+      var crop_w = $('<p>').text('Crop weight : <%= subfarm.crop_weight %>');
+      var start = $('<p>').text('Start date : <%= subfarm.start_date %>');
+      var harvest = $('<p>').text('Harvest date : <%= subfarm.harvest_date %>');
+
+      var content = $('<div id="subfarm<%= subfarm.id %>" class="tab-pane fade in active">').append(crop).append(size).append(crop_w).append(start).append(harvest);
+      $('.sub_farm_content').append(content);
+
       <% if subfarm.x and subfarm.y and subfarm.width and subfarm.height %>
-        <% p 'aaa', subfarm.x, subfarm.y, subfarm.width, subfarm.height %>
         
         ctx.fillRect(<%= subfarm.x.to_f %>, <%= subfarm.y.to_f %>, <%= subfarm.x.to_f + subfarm.width.to_f %>, <%= subfarm.y.to_f + subfarm.height.to_f %>);
       <% end %>
     <% end %>
-    
+    $('.sub_farm_tabs li:first-child').addClass('active');
+    $('.sub_farm_content').children('div:not(:first-child)').removeClass('in active');
+
+    // $('.sub_farm_content div').toggle();
     // ctx.fillRect(0,0,150,75);
   });
 </script>
