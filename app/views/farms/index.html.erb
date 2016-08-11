@@ -1,3 +1,5 @@
+<div id="map" class="center-block"></div>
+
 <table>
   <thead>
     <tr>
@@ -30,4 +32,36 @@
 
 <br>
 
-<%= link_to 'New Farm', new_farm_path %>
+<%= link_to 'New Farm', new_farm_path, class: "btn btn-success" %>
+
+
+<script>
+  var map;
+  var markers = [];
+
+  function initMap() {
+    var init_lat = <%= @farms.first.lat || 4.5076156 %>
+    var init_lng = <%= @farms.first.lng || 114.4846021 %>
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: init_lat, lng: init_lng},
+      zoom: 10
+    });
+
+    <% @farms.each do |farm| %>
+      var marker = new google.maps.Marker({
+        map: map,
+        // draggable: true,
+        animation: google.maps.Animation.DROP,
+        position: {lat: <%= farm.lat %>, lng: <%= farm.lng %>}
+      });
+
+      google.maps.event.addListener(marker, 'click', function () {
+        window.location.href = '/farms/<%= farm.id %>';
+      });
+
+    <% end %>
+
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%=Rails.application.secrets.GGMAP_APP_KEY %>&callback=initMap"
+async defer></script>
