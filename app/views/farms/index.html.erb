@@ -1,13 +1,20 @@
-<div id="map" class="center-block"></div>
+<section class="container">
+  <h1>Your Farms</h1>
 
-<table>
+
+<div class="row">
+
+<div class="col-sm-4">
+<div id="map" class="center-block"></div>
+</div>
+<div class="col-sm-2"></div>
+
+<div class="col-sm-6">
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
       <th>Farm code</th>
-      <th>Lat</th>
-      <th>Lng</th>
-      <th>Layout</th>
       <th>Size</th>
       <th colspan="3"></th>
     </tr>
@@ -18,9 +25,6 @@
       <tr>
         <td><%= farm.name %></td>
         <td><%= farm.farm_code %></td>
-        <td><%= farm.lat %></td>
-        <td><%= farm.lng %></td>
-        <td><%= farm.layout %></td>
         <td><%= farm.size %></td>
         <td><%= link_to 'Show', farm %></td>
         <td><%= link_to 'Edit', edit_farm_path(farm) %></td>
@@ -31,8 +35,16 @@
 </table>
 
 <br>
+<div class="text-center">
+  <%= link_to 'New Farm', new_farm_path, class: "btn btn-success" %>
+</div>
+<br>
+</div>
+</div>
 
-<%= link_to 'New Farm', new_farm_path, class: "btn btn-success" %>
+
+</section>
+
 
 
 <script>
