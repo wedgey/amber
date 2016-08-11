@@ -33,13 +33,11 @@ class SubFarmsController < ApplicationController
 
     @sub_farm = SubFarm.new(sub_farm_params)
 
-    p 'aaa'
-    p params
 
     respond_to do |format|
       if @sub_farm.save
         @farm = Farm.find(@sub_farm.farm_id)
-        format.html { redirect_to farm_sub_farm_path(@farm, @sub_farm), notice: 'Sub farm was successfully created.' }
+        format.html { redirect_to @farm, notice: 'Sub farm was successfully created.' }
         format.json { render :show, status: :created, location: @sub_farm }
       else
         format.html { render :new }
