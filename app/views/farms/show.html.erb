@@ -15,26 +15,28 @@
 
     <div class="col-sm-5 farm-show-info">
 
-  <p>
-    <strong>Farm code:</strong>
-    <%= @farm.farm_code %>
-  </p>
+<table class="table">
+  <tr>
+    <td><strong>Farm code:</strong></td>
+    <td><%= @farm.farm_code %></td>
+  </tr>
 
-  <p>
-    <strong>Lat:</strong>
-    <%= @farm.lat %>
-  </p>
+  <tr>
+    <td><strong>Lat:</strong></td>
+    <td><%= @farm.lat %></td>
+  </tr>
 
-  <p>
-    <strong>Lng:</strong>
-    <%= @farm.lng %>
-  </p>
+  <tr>
+    <td><strong>Lng:</strong></td>
+    <td><%= @farm.lng %></td>
+  </tr>
 
 
-  <p>
-    <strong>Size:</strong>
-    <%= @farm.size %>
-  </p>
+  <tr>
+    <td><strong>Size:</strong></td>
+    <td><%= @farm.size %></td>
+  </tr>
+</table>
 
 <hr>
 
@@ -54,8 +56,6 @@
 
 
 
-
-
   <%= link_to 'Edit', edit_farm_path(@farm) %> |
   <%= link_to 'Back', farms_path %>
 </section>
@@ -71,16 +71,19 @@
       var a = $('<a data-toggle="pill" href="#subfarm<%= subfarm.id %>">').text('Subfarm <%= subfarm.id %>');
       var subfarm = $('<li>').append(a);
       subfarm.insertBefore('.to-new-subfarm');
-      // $('.sub_farm_tabs').append(subfarm);
 
 
-      var crop = $('<p>').html('<strong>Crop</strong> : <%= Crop.find(subfarm.crop_id).name %>');
-      var size = $('<p>').html('<strong>Size</strong> : <%= subfarm.size %>');
-      var crop_w = $('<p>').html('<strong>Crop weight</strong> : <%= subfarm.crop_weight %>');
-      var start = $('<p>').html('<strong>Start date</strong> : <%= subfarm.start_date %>');
-      var harvest = $('<p>').html('<strong>Harvest date</strong> : <%= subfarm.harvest_date %>');
+      var crop = $('<tr>').html('<td><strong>Crop:</strong></td> <td><%= Crop.find(subfarm.crop_id).name %></td>');
+      var size = $('<tr>').html('<td><strong>Size:</strong></td> <td><%= subfarm.size %></td>');
+      var crop_w = $('<tr>').html('<td><strong>Crop weight:</strong></td> <td><%= subfarm.crop_weight %></td>');
+      var start = $('<tr>').html('<td><strong>Start date:</strong></td> <td><%= subfarm.start_date %></td>');
+      var harvest = $('<tr>').html('<td><strong>Harvest date:</strong></td> <td><%= subfarm.harvest_date %></td>');
 
-      var content = $('<div id="subfarm<%= subfarm.id %>" class="tab-pane fade in active">').append(crop).append(size).append(crop_w).append(start).append(harvest);
+
+
+
+      var content = $('<table id="subfarm<%= subfarm.id %>" class="tab-pane fade in active table"></table>').append(crop).append(size).append(crop_w).append(start).append(harvest);
+
       $('.sub_farm_content').append(content);
 
       <% if subfarm.x and subfarm.y and subfarm.width and subfarm.height %>
@@ -89,10 +92,8 @@
       <% end %>
     <% end %>
     $('.sub_farm_tabs li:first-child').addClass('active');
-    $('.sub_farm_content').children('div:not(:first-child)').removeClass('in active');
+    $('.sub_farm_content').children('table:not(:first-child)').removeClass('in active');
 
-    // $('.sub_farm_content div').toggle();
-    // ctx.fillRect(0,0,150,75);
   });
 </script>
 
