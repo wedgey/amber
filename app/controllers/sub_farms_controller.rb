@@ -10,7 +10,7 @@ class SubFarmsController < ApplicationController
   # GET /sub_farms/1
   # GET /sub_farms/1.json
   def show
-    @forecast = SubFarm.find(params[:id]).calculate_yield
+    # @forecast = SubFarm.find(params[:id]).calculate_yield
   end
 
   # GET /sub_farms/new

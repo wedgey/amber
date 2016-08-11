@@ -8,8 +8,6 @@ class WeatherLog < ApplicationRecord
     # Outputs Object with avg history for each crop stage, the current avgs, and the forecasts for each stage along with the diffs used
     def forecast(lat,lng)
       current = open("http://api.wunderground.com/api/#{Rails.application.secrets.wunderground_api_key}/forecast10day/q/#{lat.to_f},#{lng.to_f}.json");
-      p "API key #{Rails.application.secrets.wunderground_api_key}"
-      p "API key #{lat.to_f}"
       forecast = JSON.parse(current.read)['forecast']['simpleforecast']['forecastday']
       fore_ttl_tmax = 0
       fore_ttl_tmin = 0
@@ -38,9 +36,18 @@ class WeatherLog < ApplicationRecord
 
       {
         history: {
-          first: first_avgs,
-          second: second_avgs,
-          third: third_avgs
+          first: {
+            avg_tmax: first_avgs[:avg_tmax],
+            avg_tmin: first_avgs[:avg_tmin]
+          },
+          second: {
+            avg_tmax: second_avgs[:avg_tmax],
+            avg_tmin: second_avgs[:avg_tmin]
+          },
+          third: {
+            avg_tmax: third_avgs[:avg_tmax],
+            avg_tmin: third_avgs[:avg_tmin]
+          }
         },
         current: {
           avg_tmax: fore_avg_tmax,
