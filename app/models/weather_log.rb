@@ -37,9 +37,18 @@ class WeatherLog < ApplicationRecord
 
       {
         history: {
-          first: first_avgs,
-          second: second_avgs,
-          third: third_avgs
+          first: {
+            avg_tmax: first_avgs[:avg_tmax],
+            avg_tmin: first_avgs[:avg_tmin]
+          },
+          second: {
+            avg_tmax: second_avgs[:avg_tmax],
+            avg_tmin: second_avgs[:avg_tmin]
+          },
+          third: {
+            avg_tmax: third_avgs[:avg_tmax],
+            avg_tmin: third_avgs[:avg_tmin]
+          }
         },
         current: {
           avg_tmax: fore_avg_tmax,

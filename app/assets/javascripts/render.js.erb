@@ -95,10 +95,10 @@ function run_render() {
     // material.diffuseTexture = texture;
     // base.material = material;
     var baseMaterial = new BABYLON.StandardMaterial("baseMaterial", scene);
-    // baseMaterial.diffuseColor = new BABYLON.Color3(0.2, 0.101, 0); // Brown
-    // baseMaterial.emissiveColor = new BABYLON.Color3(0.2, 0.101, 0);
-    baseMaterial.diffuseColor = new BABYLON.Color3(0.4, 0.404, 0);
-    baseMaterial.emissiveColor = new BABYLON.Color3(0.8, 0.404, 0);
+    baseMaterial.diffuseColor = new BABYLON.Color3(0.2, 0.101, 0); // Brown
+    baseMaterial.emissiveColor = new BABYLON.Color3(0.2, 0.101, 0);
+    // baseMaterial.diffuseColor = new BABYLON.Color3(0.4, 0.404, 0);
+    // baseMaterial.emissiveColor = new BABYLON.Color3(0.8, 0.404, 0);
     var texture = new BABYLON.GrassProceduralTexture("groundTexture", 256, scene);
     baseMaterial.diffuseTexture = texture;
     base.material = baseMaterial;
