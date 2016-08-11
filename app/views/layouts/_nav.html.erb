@@ -9,17 +9,23 @@
         <span class="icon-bar"></span>
       </button>
       <div class="col-xs-1">
-        <a class="navbar-brand" href="#">Amber</a>
+
+        <a class="navbar-brand" href="/">Amber</a>
       </div>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+    <% if(session[:user_id]) %>
       <ul class="nav navbar-nav">
+        <li><%= link_to "Dashboard", user_path(current_user), method: :get %>
+        <li><%= link_to "Add Farm", new_farm_path %></li>
+        <li><%= link_to "Weather logs", weather_logs_path, method: :get %></li>
       </ul>
+    <% end %>
+
       <ul class="nav navbar-nav navbar-right">
-
-
         <!-- <li><a href="#"></a></li> -->
         <!-- User menu -->
         <% if(session[:user_id]) %>
@@ -27,8 +33,6 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.username %> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
             <li role="separator" class="divider"></li>
             <li><%= link_to "Log out", session_path("current"), method: :delete %></li>
           </ul>

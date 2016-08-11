@@ -14,13 +14,12 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require turbolinks
-
 //= require jquery-ui/draggable
 //= require jquery-ui/droppable
 //= require jquery-ui/resizable
 //= require jquery-ui/selectable
 //= require jquery-ui/sortable
-
+//= require jquery-ui/tabs
 //= require_tree .
 
 $(function() {

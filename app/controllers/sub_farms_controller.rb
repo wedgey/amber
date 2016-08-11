@@ -10,7 +10,10 @@ class SubFarmsController < ApplicationController
   # GET /sub_farms/1
   # GET /sub_farms/1.json
   def show
-    # @forecast = SubFarm.find(params[:id]).calculate_yield
+    @forecast = SubFarm.find(params[:id]).calculate_yield
+    
+    # @farm = Farm.find(params[:farm_id])
+    # @forecast = WeatherLog.forecast(@farm.lat,@farm.lng)
   end
 
   # GET /sub_farms/new
@@ -27,20 +30,22 @@ class SubFarmsController < ApplicationController
   # POST /sub_farms
   # POST /sub_farms.json
   def create
+
     @sub_farm = SubFarm.new(sub_farm_params)
 
     p 'aaa'
     p params
 
-    # respond_to do |format|
-    #   if @sub_farm.save
-    #     format.html { redirect_to @sub_farm, notice: 'Sub farm was successfully created.' }
-    #     format.json { render :show, status: :created, location: @sub_farm }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @sub_farm.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    respond_to do |format|
+      if @sub_farm.save
+        @farm = Farm.find(@sub_farm.farm_id)
+        format.html { redirect_to farm_sub_farm_path(@farm, @sub_farm), notice: 'Sub farm was successfully created.' }
+        format.json { render :show, status: :created, location: @sub_farm }
+      else
+        format.html { render :new }
+        format.json { render json: @sub_farm.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /sub_farms/1
@@ -75,6 +80,6 @@ class SubFarmsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sub_farm_params
-      params.require(:sub_farm).permit(:farm_id, :crop_id, :size, :crop_weight, :start_date, :harvest_date, :layout)
+      params.require(:sub_farm).permit(:farm_id, :crop_id, :size, :crop_weight, :start_date, :harvest_date, :layout, :x, :y, :width, :height)
     end
 end

@@ -10,7 +10,8 @@ class FarmsController < ApplicationController
   # GET /farms/1
   # GET /farms/1.json
   def show
-    @farm = Farm.find(1)
+    @farm = Farm.find(params[:id])
+    @sub_farms = @farm.sub_farms
   end
 
   # GET /farms/new
