@@ -3,12 +3,11 @@
 // # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(function () {
-  // if(!$('#weather-chart')) return;
+
   $.ajax({
       url: "http://api.wunderground.com/api/<%= Rails.application.secrets.wunderground_api_key %>/forecast10day/q/4.944,114.928.json",
       dataType: 'jsonp',
       success: function(datavalue) {
-        console.log(datavalue);
         forecast_array = datavalue.forecast.simpleforecast.forecastday;
 
         for (var i=0; i < forecast_array.length; i++) {
@@ -29,26 +28,24 @@ $(function () {
           var precip_array = (forecast_array[i].qpf_allday.mm);
           var precip_tags = $('<th></th>').text(precip_array);
           $('#precip-data').append(precip_tags);
-
         }
 
         var dates = forecast_array.map(function (dateObject) {
   return dateObject.date.monthname_short + ' ' + dateObject.date.day;
 });
-        console.log('dates', dates);
         var averageTemps = forecast_array.map(function (dateObject) {
           return (parseInt(dateObject.high.celsius) + parseInt(dateObject.low.celsius)) / 2.0;
         });
-        console.log('average temps', averageTemps);
 
         var averageRainfall = forecast_array.map(function (dateObject) {
           return dateObject.qpf_allday.mm;
         });
-        console.log('average rainfall', averageRainfall);
 
         $('#weather-chart').highcharts({
-        chart: {
-            zoomType: 'xy'
+        chart: { 
+          backgroundColor: '#fbaf46',
+          
+          zoomType: 'xy'
         },
         title: {
             text: 'Average Daily Temperature & Rainfall  Forecast for Farm 1, Brunei'
@@ -64,13 +61,13 @@ $(function () {
             labels: {
                 format: '{value} °C',
                 style: {
-                    color: Highcharts.getOptions().colors[1]
+                    color: '#FFFFFF',
                 }
             },
             title: {
                 text: 'Temperature',
                 style: {
-                    color: Highcharts.getOptions().colors[1]
+                    color: '#FFFFFF',
                 }
             }
         }, { // Secondary yAxis
@@ -103,6 +100,7 @@ $(function () {
         series: [{
             name: 'Rainfall',
             type: 'column',
+            color: '#FFFFFF',
             yAxis: 1,
             data: averageRainfall,
             tooltip: {
@@ -121,20 +119,6 @@ $(function () {
       }
 
     });
-
-
-
-
-    
-
-    $("#request-button").on('click',function(){
-      console.log("hello");
-    });
-
-    
-    
-
-
 
 
 });

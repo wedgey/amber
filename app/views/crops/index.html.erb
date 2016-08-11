@@ -1,29 +1,21 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Crops</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Duration</th>
-      <th colspan="3"></th>
+<div id="alert-not">
+  <h3 id="align-nots">Notifications</h3>
+   <table id="alert-table">
+    <tr id="alert-date">
+    <th>Date</th>
     </tr>
-  </thead>
+    <tr id="alert-rain">
+    <th>Rain</th>
+    </tr>
+    <tr id="alert-wind">
+    <th>Wind</th>
+    </tr>
+   </table>
+ </div>
 
-  <tbody>
-    <% @crops.each do |crop| %>
-      <tr>
-        <td><%= crop.name %></td>
-        <td><%= crop.duration %></td>
-        <td><%= link_to 'Show', crop %></td>
-        <td><%= link_to 'Edit', edit_crop_path(crop) %></td>
-        <td><%= link_to 'Destroy', crop, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
 
-<%= link_to 'New Crop', new_crop_path %>
+
+
+
+
