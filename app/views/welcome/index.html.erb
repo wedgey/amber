@@ -8,12 +8,14 @@
   <title>Amber</title>
 </head>
 <body>
-  <div id="wrapper" class="clearfix">
-  <h1>Welcome#index</h1>
-  <p>Find me in app/views/welcome/index.html.erb</p>
+  <div id="wrapper">
+    <article class="homepage-article text-center">
+      <h1>Welcome to Amber</h1>
+      <p>We are the best farm management system in the world</p>
 
-  <%= link_to 'Log in', farms_path %>
-  <%= link_to 'All users', users_path %>
+      <%= link_to 'Log in', farms_path, class: "btn btn-success" %>
+      <%= link_to 'All users', users_path %>
+    </article>
   </div>
 
   <script>

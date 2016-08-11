@@ -35,10 +35,11 @@ $template-size: 300px;
     width: 400px;
     height: 400px;
     border: 1px solid black;
-    margin: 15px;
+    // margin: 15px;
 
     .draw-template{
-
+      padding: 0px;
+      margin: 0px;
     }
   }
 

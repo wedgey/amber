@@ -1,4 +1,7 @@
 $(function(){
+
+  $( "#sub-farm-tabs" ).tabs();
+  
   $("[draggable='true']").on('dragend', function(){
     // alert('');
   });
@@ -19,7 +22,7 @@ $(function(){
       // var offset = $(this).offset();
 
       var thisPos = $(this).position();
-      var parentPos = $(this).parent().position();
+      var parentPos = $('.farm-layout').position();
 
       var x = thisPos.left - parentPos.left;
       var y = thisPos.top - parentPos.top;

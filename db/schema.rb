@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 20160809204841) do
     t.datetime "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_weather_logs_on_date", using: :btree
   end
 
   add_foreign_key "activities", "resources"

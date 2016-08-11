@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   resources :sessions, only: [:new, :create, :destroy]
 
-  get 'welcome/index'
+  get 'user/farms', to: 'farms#user_show'
 
   resources :weather_logs
   resources :sub_farm_activities
