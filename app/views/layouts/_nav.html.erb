@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav id="custom-navbar" class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -8,27 +8,27 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <div class="col-xs-1">
-        <a class="navbar-brand" href="#">Amber</a>
-      </div>
+      <a class="navbar-brand" href="/"><div class="col-xs-1 logo"><img class="img-responsive" src="<%= image_path('amber-logo.png') %>" /></div>Amber</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <% if(session[:user_id]) %>
       <ul class="nav navbar-nav">
+        <li><%= link_to "Dashboard", user_path(current_user), method: :get %>
+        <li><%= link_to "Farm", '/user/farms' %></li>
+        <li><%= link_to "Weather logs", weather_logs_path, method: :get %></li>
       </ul>
+      <% end %>
+
       <ul class="nav navbar-nav navbar-right">
-
-
-        <!-- <li><a href="#"></a></li> -->
         <!-- User menu -->
         <% if(session[:user_id]) %>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.username %> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
             <li role="separator" class="divider"></li>
             <li><%= link_to "Log out", session_path("current"), method: :delete %></li>
           </ul>

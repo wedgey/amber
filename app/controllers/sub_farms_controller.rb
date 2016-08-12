@@ -10,9 +10,10 @@ class SubFarmsController < ApplicationController
   # GET /sub_farms/1
   # GET /sub_farms/1.json
   def show
+    @forecast = SubFarm.find(params[:id]).calculate_yield
     
-    @farm = Farm.find(params[:farm_id])
-    @forecast = WeatherLog.forecast(@farm.lat,@farm.lng)
+    # @farm = Farm.find(params[:farm_id])
+    # @forecast = WeatherLog.forecast(@farm.lat,@farm.lng)
   end
 
   # GET /sub_farms/new
@@ -32,13 +33,11 @@ class SubFarmsController < ApplicationController
 
     @sub_farm = SubFarm.new(sub_farm_params)
 
-    p 'aaa'
-    p params
 
     respond_to do |format|
       if @sub_farm.save
         @farm = Farm.find(@sub_farm.farm_id)
-        format.html { redirect_to farm_sub_farm_path(@farm, @sub_farm), notice: 'Sub farm was successfully created.' }
+        format.html { redirect_to @farm, notice: 'Sub farm was successfully created.' }
         format.json { render :show, status: :created, location: @sub_farm }
       else
         format.html { render :new }

@@ -1,35 +1,99 @@
-<p id="notice"><%= notice %></p>
+<section class="text-center">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @farm.name %>
-</p>
+  <h1><%= @farm.name %></h1>
 
-<p>
-  <strong>Farm code:</strong>
-  <%= @farm.farm_code %>
-</p>
 
-<p>
-  <strong>Lat:</strong>
-  <%= @farm.lat %>
-</p>
+<section class="container">
+  <div class="row">
+    <div class="col-sm-5">
+      <canvas id="farm-layout-show" width="400" height="400" style="border:1px solid #000000;">
+      </canvas>
+    </div>
 
-<p>
-  <strong>Lng:</strong>
-  <%= @farm.lng %>
-</p>
+    <div class="col-sm-2"></div>
 
-<p>
-  <strong>Layout:</strong>
-  <div draggable="true">a</div>
-  <%= @farm.layout %>
-</p>
+    <div class="col-sm-5 farm-show-info">
 
-<p>
-  <strong>Size:</strong>
-  <%= @farm.size %>
-</p>
+<table class="table">
+  <tr>
+    <td><strong>Farm code:</strong></td>
+    <td><%= @farm.farm_code %></td>
+  </tr>
 
-<%= link_to 'Edit', edit_farm_path(@farm) %> |
-<%= link_to 'Back', farms_path %>
+  <tr>
+    <td><strong>Lat:</strong></td>
+    <td><%= @farm.lat %></td>
+  </tr>
+
+  <tr>
+    <td><strong>Lng:</strong></td>
+    <td><%= @farm.lng %></td>
+  </tr>
+
+
+  <tr>
+    <td><strong>Size:</strong></td>
+    <td><%= @farm.size %></td>
+  </tr>
+</table>
+
+<hr>
+
+<!-- start tabs -->
+      <ul class="nav nav-pills sub_farm_tabs">
+        <li class='to-new-subfarm'><%= link_to 'Add Sub Farm', new_farm_sub_farm_path(@farm), class: 'btn btn-success', method: 'GET' %></li>
+      </ul>
+
+      <div class="tab-content sub_farm_content">
+      </div>
+<!-- end tabs -->
+
+    </div>
+  </div>
+</section>
+
+
+
+
+  <%= link_to 'Edit', edit_farm_path(@farm) %> |
+  <%= link_to 'Back', farms_path %>
+</section>
+
+<script>
+  $(function(){
+
+    var farm = document.getElementById('farm-layout-show');
+    var ctx = farm.getContext("2d");
+
+    <% @sub_farms.each do |subfarm| %>
+      var a = $('<a data-toggle="pill" href="#subfarm<%= subfarm.id %>">').text('Subfarm <%= subfarm.id %>');
+      var subfarm = $('<li>').append(a);
+      subfarm.insertBefore('.to-new-subfarm');
+
+
+      var crop = $('<tr>').html('<td><strong>Crop:</strong></td> <td><%= Crop.find(subfarm.crop_id).name %></td>');
+      var size = $('<tr>').html('<td><strong>Size:</strong></td> <td><%= subfarm.size %></td>');
+      var crop_w = $('<tr>').html('<td><strong>Crop weight:</strong></td> <td><%= subfarm.crop_weight %></td>');
+      var start = $('<tr>').html('<td><strong>Start date:</strong></td> <td><%= subfarm.start_date %></td>');
+      var harvest = $('<tr>').html('<td><strong>Harvest date:</strong></td> <td><%= subfarm.harvest_date %></td>');
+
+
+
+
+      var content = $('<table id="subfarm<%= subfarm.id %>" class="tab-pane fade in active table"></table>').append(crop).append(size).append(crop_w).append(start).append(harvest);
+
+      $('.sub_farm_content').append(content);
+
+      <% if subfarm.x and subfarm.y and subfarm.width and subfarm.height %>
+        
+        ctx.rect(<%= subfarm.x.to_f %>, <%= subfarm.y.to_f %>, <%= subfarm.x.to_f + subfarm.width.to_f %>, <%= subfarm.y.to_f + subfarm.height.to_f %>);
+        ctx.stroke();
+      <% end %>
+    <% end %>
+    $('.sub_farm_tabs li:first-child').addClass('active');
+    $('.sub_farm_content').children('table:not(:first-child)').removeClass('in active');
+
+  });
+</script>
+

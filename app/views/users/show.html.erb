@@ -5,66 +5,66 @@
   </ul>
 
   <!-- Tab panes -->
-  <!-- <div class="tab-content">
+  <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="farm1">
       <div class="row">
-        <div class="col-xs-6 col-md-5" id="farm-render-container">
-          <canvas id="farmPlot"></canvas>
-        </div>
-        <div class="col-xs-6 col-md-5" id="notifications-container">
-          <div class="panel panel-warning">
-            <div class="panel-heading">Notifications</div>
-            <div class="panel-body">
-              <p><a href="#">High probability of Disease 0-MK!</a></p>
-              <p><a href="#">Lots of raining coming in 4 days!</a></p>
+        <div class="col-sm-8">
+          <div class="col-md-12" id="timeline-container">
+          </div>
+          <div class="col-sm-12" id="actions-container">
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-default btn-lg water-btn">
+                <i class="fa fa-tint" aria-hidden="true"></i><span class="hidden-sm"> Water Farm</span>
+              </button>
+            </div>
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-default btn-lg fertilize-btn">
+                <i class="fa fa-medkit" aria-hidden="true"></i><span class="hidden-sm"> Fertilize Farm</span>
+              </button>
+            </div>
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-default btn-lg chemical-btn">
+                <i class="fa fa-flask" aria-hidden="true"></i><span class="hidden-sm"> Apply Chemicals</span>
+              </button>
+            </div>
+            <div class="col-sm-3">
+              <button type="button" class="btn btn-default btn-lg miscellaneous-btn">
+                <i class="fa fa-flask" aria-hidden="true"></i><span class="hidden-sm"> Miscellaneous</span>
+              </button>
             </div>
           </div>
         </div>
-        <div class="col-md-2" id="actions-container">
-          <button type="button" class="btn btn-default btn-lg">
-            <i class="fa fa-tint" aria-hidden="true"></i> Water Farm
-          </button>
-          <button type="button" class="btn btn-default btn-lg">
-            <i class="fa fa-medkit" aria-hidden="true"></i> Fertilize Farm
-          </button>
-          <button type="button" class="btn btn-default btn-lg">
-            <i class="fa fa-flask" aria-hidden="true"></i> Apply Chemicals
-          </button>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12" id="timeline-container">
-        fsaf
+        <div class="col-sm-4">
+          <div class="col-md-12" id="notifications-container">
+            <div id="alert-not">
+              <h3 id="align-nots">Notifications</h3>
+                <table id="alert-table">
+                  <tr id="alert-date">
+                  <th>Date</th>
+                  </tr>
+                  <tr id="alert-rain">
+                  <th>Rain</th>
+                  </tr>
+                  <tr id="alert-wind">
+                  <th>Wind</th>
+                  </tr>
+                </table>
+            </div>
+          </div>
+          <div class="col-md-12" id="farm-render-container">
+            <canvas id="farmPlot"></canvas>
+          </div>
         </div>
       </div>
     </div>
     <div role="tabpanel" class="tab-pane" id="farm2">This is profile</div>
   </div>
-</div> -->
-
-<div id="alert-not">
-  <h3 id="align-nots">Notifications</h3>
-   <table id="alert-table">
-    <tr id="alert-date">
-    <th>Date</th>
-    </tr>
-    <tr id="alert-rain">
-    <th>Rain</th>
-    </tr>
-    <tr id="alert-wind">
-    <th>Wind</th>
-    </tr>
-   </table>
- </div>
-
-
 
 <script>
   run_render();
 </script>
 
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p>
 
 <p>
   <strong>Username:</strong>
@@ -112,4 +112,4 @@
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', users_path %> -->
