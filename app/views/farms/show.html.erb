@@ -77,11 +77,12 @@
       var crop_w = $('<tr>').html('<td><strong>Crop weight:</strong></td> <td><%= subfarm.crop_weight %></td>');
       var start = $('<tr>').html('<td><strong>Start date:</strong></td> <td><%= subfarm.start_date %></td>');
       var harvest = $('<tr>').html('<td><strong>Harvest date:</strong></td> <td><%= subfarm.harvest_date %></td>');
+      var btns = $('<tr>').html('<td><a class="btn btn-warning" data-method="get" href="/farms/<%= @farm.id %>/sub_farms/<%= subfarm.id %>/edit">Edit</a><a  class="btn btn-danger" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/farms/<%= @farm.id %>/sub_farms/<%= subfarm.id %>">Destroy</a></td>');
 
 
 
 
-      var content = $('<table id="subfarm<%= subfarm.id %>" class="tab-pane fade in active table"></table>').append(crop).append(size).append(crop_w).append(start).append(harvest);
+      var content = $('<table id="subfarm<%= subfarm.id %>" class="tab-pane fade in active table"></table>').append(crop).append(size).append(crop_w).append(start).append(harvest).append(btns);
 
       $('.sub_farm_content').append(content);
 
