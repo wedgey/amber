@@ -1,11 +1,28 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+$dark-blue: #69d2e7;
+$medium-blue: #a7dbdb;
+$green-grey: #e0e4cc;
+$light-orange: #f38630;
+$dark-orange: #fa6900;
 
 * {
   font-family: 'Work Sans', sans-serif;
   font-size: 1em;
   font-weight: 300;
+}
+
+body {
+  /*background-color: #e6e6e6;*/
+  /*background: linear-gradient(left, );*/
+/*  background-image: image-url("bg-colors.jpeg");
+  background-size: cover;
+  opacity: 0.8;*/
+}
+
+.tab-content {
+  /*background: none;*/
 }
 
 #actions-container button {
@@ -20,28 +37,33 @@
 
 #actions-container button.chemical-btn {
   background-color: black;
+  /*background-color: $medium-blue;*/
   color: white;
 }
 
 #actions-container button.fertilize-btn {
-  background-color: #9e2062;
+  /*background-color: #9e2062;*/
+  background-color: $dark-orange;
   color: white;
 }
 
 #actions-container button.miscellaneous-btn {
-  background-color: #d6e025;
+  /*background-color: #d6e025;*/
+  background-color: $light-orange;
   color: white;
 }
 
 #actions-container button.water-btn {
-  background-color: #5bc0de;
+  /*background-color: #5bc0de;*/
+  background-color: $dark-blue;
   color: white;
 }
 
 #custom-navbar {
   background-color: white;
-  border-bottom: 2px solid green;
+  border-bottom: 2px solid $dark-orange;
   height: 75px;
+  /*opacity: 0.6;*/
 }
 
 #custom-navbar a.navbar-brand {
@@ -60,7 +82,8 @@
 }
 
 #custom-navbar .navbar-nav a {
-  color: #007a55;
+  /*color: #007a55;*/
+  color: $dark-orange;
   font-size: 1.2em;
   font-weight: 400;
   line-height: 43px;
@@ -74,16 +97,23 @@
 
 #notifications-container .panel {
   border-color: #ec910a;
+  /*border-color: black;*/
+  border-radius: 0px;
 }
 
 #notifications-container .panel > .panel-heading {
   background-color: #fbb143;
+  /*background-color: black;*/
   color: white;
   font-weight: 400;
 }
 
 .tab-pane {
   padding-top: 10px;
+}
+
+#timeline-container, #farmPlot {
+  /*border: 1px solid black;*/
 }
 
 /*// canvas {
