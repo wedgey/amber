@@ -5,4 +5,5 @@ class Farm < ApplicationRecord
 
   validates :name, presence: true
   validates :user_id, presence: true
+  validates :size, numericality: { only_integer: true }
 end
