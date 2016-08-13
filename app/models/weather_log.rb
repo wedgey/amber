@@ -9,6 +9,7 @@ class WeatherLog < ApplicationRecord
     def forecast(lat,lng)
       current = open("http://api.wunderground.com/api/#{Rails.application.secrets.wunderground_api_key}/forecast10day/q/#{lat.to_f},#{lng.to_f}.json");
       # current = open("http://api.wunderground.com/api/#{Rails.application.secrets.wunderground_api_key}/forecast10day/q/#{lat},#{lng}.json");
+      
       forecast = JSON.parse(current.read)['forecast']['simpleforecast']['forecastday']
       fore_ttl_tmax = 0
       fore_ttl_tmin = 0
