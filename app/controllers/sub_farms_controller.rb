@@ -1,3 +1,5 @@
+require 'date'
+
 class SubFarmsController < ApplicationController
   before_action :set_sub_farm, only: [:show, :edit, :update, :destroy]
 
@@ -20,6 +22,8 @@ class SubFarmsController < ApplicationController
   def new
     @farm = Farm.find(params[:farm_id])
     @sub_farm = SubFarm.new
+    now = Date.today
+    @sub_farm.harvest_date = (now + 100)
   end
 
   # GET /sub_farms/1/edit
