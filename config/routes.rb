@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   
+  get 'report', to: 'report#index'
+
   resources :sessions, only: [:new, :create, :destroy]
 
   get 'user/farms', to: 'farms#user_show'
+  # get 'user/report', to: 'report#show'
 
   resources :weather_logs
   resources :sub_farm_activities

@@ -1,0 +1,43 @@
+<section class="container">
+  <article id="report-pdf">
+  <h1>Report</h1>
+
+  <% @farms.each do |farm| %>
+
+    
+    <h2><%= farm.name %></h2>
+
+    <% farm.sub_farms.each do |subfarm| %>
+
+      <% if(subfarm.sub_farm_activities.size > 0) %>
+        <h3><%= subfarm.id %></h3>
+
+        <% subfarm.sub_farm_activities.order(date: :asc).each do |act| %>
+          
+            <%= act.activity.name %>
+            <%= act.amount %>
+            <%= act.date %>
+            <%= act.title %>
+            <%= act.note %>
+        <% end %>
+
+      <% end %>
+
+    <% end %>
+  <% end %>
+  </article>
+</section>
+
+<button id="pdf-button">generate PDF</button>
+
+<script>
+
+  var doc = new jsPDF();
+
+  $('#pdf-button').click(function () {
+    doc.fromHTML($('#report-pdf').html(), 15, 15, {
+      'width': 170
+    });
+    doc.save('sample-file.pdf');
+  });
+</script>
