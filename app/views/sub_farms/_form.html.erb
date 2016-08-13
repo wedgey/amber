@@ -2,7 +2,12 @@
   <div class="row">
     <div class="col-md-7">
       <section class="draw-section">
+<!--         <canvas id="farm-layout-show" class="farm-layout" width="400" height="400" style="border:1px solid #000000;">
+          <div class="draw-template"></div>
+        </canvas> -->
         <div class="farm-layout">
+          <canvas id="farm-layout-show" class="farm-layout" width="400" height="400" style="border:1px solid #000000;">
+          </canvas>
           <div class="draw-template"></div>
         </div>
 
@@ -115,4 +120,25 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(function(){
+
+    var farm = document.getElementById('farm-layout-show');
+    var ctx = farm.getContext("2d");
+
+    <% @farm.sub_farms.each do |subfarm| %>
+      <% if subfarm.x and subfarm.y and subfarm.width and subfarm.height %>
+        
+        ctx.rect(<%= subfarm.x.to_f %>, <%= subfarm.y.to_f %>, <%= subfarm.x.to_f + subfarm.width.to_f %>, <%= subfarm.y.to_f + subfarm.height.to_f %>);
+        ctx.stroke();
+      <% end %>
+    <% end %>
+  });
+</script>
+
+
+
+
+
 

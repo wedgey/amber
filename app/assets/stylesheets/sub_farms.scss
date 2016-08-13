@@ -32,6 +32,7 @@ $template-size: 300px;
 
   .farm-layout{
     display: inline-block;
+    position: relative;
     width: 400px;
     height: 400px;
     border: 1px solid black;
@@ -40,6 +41,8 @@ $template-size: 300px;
     .draw-template{
       padding: 0px;
       margin: 0px;
+      position: absolute; 
+      top:20px; left:30px;
     }
   }
 
@@ -61,6 +64,10 @@ $template-size: 300px;
   }
 
 
+}
+
+#farm-layout-show{
+  z-index: -1;
 }
 
 .template-square {
