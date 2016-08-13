@@ -1,0 +1,92 @@
+/*#wrapper { 
+  // width: 960px; 
+  margin: 400px auto; 
+  padding: 48px 0 72px; 
+  position: relative;
+  z-index: 1;
+}*/
+
+#btn-user {
+  color: white;
+}
+
+
+#tubular-container {
+  top: 70px;
+  left: 0px;
+  bottom: 400px;
+  padding: 0px auto;
+  position: relative;
+}
+
+#header-note {
+  padding-top: 100px;
+  color: white;
+  margin-top: 0px;
+  text-align: center;
+}
+
+
+.homepage-article {
+  /*background-color: #A7DBD8;*/
+  background-color: #F38630;
+  color: white;
+  padding: 150px;
+  text-align: center;
+
+}
+
+#homepage-row-div {
+  padding: 15px;
+}
+
+#home-desc {
+  background-color: #69D2E7;
+  height: 400px;
+
+}
+
+#footer-homepage {
+  background-color: #E0E4CC;
+  height: 100px;
+  padding-top: 0px;
+  /*padding: 40px;*/
+  /*text-align: center;*/
+  color: white;
+}
+
+
+#team-div {
+  /*background-color: #F38630;*/
+  background-color: #A7DBD8;
+  color:white;
+  padding: 100px;
+  text-align: center;
+}
+
+#team-header {
+  background-color: #A7DBD8;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin: 0px, 0px, 0px, 0px;
+}
+
+#footer-content {
+  margin-top: 5px;
+  padding: 20px;
+}
+
+#full-note {
+  color: white;
+  text-align: center;
+  padding-top: 35px;
+  margin-left: 180px;
+  margin-right: 180px;
+}
+
+
+
+
+
+

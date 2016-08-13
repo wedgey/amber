@@ -1,22 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+
+
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
   <%= javascript_include_tag "jquerytubular" %>
   <title>Amber</title>
+
 </head>
 <body>
-  <div id="wrapper">
-    <article class="homepage-article text-center">
-      <h1>Welcome to Amber</h1>
-      <p>We are the best farm management system in the world</p>
 
-      <%= link_to 'Log in', farms_path, class: "btn btn-success" %>
-      <%= link_to 'All users', users_path %>
+<div>
+  <div id="wrapper">
+    <!-- <article class="homepage-article text-center"> -->
+    <article class="homepage-article">
+
+      <h1>Welcome to Amber</h1>
+      <h3>A farm management tool for system optimization</h3>
+      <div id="homepage-row-div">
+      <div class="row">
+        <div class="span4"><%= link_to 'Log in', farms_path, class: "btn btn-success" %></div>
+        <div class="span6"><%= link_to 'Users', users_path, id: "btn-user" %></div>
+      </div>
+      </div>
     </article>
   </div>
+</div>
+
+<div>
+  <div id="home-desc">
+    <h2 id="header-note">Why is it useful?</h2>
+    <div>
+    <h4 id="full-note">A user-friendly software that acts as a daily digital activity logbook and measure of future potential yield for farmers growing rice crops within a specific geographic location</h4>
+    </div>
+  </div>
+</div>
+
+
+
+  <div id="team-div">
+      <div>
+        <h2 id="team-header">Meet the Team</h2>
+        
+      </div>
+    <!--   <div class="container"> -->
+        <div class="row">
+          <div class="col-md-4">
+             <img src="http://104.251.222.225/assets/images/profile-photo.png" alt="HTML5 Icon" style="width:200px;height:200px; border-radius:200px">
+            <h4> Desmond Poon </h4>
+          </div>
+          <div class="col-md-4">
+            <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAmFAAAAJDU3OGU0NzA4LWIyMjEtNGU4NS04MWMwLTBkZTcxMmJhMzM5Mg.jpg" alt="HTML5 Icon" style="width:200px;height:200px; border-radius:200px">
+            <h4> Vanessa Teo </h4>
+          </div>
+          <div class="col-md-4">
+            <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAmIAAAAJGMxYTFmOGIyLTBlZTctNGQ5Ny1iNGFmLTlhZjBjMmE4ZTI3Yg.jpg" alt="HTML5 Icon" style="width:200px;height:200px;border-radius:200px">
+            <h4> Watchara Sirinaovakul </h4>
+          </div>
+        </div>
+  <!--     </div> -->
+  </div>
+
+
+  <footer id="footer-homepage">
+    <div id="footer-content">
+      <ul>
+      <li><a style="color:white;">Terms&Conditions</a></li>
+      <li>&copy;Amber</li>
+      </ul>
+    </div>
+  </footer>
+
 
   <script>
     $(function(){
