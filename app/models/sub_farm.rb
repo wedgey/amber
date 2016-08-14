@@ -3,9 +3,14 @@ class SubFarm < ApplicationRecord
   belongs_to :crop
   has_many :sub_farm_activities
 
+  validates :size, numericality: true
+  validates :crop_weight, numericality: true
+  
+
   MAX_PROB = 0.90
 
   def calculate_yield
+    return nil if( crop_weight.nil? )
     forecasts = WeatherLog.forecast(farm.lat, farm.lng)
     stages = crop.stages
     

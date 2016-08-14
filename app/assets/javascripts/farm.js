@@ -18,6 +18,7 @@ $(function(){
 
   $('.draw-template')
   .draggable({
+    containment: "parent",
     stop: function(){
       // var offset = $(this).offset();
 
