@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @sub_farm_activity = SubFarmActivity.new
   end
 
   # GET /users/new

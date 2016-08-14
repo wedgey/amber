@@ -6,7 +6,7 @@
       <div class="col-sm-12" id="actions-container">
         <h3>Actions</h3>
         <div class="col-sm-3">
-          <button type="button" class="btn btn-default btn-lg water-btn">
+          <button type="button" class="btn btn-default btn-lg water-btn" data-toggle="modal" data-target="#actionsModal">
             <i class="fa fa-tint" aria-hidden="true"></i><span class="hidden-sm"> Water Farm</span>
           </button>
         </div>
@@ -29,7 +29,21 @@
     </div>
     <div class="col-sm-4">
       <div class="col-md-12" id="notifications-container">
-        <div class="panel panel-warning">
+        <div id="alert-not">
+          <h3 id="align-nots">Notifications</h3>
+            <table id="alert-table">
+              <tr id="alert-date">
+              <th>Date</th>
+              </tr>
+              <tr id="alert-rain">
+              <th>Rain</th>
+              </tr>
+              <tr id="alert-wind">
+              <th>Wind</th>
+              </tr>
+            </table>
+        </div>
+        <!-- <div class="panel panel-warning">
           <div class="panel-heading">Notifications</div>
           <div class="panel-body">
             <p><a href="#">High probability of Disease 0-MK!</a></p>
@@ -39,7 +53,7 @@
             <p><a href="#">High probability of Disease 0-MK!</a></p>
             <p><a href="#">Lots of raining coming in 4 days!</a></p>
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="col-md-12 farm-render-container">
         <h3>3D Render</h3>

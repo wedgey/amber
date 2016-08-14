@@ -1,5 +1,6 @@
 class SubFarmActivitiesController < ApplicationController
   before_action :set_sub_farm_activity, only: [:show, :edit, :update, :destroy]
+  before_filter :cors_set_access_control_headers
 
   # GET /sub_farm_activities
   # GET /sub_farm_activities.json
@@ -24,17 +25,17 @@ class SubFarmActivitiesController < ApplicationController
   # POST /sub_farm_activities
   # POST /sub_farm_activities.json
   def create
-    @sub_farm_activity = SubFarmActivity.new(sub_farm_activity_params)
+    @sub_farm_activity = SubFarmActivity.create(sub_farm_activity_params)
 
-    respond_to do |format|
-      if @sub_farm_activity.save
-        format.html { redirect_to @sub_farm_activity, notice: 'Sub farm activity was successfully created.' }
-        format.json { render :show, status: :created, location: @sub_farm_activity }
-      else
-        format.html { render :new }
-        format.json { render json: @sub_farm_activity.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+    #   if @sub_farm_activity.save
+    #     format.html { redirect_to @sub_farm_activity, notice: 'Sub farm activity was successfully created.' }
+    #     format.json { render :show, status: :created, location: @sub_farm_activity }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @sub_farm_activity.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /sub_farm_activities/1
@@ -70,5 +71,12 @@ class SubFarmActivitiesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def sub_farm_activity_params
       params.require(:sub_farm_activity).permit(:sub_farm_id, :activity_id, :amount, :date, :title, :note)
+    end
+
+    def cors_set_access_control_headers
+      headers['Access-Control-Allow-Origin'] = '*'
+      headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
+      headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept, Authorization, Token'
+      headers['Access-Control-Max-Age'] = "1728000"
     end
 end

@@ -1,4 +1,7 @@
 <div class="container-fluid">
+  <%= render "watermodal" %>
+
+  <!-- Tab list -->
   <ul class="nav nav-tabs" role="tablist">
     <%= render partial: "users/tablist", collection: @user.farms, as: :farm %>
   </ul>

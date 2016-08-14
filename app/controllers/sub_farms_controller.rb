@@ -32,14 +32,12 @@ class SubFarmsController < ApplicationController
   def create
 
     @sub_farm = SubFarm.new(sub_farm_params)
-
-    p 'aaa'
-    p params
+    @farm = Farm.find(@sub_farm.farm_id)
 
     respond_to do |format|
       if @sub_farm.save
-        @farm = Farm.find(@sub_farm.farm_id)
-        format.html { redirect_to farm_sub_farm_path(@farm, @sub_farm), notice: 'Sub farm was successfully created.' }
+        
+        format.html { redirect_to @farm, notice: 'Sub farm was successfully created.' }
         format.json { render :show, status: :created, location: @sub_farm }
       else
         format.html { render :new }
@@ -51,9 +49,11 @@ class SubFarmsController < ApplicationController
   # PATCH/PUT /sub_farms/1
   # PATCH/PUT /sub_farms/1.json
   def update
+    @farm = Farm.find(@sub_farm.farm_id)
+
     respond_to do |format|
       if @sub_farm.update(sub_farm_params)
-        format.html { redirect_to @sub_farm, notice: 'Sub farm was successfully updated.' }
+        format.html { redirect_to @farm, notice: 'Sub farm was successfully updated.' }
         format.json { render :show, status: :ok, location: @sub_farm }
       else
         format.html { render :edit }
@@ -65,9 +65,11 @@ class SubFarmsController < ApplicationController
   # DELETE /sub_farms/1
   # DELETE /sub_farms/1.json
   def destroy
+    @farm = Farm.find(@sub_farm.farm_id)
     @sub_farm.destroy
+    
     respond_to do |format|
-      format.html { redirect_to sub_farms_url, notice: 'Sub farm was successfully destroyed.' }
+      format.html { redirect_to @farm, notice: 'Sub farm was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

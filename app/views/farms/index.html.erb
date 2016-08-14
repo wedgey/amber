@@ -1,12 +1,21 @@
-<table>
+<section class="container">
+  <h1>Your Farms</h1>
+
+
+<div class="row">
+
+<div class="col-md-6">
+<div id="map" class="center-block"></div>
+</div>
+
+<div class="col-md-6">
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
       <th>Farm code</th>
-      <th>Lat</th>
-      <th>Lng</th>
-      <th>Layout</th>
       <th>Size</th>
+      <th>Subfarm Number</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,10 +25,8 @@
       <tr>
         <td><%= farm.name %></td>
         <td><%= farm.farm_code %></td>
-        <td><%= farm.lat %></td>
-        <td><%= farm.lng %></td>
-        <td><%= farm.layout %></td>
         <td><%= farm.size %></td>
+        <td><%= farm.sub_farms.count %></td>
         <td><%= link_to 'Show', farm %></td>
         <td><%= link_to 'Edit', edit_farm_path(farm) %></td>
         <td><%= link_to 'Destroy', farm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -29,5 +36,45 @@
 </table>
 
 <br>
+<div class="text-center">
+  <%= link_to 'New Farm', new_farm_path, class: "btn btn-success" %>
+</div>
+<br>
+</div>
+</div>
 
-<%= link_to 'New Farm', new_farm_path %>
+
+</section>
+
+
+
+<script>
+  var map;
+  var markers = [];
+
+  function initMap() {
+    var init_lat = <%= @farms.first.lat || 4.5076156 %>
+    var init_lng = <%= @farms.first.lng || 114.4846021 %>
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: init_lat, lng: init_lng},
+      zoom: 10
+    });
+
+    <% @farms.each do |farm| %>
+      var marker = new google.maps.Marker({
+        map: map,
+        // draggable: true,
+        animation: google.maps.Animation.DROP,
+        position: {lat: <%= farm.lat %>, lng: <%= farm.lng %>}
+      });
+
+      google.maps.event.addListener(marker, 'click', function () {
+        window.location.href = '/farms/<%= farm.id %>';
+      });
+
+    <% end %>
+
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%=Rails.application.secrets.GGMAP_APP_KEY %>&callback=initMap"
+async defer></script>

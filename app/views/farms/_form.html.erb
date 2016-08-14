@@ -1,47 +1,83 @@
-<%= form_for(farm) do |f| %>
-  <% if farm.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(farm.errors.count, "error") %> prohibited this farm from being saved:</h2>
-
-      <ul>
-      <% farm.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <div id="map" class="center-block"></div>
     </div>
-  <% end %>
+    <div class="col-md-5 text-left">
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+      <%= form_for(farm) do |f| %>
+        <% if farm.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(farm.errors.count, "error") %> prohibited this farm from being saved:</h2>
+
+            <ul>
+            <% farm.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <table class="table">
+
+        <tr>
+        <td>
+          <%= f.label :name %>
+          </td>
+          <td>
+          <%= f.text_field :name %>
+        </td>
+        </tr>
+
+        <tr>
+        <td>
+          <%= f.label :farm_code, "Farm code (Optional)" %>
+          </td>
+          <td>
+          <%= f.text_field :farm_code %>
+        </td>
+        </tr>
+
+        <tr>
+        <td>
+          <%= f.label :size %>
+          </td>
+          <td>
+          <%= f.text_field :size %>
+          </td>
+        
+        </tr>
+
+        <tr>
+        <td class="field input-lat" id="input-lat">
+          <%= f.label :lat, "Latitude" %>
+          </td>
+          <td>
+          <%= f.text_field :lat %>
+          </td>
+        
+        </tr>
+
+        <tr>
+        <td class="field input-lng">
+          <%= f.label :lng, "Longtitude" %>
+          </td>
+          <td>
+          <%= f.text_field :lng %>
+        </td>
+        </tr>
+
+        </table>
+
+        <div class="actions">
+          <%= f.submit 'Create', class: "btn btn-primary center-block" %>
+        </div>
+      <% end %>
+    </div>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :farm_code, "Farm code (Optional)" %>
-    <%= f.text_field :farm_code %>
-  </div>
 
-  <div class="field">
-    <%= f.label :size %>
-    <%= f.text_field :size %>
-  </div>
-
-  <div class="field input-lat" id="input-lat">
-    <%= f.label :lat, "Latitude" %>
-    <%= f.text_field :lat %>
-  </div>
-
-  <div class="field input-lng">
-    <%= f.label :lng, "Longtitude" %>
-    <%= f.text_field :lng %>
-  </div>
-
-<div id="map" class="center-block"></div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
 
 <!-- <div id="map" class="center-block"></div> -->
 

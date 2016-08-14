@@ -1,73 +1,118 @@
-<%= form_for([@farm, @sub_farm]) do |f| %>
-  <% if @sub_farm.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sub_farm.errors.count, "error") %> prohibited this @sub_farm from being saved:</h2>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-7">
+      <section class="draw-section">
+        <div class="farm-layout">
+          <div class="draw-template"></div>
+        </div>
 
-      <ul>
-      <% @sub_farm.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+
+        <section class="layout-template">
+          <div class="farm-template square" data-template="square"></div>
+          <!-- <div class="triangle"></div> -->
+          <div class="farm-template circle" data-template="circle"></div>
+        </section>
+      </section>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :farm_id %>
-    <%= f.text_field :farm_id, value: @farm.id, readonly: true %>
+    <div class="col-md-5 text-left">
+      <%= form_for([@farm, @sub_farm]) do |f| %>
+        <% if @sub_farm.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@sub_farm.errors.count, "error") %> prohibited this @sub_farm from being saved:</h2>
+
+            <ul>
+            <% @sub_farm.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <table class="table">
+          <tr>
+          <td>
+              <%= f.label :farm_id %>
+          </td>
+          <td>
+              <%= f.text_field :farm_id, value: @farm.id, readonly: true %>
+          </td>
+          </tr>
+        
+
+          <tr>
+          <td>
+            <%= f.label :crop_id %>
+          </td>
+          <td>
+            <%= f.text_field :crop_id, value: '1' %>
+          </td>
+          </tr>
+
+          <tr>
+          <td>
+            <%= f.label :size %>
+          </td>
+          <td>
+            <%= f.text_field :size %>
+          </td>
+          </tr>
+
+          <tr>
+          <td>
+            <%= f.label :crop_weight %>
+          </td>
+          <td>
+            <%= f.text_field :crop_weight %>
+          </td>
+          </tr>
+
+          <tr>
+          <td>
+            <%= f.label :start_date %>
+          </td>
+          <td>
+          <%= f.date_select :start_date %>
+          </td>
+          </tr>
+
+          <tr>
+          <td>
+            <%= f.label :harvest_date %>
+          </td>
+          <td>
+          <%= f.date_select :harvest_date %>
+          </td>
+          </tr>
+
+          <tr>
+          <td>
+            <%= f.label 'Coordinate' %>
+          </td>
+          <td>
+          <%= f.text_field :x, readonly: true, class: "box-lat-lng" %>
+            <%= f.text_field :y, readonly: true, class: "box-lat-lng" %>
+          </td>
+          </tr>
+          <tr>
+
+          <td>
+            <%= f.label 'Width/Height' %>
+          </td>
+          <td>
+            <%= f.text_field :width, readonly: true, class: "box-lat-lng" %>
+            <%= f.text_field :height, readonly: true, class: "box-lat-lng" %>
+          </td>
+          </tr>
+
+        </table>
+            
+
+        <div class="actions">
+          <%= f.submit 'Submit', class: "btn btn-default center-block" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :crop_id %>
-    <%= f.text_field :crop_id, value: '1' %>
-  </div>
-
-  <div class="field">
-    <%= f.label :size %>
-    <%= f.text_field :size %>
-  </div>
-
-  <div class="field">
-    <%= f.label :crop_weight %>
-    <%= f.text_field :crop_weight %>
-  </div>
-
-  <div class="field">
-    <%= f.label :start_date %>
-    <%= f.datetime_select :start_date %>
-  </div>
-
-  <div class="field">
-    <%= f.label :harvest_date %>
-    <%= f.datetime_select :harvest_date %>
-  </div>
-
-  <div class="field">
-    <%= f.label :layout %>
-    <%= f.text_field :layout %>
-  </div>
-
-<div class="field">
-    <%= f.text_field :x, :readonly => true %>
-    <%= f.text_field :y, :readonly => true %>
-    <%= f.text_field :width, :readonly => true %>
-    <%= f.text_field :height, :readonly => true %>
 </div>
 
-
-<section class="draw-section">
-  <div class="farm-layout">
-    <div class="draw-template"></div>
-  </div>
-
-
-  <section class="layout-template">
-    <div class="farm-template square" data-template="square"></div>
-    <!-- <div class="triangle"></div> -->
-    <div class="farm-template circle" data-template="circle"></div>
-  </section>
-</section>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>

@@ -25,38 +25,60 @@ body {
   /*background: none;*/
 }
 
-#actions-container button {
+#actions-container .btn {
   width: 100%;
   padding-bottom: 20px;
   padding-top: 20px;
 }
 
-#actions-container button.btn:hover {
+#actions-container .btn:hover {
   background-color: red;
 }
 
-#actions-container button.chemical-btn {
+#actions-container .chemical-btn {
   background-color: black;
   /*background-color: $medium-blue;*/
   color: white;
 }
 
-#actions-container button.fertilize-btn {
+#actions-container .fertilize-btn {
   /*background-color: #9e2062;*/
   background-color: $dark-orange;
   color: white;
 }
 
-#actions-container button.miscellaneous-btn {
+#actions-container .miscellaneous-btn {
   /*background-color: #d6e025;*/
   background-color: $light-orange;
   color: white;
 }
 
-#actions-container button.water-btn {
+#actions-container .water-btn {
   /*background-color: #5bc0de;*/
   background-color: $dark-blue;
   color: white;
+}
+
+#actionsModal .ajax-loader {
+  display: none;
+}
+
+#actionsModal .datetime-select {
+  width: 33%;
+  float: left;
+}
+
+#actionsModal .Apply-Chemicals {
+  background-color: black;
+  color: white;
+}
+
+#actionsModal .Fertilize-Farm {
+  background-color: $dark-orange;
+}
+
+#actionsModal .Water-Crops {
+  background-color: $dark-blue;
 }
 
 #custom-navbar {

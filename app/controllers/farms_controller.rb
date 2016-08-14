@@ -1,6 +1,11 @@
 class FarmsController < ApplicationController
   before_action :set_farm, only: [:show, :edit, :update, :destroy]
 
+  def user_show
+    @farms = Farm.where(user_id: current_user.id)
+    render :index
+  end
+
   # GET /farms
   # GET /farms.json
   def index
