@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :dashboard, only: [:show]
   get 'report', to: 'report#index'
 
   resources :sessions, only: [:new, :create, :destroy]

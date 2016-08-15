@@ -1,0 +1,14 @@
+<div class="container-fluid">
+  <%= render "watermodal" %>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <%= render partial: "dashboard", locals: {farm: @farm} %>
+    <!-- <div role="tabpanel" class="tab-pane" id="farm2">This is profile</div> -->
+  </div>
+</div>
+
+<script>
+  // $('.tab-pane').first().addClass('active');
+  // $('li[role=presentation]').first().addClass('active');
+  run_render(document.querySelector('.farmPlot'));
+</script>

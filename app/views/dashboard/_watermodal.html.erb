@@ -1,0 +1,68 @@
+<!-- Modal -->
+<div class="modal fade" id="actionsModal" tabindex="-1" role="dialog" aria-labelledby="actionsModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="actionsModalLabel">Watered Plant</h4>
+      </div>
+      <div class="modal-body">
+        <div class="ajax-loader"><%= image_tag(image_path("ajax-loader.gif")) %></div>
+        <%= form_tag("/sub_farm_activities", method: :post, remote:true) do %>
+          <div class="row">
+            <div class="col-md-4">
+              <%= label_tag :sub_farm_id, "Sub Farm" %>
+            </div>
+            <div class="col-md-5">
+              <%= select_tag 'sub_farm_activity[sub_farm_id', options_from_collection_for_select(@farm.sub_farms, :id, :id), class: "form-control" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <%= label_tag(:activity_id, "Activity") %>
+            </div>
+            <div class="col-md-5">
+              <%= select_tag 'sub_farm_activity[activity_id', options_from_collection_for_select(@activities, :id, :name), class: "form-control" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <%= label_tag(:amount, "Amount") %>
+            </div>
+            <div class="col-md-5">
+              <%= text_field_tag 'sub_farm_activity[amount]', nil, class: "form-control" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <%= label_tag(:date, "Date") %>
+            </div>
+            <div class="col-md-5">
+              <%= date_select :sub_farm_activity, :date, {}, class: "form-control datetime-select" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <%= label_tag(:title, "Title") %>
+            </div>
+            <div class="col-md-5">
+              <%= text_field_tag 'sub_farm_activity[title]', nil, class: "form-control" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <%= label_tag(:note, "Notes") %>
+            </div>
+            <div class="col-md-5">
+              <%= text_field_tag 'sub_farm_activity[note]', nil, class: "form-control" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="modal-submit" type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

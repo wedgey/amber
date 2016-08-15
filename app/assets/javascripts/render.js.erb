@@ -1,8 +1,7 @@
-function run_render() {
-  console.log($('#farm-render-container').length);
-  if($('#farm-render-container').length == 0) { return true }
-  function init() {
-    var engine = initEngine();
+function run_render(ele) {
+  if(ele.length == 0) { return true }
+  function init(ele) {
+    var engine = initEngine(ele);
     var scene = createScene(engine);
 
     // Create a transparent scene background
@@ -38,10 +37,10 @@ function run_render() {
   }
 
   // Initialize the engine
-  function initEngine() {
+  function initEngine(ele) {
     // Get the canvas element from DOM
     // var canvas = document.getElementById("renderCanvas");
-    var canvas = document.getElementById("farmPlot");
+    var canvas = ele;
 
     // Initialize the BABYLON 3D engine
     var engine = new BABYLON.Engine(canvas, true);
@@ -135,8 +134,8 @@ function run_render() {
     grassTemplate.setEnabled(false);
 
     var grassPositions = [];
-    for (var x = -10; x < 10; x+=2) {
-      for (var z = -10; z < 10; z+=2) {
+    for (var x = -5; x < 5; x+=2) {
+      for (var z = -5; z < 5; z+=2) {
         grassPositions.push(new BABYLON.Vector3(x+(1 - Math.random() * 0.4), z+(1-Math.random() * 0.4), 0));
       }
     }
@@ -192,5 +191,5 @@ function run_render() {
   }
 
 
-  init();
+  init(ele);
 }
