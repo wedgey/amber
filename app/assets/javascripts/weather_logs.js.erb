@@ -37,13 +37,21 @@ $(function () {
           return (parseInt(dateObject.high.celsius) + parseInt(dateObject.low.celsius)) / 2.0;
         });
 
+        var maxTemps = forecast_array.map(function (dateObject) {
+          return (parseInt(dateObject.high.celsius));
+        });
+
+        var minTemps = forecast_array.map(function (dateObject) {
+          return (parseInt(dateObject.low.celsius));
+        });
+
         var averageRainfall = forecast_array.map(function (dateObject) {
           return dateObject.qpf_allday.mm;
         });
 
         $('#weather-chart').highcharts({
         chart: { 
-          backgroundColor: '#fbaf46',
+          backgroundColor: '#E0E4CC',
           
           zoomType: 'xy'
         },
@@ -61,13 +69,13 @@ $(function () {
             labels: {
                 format: '{value} °C',
                 style: {
-                    color: '#FFFFFF',
+                    color: '#F38630',
                 }
             },
             title: {
                 text: 'Temperature',
                 style: {
-                    color: '#FFFFFF',
+                    color: '#F38630',
                 }
             }
         }, 
@@ -75,13 +83,15 @@ $(function () {
             title: {
                 text: 'Rainfall',
                 style: {
-                    color: Highcharts.getOptions().colors[0]
+                    // color: Highcharts.getOptions().colors[0]
+                    color: '#69D2E7',
                 }
             },
             labels: {
                 format: '{value} mm',
                 style: {
-                    color: Highcharts.getOptions().colors[0]
+                    // color: Highcharts.getOptions().colors[0]
+                    color: '#69D2E7',
                 }
             },
             opposite: true
@@ -90,31 +100,42 @@ $(function () {
             shared: true
         },
         legend: {
-            layout: 'vertical',
+            layout: 'horizontal',
             align: 'left',
-            x: 120,
+            x: 30,
             verticalAlign: 'top',
-            y: 100,
+            y: 10,
             floating: true,
-            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#E0E4CC'
         },
         series: [{
             name: 'Rainfall',
             type: 'column',
-            color: '#FFFFFF',
+            color: '#69D2E7',
             yAxis: 1,
             data: averageRainfall,
             tooltip: {
                 valueSuffix: ' mm'
             }
 
-        }, {
-            name: 'Temperature',
+        },{
+            name: 'Tmax',
             type: 'spline',
-            data: averageTemps,
+            color: 'red',
+            // yAxis: 1,
+            data: maxTemps,
             tooltip: {
                 valueSuffix: '°C'
             }
+
+        },{
+            name: 'Tmin',
+            type: 'spline',
+            data: minTemps,
+            color: '#FFFFFF',
+            tooltip: {
+                valueSuffix: '°C'
+          }
         }]
     });
       }
