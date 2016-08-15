@@ -138,9 +138,17 @@ body {
   padding-top: 10px;
 }
 
-#timeline-container, #farmPlot {
-  /*border: 1px solid black;*/
+/*#timeline-container {
+  border: 1px solid black;
+  position: relative;
+  background-color: blue;
 }
+
+.timeline-legend {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}*/
 
 /*// canvas {
 //   width: 100%;
