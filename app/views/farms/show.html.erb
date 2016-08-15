@@ -7,37 +7,38 @@
 <section class="container">
   <div class="row">
     <div class="col-md-6">
+
       <canvas id="farm-layout-show" width="400" height="400" style="border:1px solid #000000;">
       </canvas>
+
+      
+      
+      <table class="table">
+        <tr>
+          <td><strong>Farm code:</strong></td>
+          <td><%= @farm.farm_code %></td>
+        </tr>
+
+        <tr>
+          <td><strong>Lat:</strong></td>
+          <td><%= @farm.lat %></td>
+        </tr>
+
+        <tr>
+          <td><strong>Lng:</strong></td>
+          <td><%= @farm.lng %></td>
+        </tr>
+
+
+        <tr>
+          <td><strong>Size:</strong></td>
+          <td><%= @farm.size %></td>
+        </tr>
+      </table>
     </div>
 
 
     <div class="col-md-6 farm-show-info">
-
-<table class="table">
-  <tr>
-    <td><strong>Farm code:</strong></td>
-    <td><%= @farm.farm_code %></td>
-  </tr>
-
-  <tr>
-    <td><strong>Lat:</strong></td>
-    <td><%= @farm.lat %></td>
-  </tr>
-
-  <tr>
-    <td><strong>Lng:</strong></td>
-    <td><%= @farm.lng %></td>
-  </tr>
-
-
-  <tr>
-    <td><strong>Size:</strong></td>
-    <td><%= @farm.size %></td>
-  </tr>
-</table>
-
-<hr>
 
 <!-- start tabs -->
       <ul class="nav nav-pills sub_farm_tabs">
@@ -74,6 +75,7 @@
       var crop = $('<tr>').html('<td><strong>Crop:</strong></td> <td><%= Crop.find(subfarm.crop_id).name %></td>');
       var size = $('<tr>').html('<td><strong>Size:</strong></td> <td><%= subfarm.size %></td>');
       var crop_w = $('<tr>').html('<td><strong>Crop weight:</strong></td> <td><%= subfarm.crop_weight %></td>');
+      var est_yield = $('<tr>').html('<td><strong>Estimated Yield:</strong></td> <td><%= subfarm.calculate_yield %></td>');
       var start = $('<tr>').html('<td><strong>Start date:</strong></td> <td><%= subfarm.start_date %></td>');
       var harvest = $('<tr>').html('<td><strong>Harvest date:</strong></td> <td><%= subfarm.harvest_date %></td>');
       var btns = $('<tr>').html('<td><a class="btn btn-warning" data-method="get" href="/farms/<%= @farm.id %>/sub_farms/<%= subfarm.id %>/edit">Edit</a><a  class="btn btn-danger" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/farms/<%= @farm.id %>/sub_farms/<%= subfarm.id %>">Destroy</a></td>');
@@ -81,7 +83,7 @@
 
 
 
-      var content = $('<table id="subfarm<%= subfarm.id %>" class="tab-pane fade in active table"></table>').append(crop).append(size).append(crop_w).append(start).append(harvest).append(btns);
+      var content = $('<table id="subfarm<%= subfarm.id %>" class="tab-pane fade in active table"></table>').append(crop).append(size).append(crop_w).append(est_yield).append(start).append(harvest).append(btns);
 
       $('.sub_farm_content').append(content);
 

@@ -10,6 +10,7 @@ class SubFarm < ApplicationRecord
   MAX_PROB = 0.90
 
   def calculate_yield
+    return nil if( crop_weight.nil? )
     forecasts = WeatherLog.forecast(farm.lat, farm.lng)
     stages = crop.stages
     

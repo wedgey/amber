@@ -20,6 +20,7 @@
 //= require jquery-ui/selectable
 //= require jquery-ui/sortable
 //= require jquery-ui/tabs
+//= require jspdf
 //= require_tree .
 
 $(function() {

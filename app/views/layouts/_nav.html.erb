@@ -16,7 +16,14 @@
 
       <% if(session[:user_id]) %>
       <ul class="nav navbar-nav">
-        <li><%= link_to "Dashboard", user_path(current_user), method: :get %>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dashboards <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <% current_user.farms.each do |farm| %>
+            <li><%= link_to farm.name, dashboard_path(farm), method: :get %>
+            <% end %>
+          </ul>
+        </li>
         <li><%= link_to "Farm", '/user/farms' %></li>
         <li><%= link_to "Weather logs", weather_logs_path, method: :get %></li>
       </ul>

@@ -1,10 +1,10 @@
-<%= form_for(sub_farm_activity) do |f| %>
-  <% if sub_farm_activity.errors.any? %>
+<%= form_for(@sub_farm_activity, remote: true) do |f| %>
+  <% if @sub_farm_activity.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(sub_farm_activity.errors.count, "error") %> prohibited this sub_farm_activity from being saved:</h2>
+      <h2><%= pluralize(@sub_farm_activity.errors.count, "error") %> prohibited this sub_farm_activity from being saved:</h2>
 
       <ul>
-      <% sub_farm_activity.errors.full_messages.each do |message| %>
+      <% @sub_farm_activity.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -41,7 +41,7 @@
     <%= f.text_area :note %>
   </div>
 
-  <div class="actions">
+  <!-- <div class="actions">
     <%= f.submit %>
-  </div>
+  </div> -->
 <% end %>

@@ -14,18 +14,26 @@ $(function(){
     $('.draw-template').removeClass('template-circle');
     $('.draw-template').removeClass('template-square');
     $('.draw-template').addClass('template-' + $(this).data("template"));
+  
+    $('#sub_farm_x').val('30');
+    $('#sub_farm_y').val('20');
+    $('#sub_farm_width').val('300');
+    $('#sub_farm_height').val('300');
+
+
   });
 
   $('.draw-template')
   .draggable({
+    containment: "parent",
     stop: function(){
       // var offset = $(this).offset();
 
       var thisPos = $(this).position();
       var parentPos = $('.farm-layout').position();
 
-      var x = thisPos.left - parentPos.left;
-      var y = thisPos.top - parentPos.top;
+      var x = thisPos.left;// - parentPos.left;
+      var y = thisPos.top;// - parentPos.top;
 
       $("#sub_farm_x").val(x);
       $("#sub_farm_y").val(y);
