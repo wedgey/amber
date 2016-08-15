@@ -1,115 +1,116 @@
-function createTimeline(ele) {
-  $.ajax({
-      url: "http://api.wunderground.com/api/<%= Rails.application.secrets.wunderground_api_key %>/forecast10day/q/4.944,114.928.json",
-      dataType: 'jsonp',
-      success: function(data) {
-        createtimeline(data.forecast);
-      }
-    });  
+// function createTimeline(ele) {
+//   $.ajax({
+//       url: "http://api.wunderground.com/api/<%= Rails.application.secrets.wunderground_api_key %>/forecast10day/q/4.944,114.928.json",
+//       dataType: 'jsonp',
+//       success: function(data) {
+//         createtimeline(data.forecast);
+//       }
+//     });  
 
-  var createtimeline = function(weatherData) { ele.highcharts({
-    chart: {
-        type: 'areaspline',
-        // backgroundColor: "#ff8f2b",
-        backgroundColor: '#e0e4cc',
-        animation: Highcharts.svg, // don't animate in old IE
-        marginRight: 10,
-        events: {
-            load: function () {
+//   var createtimeline = function(weatherData) { ele.highcharts({
+//     chart: {
+//         type: 'areaspline',
+//         // backgroundColor: "#ff8f2b",
+//         backgroundColor: '#e0e4cc',
+//         animation: Highcharts.svg, // don't animate in old IE
+//         marginRight: 10,
+//         events: {
+//             load: function () {
 
-                // set up the updating of the chart each second
-                var series = this.series[0];
-                // setInterval(function () {
-                //     var x = (new Date()).getTime(), // current time
-                //         y = Math.random() * (35 - 20) + 20;
-                //         marker = { symbol: 'url(https://www.highcharts.com/samples/graphics/sun.png)' };
-                //     series.addPoint({x, y, marker}, true, true);
-                // }, 10000);
-            }
-        }
-    },
-    credits: {enabled: false},
-    title: {
-        text: 'Farm Timeline'
-    },
-    plotOptions: {
-        areaspline: {
-            marker: {
-                fillColor: 'white'
-            },
-            lineColor: 'white'
-        }
-    },
-    xAxis: {
-        type: 'linear',
-        tickPixelInterval: 100,
-        labels: {
-            style: {
-                color: 'white'
-            }
-        },
-        plotLines: [{
-            value: 0,
-            width: 1,
-            // color: '#808080'
-            color: 'white'
-        }]
-    },
-    yAxis: {
-        title: {
-            text: 'Average Temperature',
-            style: {
-                color: 'white'
-            }
-        },
-        gridLineColor: 'white',
-        min: 20,
-        max: 40,
-        tickInterval: 5,
-        tickColor: 'white',
-        labels: {
-            style: {
-                color: 'white'
-            }
-        },
-        plotLines: [{
-            value: 0,
-            width: 1,
-            // color: '#808080'
-            color: 'white'
-        }]
-    },
-    tooltip: {
-        formatter: function () {
-            var today = new Date();
-            return '<b>' + this.series.name + '</b><br/>' +
-                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', today.setDate(this.x)) + '<br/>' +
-                Highcharts.numberFormat(this.y, 2);
-        }
-    },
-    legend: {
-        enabled: false
-    },
-    exporting: {
-        enabled: false
-    },
-    series: [{
-        name: 'Random data',
-        data: (function () {
-            // generate an array of random data
-            var data = [];
+//                 // set up the updating of the chart each second
+//                 var series = this.series[0];
+//                 // setInterval(function () {
+//                 //     var x = (new Date()).getTime(), // current time
+//                 //         y = Math.random() * (35 - 20) + 20;
+//                 //         marker = { symbol: 'url(https://www.highcharts.com/samples/graphics/sun.png)' };
+//                 //     series.addPoint({x, y, marker}, true, true);
+//                 // }, 10000);
+//             }
+//         }
+//     },
+//     credits: {enabled: false},
+//     title: {
+//         text: 'Farm Timeline'
+//     },
+//     plotOptions: {
+//         areaspline: {
+//             marker: {
+//                 fillColor: 'white'
+//             },
+//             lineColor: 'white'
+//         }
+//     },
+//     xAxis: {
+//         type: 'linear',
+//         tickPixelInterval: 100,
+//         labels: {
+//             style: {
+//                 color: 'white'
+//             }
+//         },
+//         plotLines: [{
+//             value: 0,
+//             width: 1,
+//             // color: '#808080'
+//             color: 'white'
+//         }]
+//     },
+//     yAxis: {
+//         title: {
+//             text: 'Average Temperature',
+//             style: {
+//                 color: 'white'
+//             }
+//         },
+//         gridLineColor: 'white',
+//         min: 20,
+//         max: 40,
+//         tickInterval: 5,
+//         tickColor: 'white',
+//         labels: {
+//             style: {
+//                 color: 'white'
+//             }
+//         },
+//         plotLines: [{
+//             value: 0,
+//             width: 1,
+//             // color: '#808080'
+//             color: 'white'
+//         }]
+//     },
+//     tooltip: {
+//         useHTML: true,
+//         formatter: function () {
+//             var today = new Date();
+//             return '<b>' + '<i class="fa fa-tint" aria-hidden="true"></i>' + this.x + '</b><br/>' +
+//                 Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', today.setDate(this.x)) + '<br/>' +
+//                 Highcharts.numberFormat(this.y, 2);
+//         }
+//     },
+//     legend: {
+//         enabled: false
+//     },
+//     exporting: {
+//         enabled: false
+//     },
+//     series: [{
+//         name: 'Random data',
+//         data: (function () {
+//             // generate an array of random data
+//             var data = [];
 
 
-            weatherData.simpleforecast.forecastday.forEach(function(weather) {
-                data.push({
-                    x: weather.date.day,
-                    y: (Number(weather.high.celsius) + Number(weather.low.celsius)) / 2,
-                    marker: { symbol: "url(" + weather.icon_url + ")" }
-                });
-            });
-            return data;
-        }()),
-        fillColor: '#a7dbdb'
-    }]
-  })};
-}
+//             weatherData.simpleforecast.forecastday.forEach(function(weather) {
+//                 data.push({
+//                     x: weather.date.day,
+//                     y: (Number(weather.high.celsius) + Number(weather.low.celsius)) / 2,
+//                     marker: { symbol: "url(" + weather.icon_url + ")" }
+//                 });
+//             });
+//             return data;
+//         }()),
+//         fillColor: '#a7dbdb'
+//     }]
+//   })};
+// }
