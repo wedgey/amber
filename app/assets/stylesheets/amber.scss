@@ -31,6 +31,10 @@ body {
   padding-top: 20px;
 }
 
+#actions-container .btn:focus {
+  outline: none;
+}
+
 #actions-container .btn:hover {
   background-color: red;
 }

@@ -27,8 +27,12 @@ function run_render(ele) {
     // pl.intensity = 0.8;
 
     var farmbase = createFarmBase(scene);
+    var subfarmbase = createSubFarmBase(scene, 20, 20);
+    subfarmbase.position.x = 10;
+    subfarmbase.position.y = 10;
+    subfarmbase.position.z = 3;
 
-    var grassBlades = createGrassBlades(scene);
+    var grassBlades = createGrassBlades(scene, 15, 15, 6);
 
 
     // scene.registerBeforeRender(function() {
@@ -70,7 +74,7 @@ function run_render(ele) {
     var camera = new BABYLON.ArcRotateCamera(
       "cam", 0, 0, 50, BABYLON.Vector3.Zero(), scene); // Set the camera's initial position to 1.7 meters above the ground (y axis)
       // "player camera", BABYLON.Vector3.Zero(), scene); // Creates a camera called 'player camera' at location 0,0,0 of the scene
-    camera.setPosition(new BABYLON.Vector3(0,-30,20));
+    camera.setPosition(new BABYLON.Vector3(0,-30,50));
     return camera;
   }
 
@@ -86,7 +90,7 @@ function run_render(ele) {
   }
 
   function createFarmBase(scene) {
-    var base = new BABYLON.MeshBuilder.CreateBox("base", {height: 21, width: 21, depth: 3}, scene);
+    var base = new BABYLON.MeshBuilder.CreateBox("base", {height: 40, width: 40, depth: 3}, scene);
     // var material = new BABYLON.StandardMaterial("groundMaterial", scene);
     // var texture = new BABYLON.GrassProceduralTexture("groundColor", 256, scene);
     // texture.grassColor = new BABYLON.Color3().RED;
@@ -105,7 +109,27 @@ function run_render(ele) {
     return base;
   }
 
-  function createGrassBlades(scene) {
+  function createSubFarmBase(scene, width, height) {
+    var base = new BABYLON.MeshBuilder.CreateBox("base", {height: height, width: width, depth: 5}, scene);
+    // var material = new BABYLON.StandardMaterial("groundMaterial", scene);
+    // var texture = new BABYLON.GrassProceduralTexture("groundColor", 256, scene);
+    // texture.grassColor = new BABYLON.Color3().RED;
+
+    // material.diffuseTexture = texture;
+    // base.material = material;
+    var baseMaterial = new BABYLON.StandardMaterial("baseMaterial", scene);
+    // baseMaterial.diffuseColor = new BABYLON.Color3(0.2, 0.101, 0); // Brown
+    // baseMaterial.emissiveColor = new BABYLON.Color3(0.2, 0.101, 0);
+    baseMaterial.diffuseColor = new BABYLON.Color3(0.4, 0.404, 0);
+    baseMaterial.emissiveColor = new BABYLON.Color3(0.8, 0.404, 0);
+    var texture = new BABYLON.GrassProceduralTexture("groundTexture", 256, scene);
+    baseMaterial.diffuseTexture = texture;
+    base.material = baseMaterial;
+
+    return base;
+  }
+
+  function createGrassBlades(scene, xoffset, yoffset, zoffset) {
     function radiusFunction(idx, distance) {
       return 0.3 * (1 - distance/10);
     }
@@ -136,7 +160,7 @@ function run_render(ele) {
     var grassPositions = [];
     for (var x = -5; x < 5; x+=2) {
       for (var z = -5; z < 5; z+=2) {
-        grassPositions.push(new BABYLON.Vector3(x+(1 - Math.random() * 0.4), z+(1-Math.random() * 0.4), 0));
+        grassPositions.push(new BABYLON.Vector3(xoffset+x+(1 - Math.random() * 0.4), yoffset+z+(1-Math.random() * 0.4), zoffset));
       }
     }
 
