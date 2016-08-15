@@ -56,7 +56,7 @@
   padding-top: 0px;
   /*padding: 40px;
   /*text-align: center;*/
-  color: white;
+  color: grey;
 }
 
 
@@ -77,8 +77,11 @@
 }
 
 #footer-content {
-  margin-top: 5px;
+  /*margin-top: 5px;*/
   padding: 20px;
+  text-align: center;
+  list-style-type: none;
+  color: grey;
 }
 
 #full-note {
