@@ -7,37 +7,39 @@
 <section class="container">
   <div class="row">
     <div class="col-md-6">
+
       <canvas id="farm-layout-show" width="400" height="400" style="border:1px solid #000000;">
       </canvas>
+
     </div>
 
 
     <div class="col-md-6 farm-show-info">
 
-<table class="table">
-  <tr>
-    <td><strong>Farm code:</strong></td>
-    <td><%= @farm.farm_code %></td>
-  </tr>
+      <table class="table">
+        <tr>
+          <td><strong>Farm code:</strong></td>
+          <td><%= @farm.farm_code %></td>
+        </tr>
 
-  <tr>
-    <td><strong>Lat:</strong></td>
-    <td><%= @farm.lat %></td>
-  </tr>
+        <tr>
+          <td><strong>Lat:</strong></td>
+          <td><%= @farm.lat %></td>
+        </tr>
 
-  <tr>
-    <td><strong>Lng:</strong></td>
-    <td><%= @farm.lng %></td>
-  </tr>
+        <tr>
+          <td><strong>Lng:</strong></td>
+          <td><%= @farm.lng %></td>
+        </tr>
 
 
-  <tr>
-    <td><strong>Size:</strong></td>
-    <td><%= @farm.size %></td>
-  </tr>
-</table>
+        <tr>
+          <td><strong>Size:</strong></td>
+          <td><%= @farm.size %></td>
+        </tr>
+      </table>
 
-<hr>
+      <hr>
 
 <!-- start tabs -->
       <ul class="nav nav-pills sub_farm_tabs">

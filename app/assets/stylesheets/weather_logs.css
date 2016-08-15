@@ -15,7 +15,7 @@
 
 #weather-header {
   /*background-color: lightblue;*/
-  background-color: #fbaf46;
+  background-color: #F38630;
   border-radius: 0px;
   font-size: 60px;
   margin-left: 250px;
@@ -53,7 +53,7 @@
 
 #table-value {
   text-align: center;
-  border-spacing: 15px;
+  border-spacing: 25px;
   border-collapse: separate;
 }
 
