@@ -3,29 +3,142 @@ function createTimeline(ele, farmName, waterActivity, fertilizerActivity, chemic
     url: "http://api.wunderground.com/api/<%= Rails.application.secrets.wunderground_api_key %>/forecast10day/q/4.944,114.928.json",
     dataType: 'jsonp',
     success: function(data) {
-      console.log(JSON.parse(waterActivity));
-      console.log((new Date(JSON.parse(waterActivity)['6'])).getTime());
-      console.log((Date.UTC(2016, 08,13)));
       createtimeline(data.forecast);
     }
   });
 
-  var generateActivities = function() {
-    var result = [];
-    var cur = {}
-    for (var act in waterActivity) {
-      cur[waterActivity[act]]["water"].push(act);
+  var generateActivity = function(activity, type, offset = 0) {
+    if(activity) {
+      var date = new Date(activity.date);
+      date.setDate(date.getDate() + 5);
+    } else {
+      var date = new Date();
     }
-    console.log(cur);
+    var color = "";
+    switch(type) {
+      case 'w':
+        color = "#69d2e7";
+        break;
+      case 'f':
+        color = "#fa6900";
+        break;
+      case 'c':
+        color = "#000000";
+        break;
+      default:
+        color = '#a1a1a1'; 
+    }
+    var result = {
+      color: color,
+      from: date.getTime() + offset - 43200000,
+      to: date.getTime() + offset + 43200000
+    };
+    return result;
+  }
+
+  var generateActivities = function(wActivity, fActivity, cActivity) {
+    if (wActivity) {
+      var wDate = new Date(wActivity.date);
+      wDate.setDate(wDate.getDate() + 5);
+    } else {
+      var wDate = new Date();
+      wDate.setDate(wDate.getDate());
+    }
+
+    if (fActivity) {
+      var fDate = new Date(fActivity.date);
+      fDate.setDate(fDate.getDate() + 5);
+    } else {
+      var fDate = new Date();
+      fDate.setDate(fDate.getDate());
+    }
+
+    if (cActivity) {
+      var cDate = new Date(cActivity.date);
+      cDate.setDate(cDate.getDate() + 5)
+    } else {
+      var cDate = new Date();
+      cDate.setDate(cDate.getDate());
+    }
+
+    if(wDate.getDate() == fDate.getDate() && wDate.getDate() == cDate.getDate()) {
+      var color = {
+        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+        stops: [
+          [0, '#69d2e7'],
+          [0.5, '#fa6900'],
+          [1, '#000000']
+        ]
+      }
+      return [{
+        color: color,
+        from: wDate.getTime() - 43200000,
+        to: wDate.getTime() + 43200000
+      }, {
+        color: color,
+        from: wDate.getTime() + 432000000 - 43200000,
+        to: wDate.getTime() + 432000000 + 43200000
+      }]
+    } else if (wDate.getDate() == fDate.getDate()) {
+      var color = {
+        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+        stops: [
+          [0, '#69d2e7'],
+          [1, '#fa6900']
+        ]
+      }
+      return [{
+        color: color,
+        from: wDate.getTime() - 43200000,
+        to: wDate.getTime() + 43200000
+      }, {
+        color: color,
+        from: wDate.getTime() + 432000000 - 43200000,
+        to: wDate.getTime() + 432000000 + 43200000
+      }, generateActivity(cActivity, 'c'), generateActivity(cActivity, 'c', 432000000)];
+    } else if (wDate.getDate() == cDate.getDate()) {
+      var color = {
+        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+        stops: [
+          [0, '#69d2e7'],
+          [1, '#000000']
+        ]
+      }
+      return [{
+        color: color,
+        from: wDate.getTime() - 43200000,
+        to: wDate.getTime() + 43200000
+      }, {
+        color: color,
+        from: wDate.getTime() + 432000000 - 43200000,
+        to: wDate.getTime() + 432000000 + 43200000
+      }, generateActivity(fActivity, 'f'), generateActivity(fActivity, 'f', 432000000)]
+    } else if (fDate.getDate() == cDate.getDate()) {
+      var color = {
+        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+        stops: [
+          [0, '#fa6900'],
+          [1, '#000000']
+        ]
+      }
+      return [{
+        color: color,
+        from: fDate.getTime() - 43200000,
+        to: fDate.getTime() + 43200000
+      }, {
+        color: color,
+        from: fDate.getTime() + 432000000 - 43200000,
+        to: fDate.getTime() + 432000000 + 43200000
+      }, generateActivity(wActivity, 'w'), generateActivity(wActivity, 'w', 432000000)]
+    } else {
+      return [generateActivity(wActivity, 'w'),generateActivity(wActivity, 'w', 432000000), generateActivity(fActivity, 'f'), generateActivity(fActivity, 'f', 432000000), generateActivity(cActivity, 'c'), generateActivity(cActivity, 'c', 432000000)];
+    }
   }
 
   var generatePlotBands = function(weatherData) {
-    var date = weatherData.simpleforecast.forecastday[0].date;
-    var result = [];
-    // for (var act in waterActivity) {
-
-    // }
-
+    return generateActivities(JSON.parse(waterActivity), JSON.parse(fertilizerActivity), JSON.parse(chemicalActivity));
+    // var date = weatherData.simpleforecast.forecastday[0].date;
+    // return [generateActivity(JSON.parse(waterActivity),'w'), generateActivity(JSON.parse(fertilizerActivity),'f'), generateActivity(JSON.parse(chemicalActivity), 'c')];
   }
 
   var createtimeline = function(weatherData) { 
@@ -37,23 +150,7 @@ function createTimeline(ele, farmName, waterActivity, fertilizerActivity, chemic
         text: farmName + " Timeline"
       },
       xAxis: {
-        plotBands: [{ // mark the weekend
-          color: '#69d2e7',
-          from: Date.UTC(date.year, date.month-1,date.day) - 43200000,
-          to: Date.UTC(date.year, date.month-1,date.day) + 43200000 
-        },
-        { // mark the weekend
-          color: {
-            linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
-            stops: [
-              [0, '#69d2e7'],
-              [0.5, '#fa6900'],
-              [1, '#000000']
-            ]
-          },
-          from: Date.UTC(date.year, date.month-1,date.day+2) - 43200000,
-          to: Date.UTC(date.year, date.month-1,date.day+2) + 43200000 
-        }],
+        plotBands: generatePlotBands(),
         tickInterval: 24 * 3600 * 1000, // one day
         type: 'datetime',
         min: Date.UTC(date.year, date.month-1, date.day) - 43200000,
@@ -73,10 +170,6 @@ function createTimeline(ele, farmName, waterActivity, fertilizerActivity, chemic
         }()),
         pointStart: Date.UTC(date.year,date.month-1,date.day),
         pointInterval: 24 * 3600 * 1000
-
-        // data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4],
-        // pointStart: Date.UTC(2010, 0, 1),
-        // pointInterval: 24 * 3600 * 1000
       }]
     });
   }
@@ -106,18 +199,18 @@ $(function() {
 
   });
 
-  $(document).on('submit', '#actionsModal form', function() {
-    event.preventDefault();
-    $('#actionsModal form').submit().bind('ajax:complete', function() {
-      $('#actionsModal').modal('hide').promise().done(function() {
-        $('#actionsModal form').trigger("reset");
-        $('#actionsModal .ajax-loader').hide();
-        $('#actionsModal form').show();
-      });
-    });
-    $('#actionsModal .ajax-loader').show();
-    $('#actionsModal form').hide();
-  });
+  // $(document).on('submit', '#actionsModal form', function() {
+  //   event.preventDefault();
+  //   $('#actionsModal form').submit().bind('ajax:complete', function() {
+  //     $('#actionsModal').modal('hide').promise().done(function() {
+  //       $('#actionsModal form').trigger("reset");
+  //       $('#actionsModal .ajax-loader').hide();
+  //       $('#actionsModal form').show();
+  //     });
+  //   });
+  //   $('#actionsModal .ajax-loader').show();
+  //   $('#actionsModal form').hide();
+  // });
 
 
 });
