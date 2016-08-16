@@ -128,9 +128,9 @@
     var ctx = farm.getContext("2d");
 
     <% @farm.sub_farms.each do |subfarm| %>
-      <% if subfarm.x and subfarm.y and subfarm.width and subfarm.height %>
+      <% if (subfarm.id != @sub_farm.id) and subfarm.x and subfarm.y and subfarm.width and subfarm.height %>
         
-        ctx.rect(<%= subfarm.x.to_f %>, <%= subfarm.y.to_f %>, <%= subfarm.x.to_f + subfarm.width.to_f %>, <%= subfarm.y.to_f + subfarm.height.to_f %>);
+        ctx.rect(<%= subfarm.x.to_f %>, <%= subfarm.y.to_f %>, <%= subfarm.width.to_f %>, <%= subfarm.height.to_f %>);
         ctx.stroke();
       <% end %>
     <% end %>

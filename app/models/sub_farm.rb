@@ -10,8 +10,11 @@ class SubFarm < ApplicationRecord
   MAX_PROB = 0.90
 
   def calculate_yield
-    return nil if( crop_weight.nil? )
+    
     forecasts = WeatherLog.forecast(farm.lat, farm.lng)
+
+    return nil unless( crop_weight and forecasts )
+
     stages = crop.stages
     
     first_prob = calculate_differential(stages.first.tmax, stages.first.tmin, forecasts[:forecasts][:avgs][:first][:avg_tmax], forecasts[:forecasts][:avgs][:first][:avg_tmin])

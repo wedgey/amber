@@ -7,6 +7,7 @@ class WeatherLog < ApplicationRecord
     # Inputs lat:float (Latitude of city we want to forecast for), lng:float (Longitude of same city)
     # Outputs Object with avg history for each crop stage, the current avgs, and the forecasts for each stage along with the diffs used
     def forecast(lat,lng)
+      return;
       current = open("http://api.wunderground.com/api/#{Rails.application.secrets.wunderground_api_key}/forecast10day/q/#{lat.to_f},#{lng.to_f}.json");
       # current = open("http://api.wunderground.com/api/#{Rails.application.secrets.wunderground_api_key}/forecast10day/q/#{lat},#{lng}.json");
       

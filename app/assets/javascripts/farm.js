@@ -37,8 +37,8 @@ $(function(){
 
       $("#sub_farm_x").val(x);
       $("#sub_farm_y").val(y);
-      console.log('x: ' + x);
-      console.log('y: ' + y);
+      // console.log('x: ' + x);
+      // console.log('y: ' + y);
     }
   })
   .resizable({
@@ -49,7 +49,7 @@ $(function(){
       $("#sub_farm_width").val(width);
       $("#sub_farm_height").val(height);
 
-      console.log(width + ',' + height);
+      // console.log(width + ',' + height);
     }
   });
 });
