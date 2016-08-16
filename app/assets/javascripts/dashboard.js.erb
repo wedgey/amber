@@ -1,150 +1,18 @@
-function createTimeline(ele, farmName, waterActivity, fertilizerActivity, chemicalActivity) {
+function createTimeline(ele, farmName, lastActivity) {
   $.ajax({
     url: "http://api.wunderground.com/api/<%= Rails.application.secrets.wunderground_api_key %>/forecast10day/q/4.944,114.928.json",
     dataType: 'jsonp',
     success: function(data) {
       createtimeline(data.forecast);
     }
-  });
+  });  
 
-  var generateActivity = function(activity, type, offset = 0) {
-    if(activity) {
-      var date = new Date(activity.date);
-      date.setDate(date.getDate() + 5);
-    } else {
-      var date = new Date();
+  var generatePlotBands = function() {
+    var lastActivities = JSON.parse(lastActivity);
+    var result = [];
+    for (var key in lastActivities) {
+      var color = 
     }
-    var color = "";
-    switch(type) {
-      case 'w':
-        color = "#69d2e7";
-        break;
-      case 'f':
-        color = "#fa6900";
-        break;
-      case 'c':
-        color = "#000000";
-        break;
-      default:
-        color = '#a1a1a1'; 
-    }
-    var result = {
-      color: color,
-      from: date.getTime() + offset - 43200000,
-      to: date.getTime() + offset + 43200000
-    };
-    console.log(result);
-    return result;
-  }
-
-  var generateActivities = function(wActivity, fActivity, cActivity) {
-
-    if (wActivity) {
-      var wDate = new Date(wActivity.date);
-      wDate.setDate(wDate.getDate() + 5);
-    } else {
-      var wDate = new Date();
-      wDate.setDate(wDate.getDate());
-    }
-
-    if (fActivity) {
-      var fDate = new Date(fActivity.date);
-      fDate.setDate(fDate.getDate() + 5);
-    } else {
-      var fDate = new Date();
-      fDate.setDate(fDate.getDate());
-    }
-
-    if (cActivity) {
-      var cDate = new Date(cActivity.date);
-      cDate.setDate(cDate.getDate() + 5)
-    } else {
-      var cDate = new Date();
-      cDate.setDate(cDate.getDate());
-    }
-
-    console.log(wDate);
-    console.log(cDate);
-    console.log(fDate);
-
-    if(wDate.getDate() == fDate.getDate() && wDate.getDate() == cDate.getDate()) {
-      var color = {
-        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
-        stops: [
-          [0, '#69d2e7'],
-          [0.5, '#fa6900'],
-          [1, '#000000']
-        ]
-      }
-      return [{
-        color: color,
-        from: wDate.getTime() - 43200000,
-        to: wDate.getTime() + 43200000
-      }, {
-        color: color,
-        from: wDate.getTime() + 432000000 - 43200000,
-        to: wDate.getTime() + 432000000 + 43200000
-      }]
-    } else if (wDate.getDate() == fDate.getDate()) {
-      var color = {
-        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
-        stops: [
-          [0, '#69d2e7'],
-          [1, '#fa6900']
-        ]
-      }
-      return [{
-        color: color,
-        from: wDate.getTime() - 43200000,
-        to: wDate.getTime() + 43200000
-      }, {
-        color: color,
-        from: wDate.getTime() + 432000000 - 43200000,
-        to: wDate.getTime() + 432000000 + 43200000
-      }, generateActivity(cActivity, 'c'), generateActivity(cActivity, 'c', 432000000)];
-    } else if (wDate.getDate() == cDate.getDate()) {
-      var color = {
-        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
-        stops: [
-          [0, '#69d2e7'],
-          [1, '#000000']
-        ]
-      }
-      return [{
-        color: color,
-        from: wDate.getTime() - 43200000,
-        to: wDate.getTime() + 43200000
-      }, {
-        color: color,
-        from: wDate.getTime() + 432000000 - 43200000,
-        to: wDate.getTime() + 432000000 + 43200000
-      }, generateActivity(fActivity, 'f'), generateActivity(fActivity, 'f', 432000000)]
-    } else if (fDate.getDate() == cDate.getDate()) {
-      var color = {
-        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
-        stops: [
-          [0, '#fa6900'],
-          [1, '#000000']
-        ]
-      }
-      return [{
-        color: color,
-        from: fDate.getTime() - 43200000,
-        to: fDate.getTime() + 43200000
-      }, {
-        color: color,
-        from: fDate.getTime() + 432000000 - 43200000,
-        to: fDate.getTime() + 432000000 + 43200000
-      }, generateActivity(wActivity, 'w'), generateActivity(wActivity, 'w', 432000000)]
-    } else {
-      return [generateActivity(wActivity, 'w'), generateActivity(wActivity, 'w', 432000000), generateActivity(fActivity, 'f'), generateActivity(fActivity, 'f', 432000000), generateActivity(cActivity, 'c'), generateActivity(cActivity, 'c', 432000000)];
-    }
-  }
-
-  var generatePlotBands = function(weatherData) {
-    return generateActivities(JSON.parse(waterActivity), JSON.parse(fertilizerActivity), JSON.parse(chemicalActivity));
-    // var date = weatherData.simpleforecast.forecastday[0].date;
-    // return [generateActivity(JSON.parse(waterActivity),'w'), generateActivity(JSON.parse(fertilizerActivity),'f'), generateActivity(JSON.parse(chemicalActivity), 'c')];
   }
 
   var createtimeline = function(weatherData) { 

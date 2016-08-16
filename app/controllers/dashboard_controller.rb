@@ -19,13 +19,22 @@ class DashboardController < ApplicationController
     #   @chemical_activity[ele.sub_farm_id] = ele.date
     # end
 
-    @water_activity = @farm.last_watered.first
-    @chemical_activity = @farm.last_chemicalled.first
-    @fertilizer_activity = @farm.last_fertilized.first
+    # @water_activity = @farm.last_watered.first
+    # @chemical_activity = @farm.last_chemicalled.first
+    # @fertilizer_activity = @farm.last_fertilized.first
 
-    @water_activity = @water_activity.to_json
-    @chemical_activity = @chemical_activity.to_json
-    @fertilizer_activity = @fertilizer_activity.to_json
+    # @water_activity = @water_activity.to_json
+    # @chemical_activity = @chemical_activity.to_json
+    # @fertilizer_activity = @fertilizer_activity.to_json
+
+    result = Hash.new { |hash, key| hash[key] =  Array.new }
+
+    @farm.last_activities.each do |activity|
+        result[activity[:date].to_date] << activity[:activity_id]
+    end 
+
+    @last_activities = result.to_json
+
   end
 
   def new

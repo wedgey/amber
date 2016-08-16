@@ -62,13 +62,11 @@
   </div>
 </div>
 <script>
-  var waterActivity = '<%= raw @water_activity %>';
-  var fertilizerActivity = '<%= raw @fertilizer_activity %>';
-  var chemicalActivity = '<%= raw @chemical_activity %>';
+  var lastActivity = '<%= raw @last_activities %>';
   var farmName = '<%= j farm.name %>';
 
   $(function() {
-    createTimeline($("#<%= farm.id %>-timeline-container"), farmName, waterActivity, fertilizerActivity, chemicalActivity);
+    createTimeline($("#<%= farm.id %>-timeline-container"), farmName, lastActivity);
     // $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     //   $($("#<%= farm.id %>-timeline-container")).highcharts().reflow();
     // });
