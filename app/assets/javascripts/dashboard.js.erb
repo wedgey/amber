@@ -1,0 +1,216 @@
+function createTimeline(ele, farmName, waterActivity, fertilizerActivity, chemicalActivity) {
+  $.ajax({
+    url: "http://api.wunderground.com/api/<%= Rails.application.secrets.wunderground_api_key %>/forecast10day/q/4.944,114.928.json",
+    dataType: 'jsonp',
+    success: function(data) {
+      createtimeline(data.forecast);
+    }
+  });
+
+  var generateActivity = function(activity, type, offset = 0) {
+    if(activity) {
+      var date = new Date(activity.date);
+      date.setDate(date.getDate() + 5);
+    } else {
+      var date = new Date();
+    }
+    var color = "";
+    switch(type) {
+      case 'w':
+        color = "#69d2e7";
+        break;
+      case 'f':
+        color = "#fa6900";
+        break;
+      case 'c':
+        color = "#000000";
+        break;
+      default:
+        color = '#a1a1a1'; 
+    }
+    var result = {
+      color: color,
+      from: date.getTime() + offset - 43200000,
+      to: date.getTime() + offset + 43200000
+    };
+    return result;
+  }
+
+  var generateActivities = function(wActivity, fActivity, cActivity) {
+    if (wActivity) {
+      var wDate = new Date(wActivity.date);
+      wDate.setDate(wDate.getDate() + 5);
+    } else {
+      var wDate = new Date();
+      wDate.setDate(wDate.getDate());
+    }
+
+    if (fActivity) {
+      var fDate = new Date(fActivity.date);
+      fDate.setDate(fDate.getDate() + 5);
+    } else {
+      var fDate = new Date();
+      fDate.setDate(fDate.getDate());
+    }
+
+    if (cActivity) {
+      var cDate = new Date(cActivity.date);
+      cDate.setDate(cDate.getDate() + 5)
+    } else {
+      var cDate = new Date();
+      cDate.setDate(cDate.getDate());
+    }
+
+    if(wDate.getDate() == fDate.getDate() && wDate.getDate() == cDate.getDate()) {
+      var color = {
+        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+        stops: [
+          [0, '#69d2e7'],
+          [0.5, '#fa6900'],
+          [1, '#000000']
+        ]
+      }
+      return [{
+        color: color,
+        from: wDate.getTime() - 43200000,
+        to: wDate.getTime() + 43200000
+      }, {
+        color: color,
+        from: wDate.getTime() + 432000000 - 43200000,
+        to: wDate.getTime() + 432000000 + 43200000
+      }]
+    } else if (wDate.getDate() == fDate.getDate()) {
+      var color = {
+        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+        stops: [
+          [0, '#69d2e7'],
+          [1, '#fa6900']
+        ]
+      }
+      return [{
+        color: color,
+        from: wDate.getTime() - 43200000,
+        to: wDate.getTime() + 43200000
+      }, {
+        color: color,
+        from: wDate.getTime() + 432000000 - 43200000,
+        to: wDate.getTime() + 432000000 + 43200000
+      }, generateActivity(cActivity, 'c'), generateActivity(cActivity, 'c', 432000000)];
+    } else if (wDate.getDate() == cDate.getDate()) {
+      var color = {
+        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+        stops: [
+          [0, '#69d2e7'],
+          [1, '#000000']
+        ]
+      }
+      return [{
+        color: color,
+        from: wDate.getTime() - 43200000,
+        to: wDate.getTime() + 43200000
+      }, {
+        color: color,
+        from: wDate.getTime() + 432000000 - 43200000,
+        to: wDate.getTime() + 432000000 + 43200000
+      }, generateActivity(fActivity, 'f'), generateActivity(fActivity, 'f', 432000000)]
+    } else if (fDate.getDate() == cDate.getDate()) {
+      var color = {
+        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+        stops: [
+          [0, '#fa6900'],
+          [1, '#000000']
+        ]
+      }
+      return [{
+        color: color,
+        from: fDate.getTime() - 43200000,
+        to: fDate.getTime() + 43200000
+      }, {
+        color: color,
+        from: fDate.getTime() + 432000000 - 43200000,
+        to: fDate.getTime() + 432000000 + 43200000
+      }, generateActivity(wActivity, 'w'), generateActivity(wActivity, 'w', 432000000)]
+    } else {
+      return [generateActivity(wActivity, 'w'),generateActivity(wActivity, 'w', 432000000), generateActivity(fActivity, 'f'), generateActivity(fActivity, 'f', 432000000), generateActivity(cActivity, 'c'), generateActivity(cActivity, 'c', 432000000)];
+    }
+  }
+
+  var generatePlotBands = function(weatherData) {
+    return generateActivities(JSON.parse(waterActivity), JSON.parse(fertilizerActivity), JSON.parse(chemicalActivity));
+    // var date = weatherData.simpleforecast.forecastday[0].date;
+    // return [generateActivity(JSON.parse(waterActivity),'w'), generateActivity(JSON.parse(fertilizerActivity),'f'), generateActivity(JSON.parse(chemicalActivity), 'c')];
+  }
+
+  var createtimeline = function(weatherData) { 
+    var date = weatherData.simpleforecast.forecastday[0].date;
+    // var activities = generateActivities();
+    ele.highcharts({
+      credits: {enabled: false},
+      title: {
+        text: farmName + " Timeline"
+      },
+      xAxis: {
+        plotBands: generatePlotBands(),
+        tickInterval: 24 * 3600 * 1000, // one day
+        type: 'datetime',
+        min: Date.UTC(date.year, date.month-1, date.day) - 43200000,
+        max: Date.UTC(date.year, date.month-1, date.day+9) + 43200000
+      },
+      series: [{
+        name: "Date",
+        data: (function() {
+          var data = [];
+          weatherData.simpleforecast.forecastday.forEach(function(weather) {
+            data.push({
+              y: (Number(weather.high.celsius) + Number(weather.low.celsius)) / 2,
+              marker: { symbol: "url(" + weather.icon_url + ")" }
+            });
+          });
+          return data;
+        }()),
+        pointStart: Date.UTC(date.year,date.month-1,date.day),
+        pointInterval: 24 * 3600 * 1000
+      }]
+    });
+  }
+}
+
+$(function() {
+
+  $(document).on('click', '#modal-submit', function() {
+    event.preventDefault();
+    $('#actionsModal form').submit().bind('ajax:complete', function() {
+      $('#actionsModal').modal('hide').promise().done(function() {
+        $('#actionsModal form').trigger("reset");
+        $('#actionsModal .ajax-loader').hide();
+        $('#actionsModal form').show();
+      });
+    });
+    $('#actionsModal .ajax-loader').show();
+    $('#actionsModal form').hide();
+  });
+
+  $('#actionsModal').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget);
+    var action = button.data('action');
+
+    $(this).find('.modal-header').removeClass("Water-Crops Fertilize-Farm ApplyChemicals").addClass(action.replace(/\s/g,"-")).find('.modal-title').text(action);
+    $(this).find('.modal-body select#sub_farm_activity_activity_id option:contains('+action+')').prop('selected', true);
+
+  });
+
+  // $(document).on('submit', '#actionsModal form', function() {
+  //   event.preventDefault();
+  //   $('#actionsModal form').submit().bind('ajax:complete', function() {
+  //     $('#actionsModal').modal('hide').promise().done(function() {
+  //       $('#actionsModal form').trigger("reset");
+  //       $('#actionsModal .ajax-loader').hide();
+  //       $('#actionsModal form').show();
+  //     });
+  //   });
+  //   $('#actionsModal .ajax-loader').show();
+  //   $('#actionsModal form').hide();
+  // });
+
+
+});
