@@ -33,10 +33,12 @@ function createTimeline(ele, farmName, waterActivity, fertilizerActivity, chemic
       from: date.getTime() + offset - 43200000,
       to: date.getTime() + offset + 43200000
     };
+    console.log(result);
     return result;
   }
 
   var generateActivities = function(wActivity, fActivity, cActivity) {
+
     if (wActivity) {
       var wDate = new Date(wActivity.date);
       wDate.setDate(wDate.getDate() + 5);
@@ -60,6 +62,10 @@ function createTimeline(ele, farmName, waterActivity, fertilizerActivity, chemic
       var cDate = new Date();
       cDate.setDate(cDate.getDate());
     }
+
+    console.log(wDate);
+    console.log(cDate);
+    console.log(fDate);
 
     if(wDate.getDate() == fDate.getDate() && wDate.getDate() == cDate.getDate()) {
       var color = {
@@ -131,7 +137,7 @@ function createTimeline(ele, farmName, waterActivity, fertilizerActivity, chemic
         to: fDate.getTime() + 432000000 + 43200000
       }, generateActivity(wActivity, 'w'), generateActivity(wActivity, 'w', 432000000)]
     } else {
-      return [generateActivity(wActivity, 'w'),generateActivity(wActivity, 'w', 432000000), generateActivity(fActivity, 'f'), generateActivity(fActivity, 'f', 432000000), generateActivity(cActivity, 'c'), generateActivity(cActivity, 'c', 432000000)];
+      return [generateActivity(wActivity, 'w'), generateActivity(wActivity, 'w', 432000000), generateActivity(fActivity, 'f'), generateActivity(fActivity, 'f', 432000000), generateActivity(cActivity, 'c'), generateActivity(cActivity, 'c', 432000000)];
     }
   }
 
