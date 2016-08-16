@@ -5,19 +5,43 @@ function createTimeline(ele, farmName, lastActivity) {
     success: function(data) {
       createtimeline(data.forecast);
     }
-  });  
+  });
+
+  var generateColor = function(arr) {
+    var stops = [];
+    var colorLegend = ['#a1a1a1', '#69d2e7', '#fa6900', '#000000'];
+    if (arr.length == 1) {
+      stops.push([0, colorLegend[arr[0]]]);
+    } else {
+      arr.forEach(function(ele, idx) {
+        arr2 = [(Number(idx)/(arr.length-1)), colorLegend[ele]];
+        stops.push(arr2);
+      });
+    }
+    return {
+        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+        stops: stops
+      }
+  }
 
   var generatePlotBands = function() {
     var lastActivities = JSON.parse(lastActivity);
+    var offsets = [0, 432000000, 864000000, 1210000000];
     var result = [];
+    console.log(lastActivities);
     for (var key in lastActivities) {
-      var color = 
+      var date = key.split("-");
+      result.push({
+        color: generateColor(lastActivities[key]),
+        from: Date.UTC(date[0],date[1] - 1,date[2]) - 43200000,
+        to: Date.UTC(date[0],date[1] - 1,date[2]) + 43200000
+      });
     }
+    return result;
   }
 
   var createtimeline = function(weatherData) { 
     var date = weatherData.simpleforecast.forecastday[0].date;
-    // var activities = generateActivities();
     ele.highcharts({
       credits: {enabled: false},
       title: {

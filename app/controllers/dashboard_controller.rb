@@ -30,7 +30,11 @@ class DashboardController < ApplicationController
     result = Hash.new { |hash, key| hash[key] =  Array.new }
 
     @farm.last_activities.each do |activity|
-        result[activity[:date].to_date] << activity[:activity_id]
+      offset = 5 if activity[:activity_id] == 1
+      offset = 10 if activity[:activity_id] == 2
+      offset = 14 if activity[:activity_id] == 3
+      result[offset.days.since(activity[:date].to_date)] << activity[:activity_id]
+      result[10.days.since(activity[:date].to_date)] << activity[:activity_id] if activity[:activity_id] == 1
     end 
 
     @last_activities = result.to_json
