@@ -39,7 +39,7 @@
             $node = $(node); // cache wrapper node
 
         // build container
-        var tubularContainer = '<div id="tubular-container" style="overflow: hidden; position: absolute; z-index: 1; width: 100%; height: 700px"><div id="tubular-player" style="position: absolute"></div></div><div id="tubular-shield" style="width: 100%; height: 700px; z-index: 2; position: absolute; left: 0; top: 0;"></div>';
+        var tubularContainer = '<div id="tubular-container" style="overflow: hidden; position: absolute; z-index: 1; width: 100%; height: 100vh"><div id="tubular-player" style="position: absolute"></div></div><div id="tubular-shield" style="width: 100%; height: 100%; z-index: 2; position: absolute; left: 0; top: 0;"></div>';
 
           // var tubularContainer = '<div id="tubular-container" style="position: relative; z-index: 10; width: 100%; height: 100%"><div id="tubular-player" style="position: absolute"></div></div><div id= style="width: 100%; height: 10%; z-index: 2; position: absolute; left: 0; top: 0;"></div>';
 
