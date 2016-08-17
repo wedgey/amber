@@ -1,46 +1,50 @@
-<section class="container">
-  <h1>Your Farms</h1>
+<section id="farm-index" class="container">
+  <div class="row header-container">
+    <div class='col-md-12'>
+      <h1>Your Farms</h1>
+    </div>
+  </div>
 
 
-<div class="row">
+<div class="row content-container">
 
-<div class="col-md-6">
-<div id="map" class="center-block"></div>
-</div>
+  <div class="col-md-6" id="map">
+    <!-- <div id="map"></div> -->
+  </div>
 
-<div class="col-md-6">
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Farm code</th>
-      <th>Size</th>
-      <th>Subfarm Number</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <div class="col-md-6">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Farm code</th>
+          <th>Size (ha)</th>
+          <th>Subfarms</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @farms.each do |farm| %>
-      <tr>
-        <td><%= farm.name %></td>
-        <td><%= farm.farm_code %></td>
-        <td><%= farm.size %></td>
-        <td><%= farm.sub_farms.count %></td>
-        <td><%= link_to 'Show', farm %></td>
-        <td><%= link_to 'Edit', edit_farm_path(farm) %></td>
-        <td><%= link_to 'Destroy', farm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tbody>
+        <% @farms.each do |farm| %>
+          <tr>
+            <td><%= farm.name %></td>
+            <td><%= farm.farm_code %></td>
+            <td><%= farm.size %></td>
+            <td><%= farm.sub_farms.count %></td>
+            <td><%= link_to raw('<i class="fa fa-eye" aria-hidden="true"></i>'), farm, title: "Show" %></td>
+            <td><%= link_to raw('<i class="fa fa-pencil-square-o" aria-hidden="true"></i>'), edit_farm_path(farm), title: "Edit" %></td>
+            <td><%= link_to raw('<i class="fa fa-trash" aria-hidden="true"></i>'), farm, method: :delete, data: { confirm: 'Are you sure?' }, title: "Delete" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-<br>
-<div class="text-center">
-  <%= link_to 'New Farm', new_farm_path, class: "btn btn-success" %>
-</div>
-<br>
-</div>
+    <br>
+    <div class="text-center">
+      <%= link_to 'New Farm', new_farm_path, class: "btn" %>
+    </div>
+    <br>
+  </div>
 </div>
 
 

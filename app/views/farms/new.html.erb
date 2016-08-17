@@ -1,8 +1,17 @@
-<main class="text-center">
+<main id="farm-index" class="container text-center">
 
-<h1>New Farm</h1>
+<div class="row header-container">
+  <div class='col-md-12'>
+    <h1>New Farm</h1>
+  </div>
+</div>
 
-<%= render 'form', farm: @farm %>
+<div class="row content-container">
+  <div class="col-md-12">
+    <%= render 'form', farm: @farm %>
+  </div>
+</div>
+
 
 <%= link_to 'Back', farms_path %>
 

@@ -1,9 +1,9 @@
-<div class="container-fluid">
+<div class="container-fluid new-farm">
   <div class="row">
-    <div class="col-md-6">
-      <div id="map" class="center-block"></div>
+    <div class="col-md-6" id="map">
+      <!-- <div id="map" class="center-block"></div> -->
     </div>
-    <div class="col-md-5 text-left">
+    <div class="col-md-6 text-left">
 
       <%= form_for(farm) do |f| %>
         <% if farm.errors.any? %>
@@ -21,12 +21,12 @@
         <table class="table">
 
         <tr>
-        <td>
-          <%= f.label :name %>
+          <td>
+            <%= f.label :name %>
           </td>
           <td>
-          <%= f.text_field :name %>
-        </td>
+            <%= f.text_field :name, class: "form-control" %>
+          </td>
         </tr>
 
         <tr>
@@ -34,43 +34,48 @@
           <%= f.label :farm_code, "Farm code (Optional)" %>
           </td>
           <td>
-          <%= f.text_field :farm_code %>
+          <%= f.text_field :farm_code, class: "form-control" %>
         </td>
         </tr>
 
         <tr>
         <td>
-          <%= f.label :size %>
+          <%= f.label :size, "Size (ha)" %>
           </td>
           <td>
-          <%= f.text_field :size %>
+          <%= f.text_field :size, class: "form-control" %>
           </td>
         
         </tr>
 
+        </table>
+
+        <p>* please drag <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i> on to your farm location</p>
+        <table class="table">
         <tr>
         <td class="field input-lat" id="input-lat">
           <%= f.label :lat, "Latitude" %>
           </td>
           <td>
-          <%= f.text_field :lat %>
+          <%= f.text_field :lat, class: "form-control", readonly: true %>
           </td>
         
         </tr>
 
         <tr>
-        <td class="field input-lng">
-          <%= f.label :lng, "Longtitude" %>
+          <td class="field input-lng">
+            <%= f.label :lng, "Longitude" %>
           </td>
           <td>
-          <%= f.text_field :lng %>
-        </td>
+            <%= f.text_field :lng, class: "form-control", readonly: true %>
+          </td>
         </tr>
 
         </table>
 
-        <div class="actions">
-          <%= f.submit 'Create', class: "btn btn-primary center-block" %>
+        <div class="actions text-center">
+          <%= f.submit 'Create', class: "btn" %>
+          <%= link_to 'Cancel', user_farms_path, class: "btn cancel" %>
         </div>
       <% end %>
     </div>

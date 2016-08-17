@@ -43,9 +43,13 @@ function createTimeline(ele, farmName, lastActivity) {
   var createtimeline = function(weatherData) { 
     var date = weatherData.simpleforecast.forecastday[0].date;
     ele.highcharts({
+      charts: {
+        spacingTop: 20
+      },
       credits: {enabled: false},
       title: {
-        text: farmName + " Timeline"
+        // text: farmName + " Timeline"
+        text: ""
       },
       xAxis: {
         plotBands: generatePlotBands(),
