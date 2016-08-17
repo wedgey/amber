@@ -29,15 +29,35 @@ class DashboardController < ApplicationController
 
     result = Hash.new { |hash, key| hash[key] =  Array.new }
 
+    watered = false
+    fertilized = false
+    chemicalled = false
+
     @farm.last_activities.each do |activity|
-      offset = 5 if activity[:activity_id] == 1
-      offset = 10 if activity[:activity_id] == 2
-      offset = 14 if activity[:activity_id] == 3
+      if activity[:activity_id] == 1
+        offset = 5
+        watered = true
+      end
+      if activity[:activity_id] == 2
+        offset = 10 
+        fertilized = true
+      end
+      if activity[:activity_id] == 3
+        offset = 14
+        chemicalled = true
+      end
+
       result[offset.days.since(activity[:date].to_date)] << activity[:activity_id]
       result[10.days.since(activity[:date].to_date)] << activity[:activity_id] if activity[:activity_id] == 1
     end 
 
+    result[DateTime.now.to_date] << 1 unless watered
+    result[DateTime.now.to_date] << 2 unless fertilized
+    result[DateTime.now.to_date] << 3 unless chemicalled
+
     @last_activities = result.to_json
+
+    @subfarms = @farm.sub_farms.to_ary.to_json
 
   end
 

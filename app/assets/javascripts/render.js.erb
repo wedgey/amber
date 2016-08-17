@@ -1,5 +1,6 @@
-function run_render(ele) {
+function run_render(ele, subfarms) {
   if(ele.length == 0) { return true }
+  console.log(subfarms);
   function init(ele) {
     var engine = initEngine(ele);
     var scene = createScene(engine);
@@ -18,7 +19,7 @@ function run_render(ele) {
     scene.activeCamera = camera;
 
     // var light = createLight(scene);
-     var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 50), scene);
+    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 50), scene);
     light.intensity = 0.5;
 
     // var pl = new BABYLON.PointLight("pl", BABYLON.Vector3.Zero(), scene);
@@ -27,12 +28,44 @@ function run_render(ele) {
     // pl.intensity = 0.8;
 
     var farmbase = createFarmBase(scene);
-    var subfarmbase = createSubFarmBase(scene, 20, 20);
-    subfarmbase.position.x = 10;
-    subfarmbase.position.y = 10;
-    subfarmbase.position.z = 3;
+    farmbase.position.x = -15;
+    farmbase.position.y = -15;
 
-    var grassBlades = createGrassBlades(scene, 15, 15, 6);
+    var subfarmbases = [];
+    var grassBlades = []
+    subfarms.forEach(function(ele, idx) {
+      var width = ele.width / 10;
+      var height = ele.height / 10;
+      var x = ele.x;
+      var y = ele.y;
+      subfarmbases.push(createSubFarmBase(scene, width, height));
+      if (ele.x === 0) {
+        x = 0;
+      } else {
+        // x = (x/10) * -1;
+        x = 0;
+      }
+      if (ele.y === 0) {
+        y = 0;
+      } else {
+        // y = (y/10) * -1;
+        y = 0;
+      }
+      subfarmbases[idx].position.x = x;
+      subfarmbases[idx].position.y = y;
+      subfarmbases[idx].position.z = 3;
+      grassBlades[idx] = createGrassBlades(scene, x, y, 6);
+    });
+    // var subfarmbase = createSubFarmBase(scene, 10, 10);
+    // subfarmbase.position.x = -20;
+    // subfarmbase.position.y = -20;
+    // subfarmbase.position.z = 3;
+    // var subfarmbase2 = createSubFarmBase(scene, 20, 20);
+    // subfarmbase2.position.x = -25;
+    // subfarmbase2.position.y = -25;
+    // subfarmbase2.position.z = 3;
+
+    // var grassBlades = createGrassBlades(scene, 15, 15, 6);
 
 
     // scene.registerBeforeRender(function() {
@@ -74,7 +107,7 @@ function run_render(ele) {
     var camera = new BABYLON.ArcRotateCamera(
       "cam", 0, 0, 50, BABYLON.Vector3.Zero(), scene); // Set the camera's initial position to 1.7 meters above the ground (y axis)
       // "player camera", BABYLON.Vector3.Zero(), scene); // Creates a camera called 'player camera' at location 0,0,0 of the scene
-    camera.setPosition(new BABYLON.Vector3(0,-30,50));
+    camera.setPosition(new BABYLON.Vector3(0,-30,70));
     return camera;
   }
 

@@ -16,8 +16,7 @@
 </section>
 
 <script>
-  // $('.tab-pane').first().addClass('active');
-  // $('li[role=presentation]').first().addClass('active');
-  run_render(document.querySelector('.farmPlot'));
+  var subfarms = '<%= raw @subfarms %>';
+  run_render(document.querySelector('.farmPlot'), JSON.parse(subfarms));
 </script>
 

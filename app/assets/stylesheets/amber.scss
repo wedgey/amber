@@ -31,33 +31,33 @@ body {
   padding-top: 20px;
 }
 
-#actions-container .btn:focus {
+#farm-index #actions-container .btn:focus {
   outline: none;
 }
 
-#actions-container .btn:hover {
+#farm-index #actions-container .btn:hover {
   background-color: red;
 }
 
-#actions-container .chemical-btn {
+#farm-index #actions-container .chemical-btn {
   background-color: black;
   /*background-color: $medium-blue;*/
   color: white;
 }
 
-#actions-container .fertilize-btn {
+#farm-index #actions-container .fertilize-btn {
   /*background-color: #9e2062;*/
   background-color: $dark-orange;
   color: white;
 }
 
-#actions-container .miscellaneous-btn {
+#farm-index #actions-container .miscellaneous-btn {
   /*background-color: #d6e025;*/
   background-color: $light-orange;
   color: white;
 }
 
-#actions-container .water-btn {
+#farm-index #actions-container .water-btn {
   /*background-color: #5bc0de;*/
   background-color: $dark-blue;
   color: white;
