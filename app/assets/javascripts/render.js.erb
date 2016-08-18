@@ -1,12 +1,22 @@
-function run_render(ele, subfarms) {
+function run_render(ele, subfarms, dayToWater) {
   if(ele.length == 0) { return true }
-  console.log(subfarms);
+
+  function calculateWaterRatio() {
+    var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+    var firstDate = new Date(dayToWater);
+    var secondDate = new Date();
+
+    var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+    return diffDays;
+  }
+
   function init(ele) {
     var engine = initEngine(ele);
     var scene = createScene(engine);
 
     // Create a transparent scene background
     scene.clearColor = new BABYLON.Color4(1,1,1,1);
+    // scene.clearColor = new BABYLON.Color4(0,0,0,0);
 
     // Create the main player camera
     var camera = createFreeCamera(scene);
@@ -14,6 +24,8 @@ function run_render(ele, subfarms) {
     // Attach control from the canvas' user input
     // the attachControl function registers the native JS event listeners needed for the specific camera, ie. mouse, touch, keyboard
     camera.attachControl(engine.getRenderingCanvas());
+    camera.lowerRadiusLimit = 10;
+    camera.upperRadiusLimit = 90;
 
     // Set the camera to be the main active camera of the scene
     scene.activeCamera = camera;
@@ -27,9 +39,14 @@ function run_render(ele, subfarms) {
     // pl.specular = new BABYLON.Color3(1, 1, 1);
     // pl.intensity = 0.8;
 
-    var farmbase = createFarmBase(scene);
-    farmbase.position.x = -15;
-    farmbase.position.y = -15;
+    var farmbase = createFarmBase(scene, (5 - calculateWaterRatio()));
+    farmbase.position.x = -10;
+    farmbase.position.y = -10;
+
+    var waterbase = createWaterBase(scene, calculateWaterRatio());
+    waterbase.position.x = -10;
+    waterbase.position.y = -10;
+    waterbase.position.z = -3;
 
     var subfarmbases = [];
     var grassBlades = []
@@ -42,19 +59,19 @@ function run_render(ele, subfarms) {
       if (ele.x === 0) {
         x = 0;
       } else {
-        // x = (x/10) * -1;
-        x = 0;
+        x = (x/10) * -1;
+        // x = -3*2*2;
       }
       if (ele.y === 0) {
         y = 0;
       } else {
-        // y = (y/10) * -1;
-        y = 0;
+        y = (y/10) * -1;
+        // y = -2*2;
       }
       subfarmbases[idx].position.x = x;
       subfarmbases[idx].position.y = y;
       subfarmbases[idx].position.z = 3;
-      grassBlades[idx] = createGrassBlades(scene, x, y, 6);
+      grassBlades[idx] = createGrassBlades(scene, x, y, 5, width, height);
     });
     // var subfarmbase = createSubFarmBase(scene, 10, 10);
     // subfarmbase.position.x = -20;
@@ -105,9 +122,9 @@ function run_render(ele, subfarms) {
   // Create a Free Camera. It's a camera that is like a fps game camerea and allows you to freely move throughout the scene.
   function createFreeCamera(scene) {
     var camera = new BABYLON.ArcRotateCamera(
-      "cam", 0, 0, 50, BABYLON.Vector3.Zero(), scene); // Set the camera's initial position to 1.7 meters above the ground (y axis)
+      "cam", 1.5, 1.5 , 80, new BABYLON.Vector3(-10,-10,0), scene); // Set the camera's initial position to 1.7 meters above the ground (y axis)
       // "player camera", BABYLON.Vector3.Zero(), scene); // Creates a camera called 'player camera' at location 0,0,0 of the scene
-    camera.setPosition(new BABYLON.Vector3(0,-30,70));
+    // camera.setPosition(new BABYLON.Vector3(0,-10,80));
     return camera;
   }
 
@@ -122,8 +139,8 @@ function run_render(ele, subfarms) {
     return light;
   }
 
-  function createFarmBase(scene) {
-    var base = new BABYLON.MeshBuilder.CreateBox("base", {height: 40, width: 40, depth: 3}, scene);
+  function createFarmBase(scene, depth) {
+    var base = new BABYLON.MeshBuilder.CreateBox("base", {height: 40, width: 40, depth: depth}, scene);
     // var material = new BABYLON.StandardMaterial("groundMaterial", scene);
     // var texture = new BABYLON.GrassProceduralTexture("groundColor", 256, scene);
     // texture.grassColor = new BABYLON.Color3().RED;
@@ -139,6 +156,14 @@ function run_render(ele, subfarms) {
     baseMaterial.diffuseTexture = texture;
     base.material = baseMaterial;
 
+    return base;
+  }
+
+  function createWaterBase(scene,depth) {
+    var base = new BABYLON.MeshBuilder.CreateBox("waterBase", {height: 40, width: 40, depth: depth}, scene);
+    var waterMaterial = new BABYLON.StandardMaterial("waterMaterial", scene);
+    waterMaterial.diffuseColor = new BABYLON.Color3(0,0,5);
+    base.material = waterMaterial;
     return base;
   }
 
@@ -162,7 +187,7 @@ function run_render(ele, subfarms) {
     return base;
   }
 
-  function createGrassBlades(scene, xoffset, yoffset, zoffset) {
+  function createGrassBlades(scene, xoffset, yoffset, zoffset, width, height) {
     function radiusFunction(idx, distance) {
       return 0.3 * (1 - distance/10);
     }
@@ -191,8 +216,8 @@ function run_render(ele, subfarms) {
     grassTemplate.setEnabled(false);
 
     var grassPositions = [];
-    for (var x = -5; x < 5; x+=2) {
-      for (var z = -5; z < 5; z+=2) {
+    for (var x = (-1 * width / 2); x < width/2; x+=2) {
+      for (var z = (-1 * height / 2); z < height/2; z+=2) {
         grassPositions.push(new BABYLON.Vector3(xoffset+x+(1 - Math.random() * 0.4), yoffset+z+(1-Math.random() * 0.4), zoffset));
       }
     }

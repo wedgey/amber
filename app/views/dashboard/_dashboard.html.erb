@@ -34,7 +34,7 @@
     </div>
     <div class="col-md-6 farm-render-container">
       <h3>3D Render</h3>
-      <canvas class="farmPlot"></canvas>
+      <canvas class="farmPlot" width="400" height="200"></canvas>
     </div>
   </div>
       <div class="col-sm-12" id="actions-container">
@@ -66,6 +66,9 @@
 <script>
   var lastActivity = '<%= raw @last_activities %>';
   var farmName = '<%= j farm.name %>';
+  var subfarms = '<%= raw @subfarms %>';
+  var dayToWater = '<%= raw @day_to_water %>';
+  run_render(document.querySelector('.farmPlot'), JSON.parse(subfarms), JSON.parse(dayToWater));
 
   $(function() {
     createTimeline($("#<%= farm.id %>-timeline-container"), '', lastActivity);

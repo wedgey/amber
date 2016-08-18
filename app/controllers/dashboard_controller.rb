@@ -32,11 +32,13 @@ class DashboardController < ApplicationController
     watered = false
     fertilized = false
     chemicalled = false
+    @day_to_water = DateTime.now.to_date
 
     @farm.last_activities.each do |activity|
       if activity[:activity_id] == 1
         offset = 5
         watered = true
+        @day_to_water = offset.days.since(activity[:date].to_date)
       end
       if activity[:activity_id] == 2
         offset = 10 
@@ -52,11 +54,12 @@ class DashboardController < ApplicationController
     end 
 
     result[DateTime.now.to_date] << 1 unless watered
+    result[5.days.since(DateTime.now.to_date)] << 1 unless watered
     result[DateTime.now.to_date] << 2 unless fertilized
     result[DateTime.now.to_date] << 3 unless chemicalled
 
+    @day_to_water = @day_to_water.to_json
     @last_activities = result.to_json
-
     @subfarms = @farm.sub_farms.to_ary.to_json
 
   end

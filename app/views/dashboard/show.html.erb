@@ -14,9 +14,3 @@
       <!-- <div role="tabpanel" class="tab-pane" id="farm2">This is profile</div> -->
   </div>
 </section>
-
-<script>
-  var subfarms = '<%= raw @subfarms %>';
-  run_render(document.querySelector('.farmPlot'), JSON.parse(subfarms));
-</script>
-
