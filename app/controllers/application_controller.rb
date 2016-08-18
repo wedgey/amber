@@ -12,5 +12,13 @@ class ApplicationController < ActionController::Base
       !current_user.nil?
     end
 
-    helper_method :current_user, :logged_in?
+    def get_wunderground_key
+      ENV['WUNDERGROUND_API_KEY']
+    end
+
+    def get_ggmap_key
+      ENV['GGMAP_APP_KEY']
+    end
+
+    helper_method :current_user, :logged_in?, :get_wunderground_key, :get_ggmap_key
 end

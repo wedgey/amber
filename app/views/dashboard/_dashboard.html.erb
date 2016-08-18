@@ -1,9 +1,17 @@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+
+
+
 <div class="row">
   <div class="col-sm-12">
     <div class="col-md-12" id="<%= farm.id %>-timeline-container" class="farm-timeline">
     </div>
 
   </div>
+
   <div class="col-md-12">
     <div class="col-md-6" id="notifications-container">
       <div id="alert-not">
@@ -32,11 +40,21 @@
         </div>
       </div> -->
     </div>
-    <div class="col-md-6 farm-render-container">
-      <h3>3D Render</h3>
-      <canvas class="farmPlot" width="400" height="200"></canvas>
+    <div class="col-md-3 farm-render-container">
+      <h2>3D Render</h2>
+      <canvas class="farmPlot"></canvas>
+    </div>
+
+    <div class="col-md-3">
+      <h2> Harvest Tracker </h2>
+      <div style="width: 600px; height: 200px; margin: 0 auto">
+        <!-- <div id="container-speed" style="width: 300px; height: 200px; float: left"></div> -->
+        <div id="container-rpm" style="width: 300px; height: 200px; float: left"></div>
+    </div> 
     </div>
   </div>
+     
+
       <div class="col-sm-12" id="actions-container">
       <h3>Actions</h3>
       <div class="col-sm-3">
@@ -66,9 +84,6 @@
 <script>
   var lastActivity = '<%= raw @last_activities %>';
   var farmName = '<%= j farm.name %>';
-  var subfarms = '<%= raw @subfarms %>';
-  var dayToWater = '<%= raw @day_to_water %>';
-  run_render(document.querySelector('.farmPlot'), JSON.parse(subfarms), JSON.parse(dayToWater));
 
   $(function() {
     createTimeline($("#<%= farm.id %>-timeline-container"), '', lastActivity);
@@ -77,3 +92,4 @@
     // });
   });
 </script>
+
