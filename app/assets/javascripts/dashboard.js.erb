@@ -77,8 +77,57 @@ function createTimeline(ele, farmName, lastActivity) {
   }
 }
 
-$(function() {
+function createHarvestTracker(ele) {
+  ele.highcharts({
+    chart: {
+      type: 'solidgauge'
+    },
+    title: {
+      text: ''
+    },
+    credits: {
+      enabled: false
+    },
+    pane: {
+      startAngle: 0,
+      endAngle: 360,
+      background: [{
+        outerRadius: '69%',
+        innerRadius: '38%',
+        backgroundColor: '#f38630',
+        borderWidth: 0
+      }]
+    },
+    yAxis: {
+      min: 0,
+      max: 100,
+      lineWidth: 0,
+      tickPositions: []
+    },
+    plotOptions: {
+      solidgauge: {
+        borderWidth: '34px',
+        dataLabels: {
+          enabled: false
+        },
+        linecap: 'round',
+        stickTracking: true
+      }
+    },
+    series: [{
+      name: 'Harvest',
+      borderColor: '#fa6900',
+      data: [{
+        color: '#fa6900',
+        radius: '50%',
+        innerRadius: '50%',
+        y: 50
+      }]
+    }]
+  });
+}
 
+$(function() {
   $(document).on('click', '#modal-submit', function() {
     event.preventDefault();
     $('#actionsModal form').submit().bind('ajax:complete', function() {
