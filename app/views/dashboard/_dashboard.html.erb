@@ -1,20 +1,35 @@
-<!-- <script src="https://code.highcharts.com/highcharts.js"></script>
+<!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
 <script src="https://code.highcharts.com/highcharts-more.js"></script>
 
-<script src="https://code.highcharts.com/modules/solid-gauge.js"></script> -->
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
 
 
 
 <div class="row">
-  <div class="col-sm-12">
-    <div class="col-md-12" id="<%= farm.id %>-timeline-container" class="farm-timeline">
+  <div class="col-md-12">
+    <div class="col-md-12 farm-timeline" id="<%= farm.id %>-timeline-container">
     </div>
-
   </div>
 
   <div class="col-md-12">
     <div class="col-md-6" id="notifications-container">
-      <div id="alert-not">
+      <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">Notifications</h3></div>
+        <div class="panel-body">
+          <table id="alert-table" class="table table-responsive">
+            <tr id="alert-date">
+            <th>Date</th>
+            </tr>
+            <tr id="alert-rain">
+            <th>Rain</th>
+            </tr>
+            <tr id="alert-wind">
+            <th>Wind</th>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <!-- <div id="alert-not">
         <h3 id="align-nots">Notifications</h3>
           <table id="alert-table" class="table table-responsive">
             <tr id="alert-date">
@@ -27,7 +42,7 @@
             <th>Wind</th>
             </tr>
           </table>
-      </div>
+      </div> -->
       <!-- <div class="panel panel-warning">
         <div class="panel-heading">Notifications</div>
         <div class="panel-body">
@@ -41,8 +56,27 @@
       </div> -->
     </div>
     <div class="col-md-3 farm-render-container">
-      <h2>3D Render</h2>
-      <canvas class="farmPlot"></canvas>
+      <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">3D Render</h3></div>
+        <div class="panel-body text-center">
+          <canvas class="farmPlot" width="400" height="200"></canvas>
+        </div>
+      </div>
+      <!-- <h2>3D Render</h2>
+      <canvas class="farmPlot" width="300" height="190"></canvas> -->
+    </div>
+
+    <div class="col-md-3 harvest-tracker-container">
+      <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">Harvest Tracker</h3></div>
+        <div class="panel-body">
+          <div class="col-md-12 harvest-tracker">
+          </div>
+        </div>
+      </div>
+      <!-- <h2>Harvest Tracker</h2>
+      <div class="col-md-12 harvest-tracker">
+      </div> -->
     </div>
 
     <!-- <div class="col-md-3">
@@ -55,29 +89,31 @@
   </div>
      
 
-      <div class="col-sm-12" id="actions-container">
-      <h3>Actions</h3>
-      <div class="col-sm-3">
-        <button type="button" class="btn btn-default btn-lg water-btn" data-toggle="modal" data-target="#actionsModal" data-action="Water Crops">
-          <i class="fa fa-tint" aria-hidden="true"></i><span class="hidden-sm"> Water Farm</span>
-        </button>
+      <div class="col-md-12" id="actions-container">
+        <div class="col-md-12">
+          <h3>Actions</h3>
+        </div>
+        <div class="col-md-3">
+          <button type="button" class="btn btn-default btn-lg water-btn" data-toggle="modal" data-target="#actionsModal" data-action="Water Crops">
+            <i class="fa fa-tint" aria-hidden="true"></i><span class="hidden-sm"> Water Farm</span>
+          </button>
+        </div>
+        <div class="col-md-3">
+          <button type="button" class="btn btn-default btn-lg fertilize-btn" data-toggle="modal" data-target="#actionsModal" data-action="Fertilize Farm">
+            <i class="fa fa-medkit" aria-hidden="true"></i><span class="hidden-sm"> Fertilize Farm</span>
+          </button>
+        </div>
+        <div class="col-md-3">
+          <button type="button" class="btn btn-default btn-lg chemical-btn" data-toggle="modal" data-target="#actionsModal" data-action="Apply Chemicals">
+            <i class="fa fa-flask" aria-hidden="true"></i><span class="hidden-sm"> Apply Chemicals</span>
+          </button>
+        </div>
+        <div class="col-md-3">
+          <button type="button" class="btn btn-default btn-lg miscellaneous-btn" data-toggle="modal" data-target="#actionsModal" data-action="Miscellaneous">
+            <i class="fa fa-question-circle" aria-hidden="true"></i><span class="hidden-sm"> Miscellaneous</span>
+          </button>
+        </div>
       </div>
-      <div class="col-sm-3">
-        <button type="button" class="btn btn-default btn-lg fertilize-btn" data-toggle="modal" data-target="#actionsModal" data-action="Fertilize Farm">
-          <i class="fa fa-medkit" aria-hidden="true"></i><span class="hidden-sm"> Fertilize Farm</span>
-        </button>
-      </div>
-      <div class="col-sm-3">
-        <button type="button" class="btn btn-default btn-lg chemical-btn" data-toggle="modal" data-target="#actionsModal" data-action="Apply Chemicals">
-          <i class="fa fa-flask" aria-hidden="true"></i><span class="hidden-sm"> Apply Chemicals</span>
-        </button>
-      </div>
-      <div class="col-sm-3">
-        <button type="button" class="btn btn-default btn-lg miscellaneous-btn" data-toggle="modal" data-target="#actionsModal" data-action="Miscellaneous">
-          <i class="fa fa-question-circle" aria-hidden="true"></i><span class="hidden-sm"> Miscellaneous</span>
-        </button>
-      </div>
-    </div>
 </div>
 
 
@@ -86,10 +122,13 @@
   var farmName = '<%= j farm.name %>';
   var subfarms = '<%= raw @subfarms %>';
   var dayToWater = '<%= raw @day_to_water %>';
+  var dayToHarvest = '<%= raw @days_to_harvest %>';
+  var potentialYield = '<%= raw @potential_yield %>';
   run_render(document.querySelector('.farmPlot'), JSON.parse(subfarms), JSON.parse(dayToWater));
 
   $(function() {
     createTimeline($("#<%= farm.id %>-timeline-container"), '', lastActivity);
+    createHarvestTracker($('.harvest-tracker'), JSON.parse(dayToHarvest), JSON.parse(potentialYield));
     // $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     //   $($("#<%= farm.id %>-timeline-container")).highcharts().reflow();
     // });

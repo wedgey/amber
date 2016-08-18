@@ -26,7 +26,6 @@ function createTimeline(ele, farmName, lastActivity) {
 
   var generatePlotBands = function() {
     var lastActivities = JSON.parse(lastActivity);
-    console.log(JSON.parse(lastActivity));
     var offsets = [0, 432000000, 864000000, 1210000000];
     var result = [];
     for (var key in lastActivities) {
@@ -77,8 +76,93 @@ function createTimeline(ele, farmName, lastActivity) {
   }
 }
 
-$(function() {
+function createHarvestTracker(ele,subFarm, potentialYield) {
+  function calculateDaysDiff() {
+    var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+    var firstDate = new Date(subFarm.harvest_date);
+    var secondDate = new Date();
 
+    var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+    return diffDays;
+  }
+
+  ele.highcharts({
+    chart: {
+      type: 'solidgauge',
+      marginTop: 15,
+      marginBottom: 15
+    },
+    title: {
+      text: 'Subfarm ' + subFarm.id,
+      useHTML: true,
+      margin: 10,
+      verticalAlign: "top",
+      style: {
+        "fontSize": "12px"
+      }
+    },
+    subtitle: {
+      useHTML: true,
+      text: 'Forecasted Yield: <strong>' + potentialYield + '</strong> kg/ha',
+      verticalAlign: "bottom",
+      style: {
+        "fontSize": "12px"
+      }
+    },
+    credits: {
+      enabled: false
+    },
+    pane: {
+      startAngle: 0,
+      endAngle: 360,
+      background: [{
+        outerRadius: '100%',
+        innerRadius: '60%',
+        backgroundColor: 'rgba(105, 210, 231, 0.35)',
+        borderWidth: 0
+      }]
+    },
+    tooltip: {
+      enabled: false
+    },
+    yAxis: {
+      min: 0,
+      max: 100,
+      lineWidth: 0,
+      tickPositions: []
+    },
+    plotOptions: {
+      solidgauge: {
+        borderWidth: '30px',
+        dataLabels: {
+          y: 5,
+          borderWidth: 0,
+          useHTML: true
+        },
+        linecap: 'square',
+        stickTracking: true
+      }
+    },
+    series: [{
+      name: 'Harvest',
+      borderColor: '#fa6900',
+      data: [{
+        color: '#fa6900',
+        radius: '80%',
+        innerRadius: '80%',
+        y: (100 - calculateDaysDiff())
+      }],
+      dataLabels: {
+        formatter: function() {
+          return '<div style="text-align:center; margin-top:-30px; margin-left:-2px;"><span style="font-size: 20px">' + (100 - this.y) + '</span><br>days</div>'
+        }
+        // format: '<div style="text-align:center; margin-top:-30px; margin-left:-2px;"><span style="font-size: 20px">' + (100 - this.y) + '</span><br>days</div>'
+      }
+    }]
+  });
+}
+
+$(function() {
   $(document).on('click', '#modal-submit', function() {
     event.preventDefault();
     $('#actionsModal form').submit().bind('ajax:complete', function() {
