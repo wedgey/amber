@@ -31,10 +31,12 @@ rice.stages << Stage.create(name: "Maturity", start_date: 65, tmax: 29, tmin: 25
 water = Resource.create(name: "Water", price: "0.20")
 fertilizer = Resource.create(name: "Fertilizer", price: "0.70")
 chemicals = Resource.create(name: "Chemicals", price: "0.50")
+miscellaneous  = Resource.create(name: "Miscellaneous", price: "0.01")
 
 water.activities << Activity.create(name: "Water Crops")
 fertilizer.activities << Activity.create(name: "Fertilize Farm")
 chemicals.activities << Activity.create(name: "Apply Chemicals")
+miscellaneous.activities << Activity.create(name: "Miscellaneous")
 
 user = User.create(username: 'vanessa', password: 'password')
 aiy = User.create(username: 'aiy', password: 'password')

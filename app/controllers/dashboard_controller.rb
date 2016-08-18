@@ -35,6 +35,7 @@ class DashboardController < ApplicationController
     @day_to_water = DateTime.now.to_date
 
     @farm.last_activities.each do |activity|
+      next if activity[:activity_id] == 4
       if activity[:activity_id] == 1
         offset = 5
         watered = true
