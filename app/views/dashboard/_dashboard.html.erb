@@ -84,6 +84,9 @@
 <script>
   var lastActivity = '<%= raw @last_activities %>';
   var farmName = '<%= j farm.name %>';
+  var subfarms = '<%= raw @subfarms %>';
+  var dayToWater = '<%= raw @day_to_water %>';
+  run_render(document.querySelector('.farmPlot'), JSON.parse(subfarms), JSON.parse(dayToWater));
 
   $(function() {
     createTimeline($("#<%= farm.id %>-timeline-container"), '', lastActivity);
