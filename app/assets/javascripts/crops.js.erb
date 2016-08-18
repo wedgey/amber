@@ -33,7 +33,7 @@ $(function () {
   }
 
   $.ajax({
-    url: "http://api.wunderground.com/api/<%= Rails.application.secrets.wunderground_api_key %>/forecast10day/q/4.944,114.928.json",
+    url: "http://api.wunderground.com/api/<%= ENV['WUNDERGROUND_API_KEY'] %>/forecast10day/q/4.944,114.928.json",
     dataType: 'jsonp',
     jsonp: 'callback',
     success: function(datavalue) {
