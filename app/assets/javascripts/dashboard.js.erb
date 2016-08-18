@@ -43,8 +43,8 @@ function createTimeline(ele, farmName, lastActivity) {
   var createtimeline = function(weatherData) { 
     var date = weatherData.simpleforecast.forecastday[0].date;
     ele.highcharts({
-      charts: {
-        spacingTop: 20
+      chart: {
+        spacingTop: 50
       },
       credits: {enabled: false},
       title: {
@@ -86,6 +86,7 @@ $(function() {
         $('#actionsModal form').trigger("reset");
         $('#actionsModal .ajax-loader').hide();
         $('#actionsModal form').show();
+        location.reload();
       });
     });
     $('#actionsModal .ajax-loader').show();
@@ -96,7 +97,7 @@ $(function() {
     var button = $(event.relatedTarget);
     var action = button.data('action');
 
-    $(this).find('.modal-header').removeClass("Water-Crops Fertilize-Farm ApplyChemicals").addClass(action.replace(/\s/g,"-")).find('.modal-title').text(action);
+    $(this).find('.modal-header').removeClass("Water-Crops Fertilize-Farm Apply-Chemicals Miscellaneous").addClass(action.replace(/\s/g,"-")).find('.modal-title').text(action);
     $(this).find('.modal-body select#sub_farm_activity_activity_id option:contains('+action+')').prop('selected', true);
 
   });
