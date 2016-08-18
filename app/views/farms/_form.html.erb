@@ -145,6 +145,6 @@
 }
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=<%=Rails.application.secrets.GGMAP_APP_KEY %>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= get_ggmap_key %>
 &callback=initMap"
 async defer></script>
