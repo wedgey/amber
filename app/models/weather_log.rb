@@ -92,7 +92,6 @@ class WeatherLog < ApplicationRecord
         avg_tmin += val[:tmin]
         avg_precip += val[:precip]
       end
-      p weathers
       {avg_tmax: avg_tmax / weathers.size, avg_tmin: avg_tmin / weathers.size, avg_precip: avg_precip / weathers.size}
     end
   end

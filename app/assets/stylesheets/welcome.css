@@ -1,6 +1,6 @@
 #wrapper { 
   height: 100vh;
-  top: 150px;
+  top: 38vh;
   width: 960px; 
   margin: 0px auto; 
   padding: 48px 0 72px; 
@@ -51,12 +51,14 @@
 }
 
 #footer-homepage {
-  background-color: #E0E4CC;
-  height: 100px;
+  background-color: white;
+  border-top: 2px, red, solid;
+  height: 60px;
   padding-top: 0px;
   /*padding: 40px;
   /*text-align: center;*/
   color: grey;
+
 }
 
 
@@ -88,14 +90,9 @@
   color: white;
   text-align: center;
   padding-top: 35px;
-  margin-left: 180px;
-  margin-right: 180px;
-  font-size:; 24px;
-  font-weight:;
+
+/*  margin-left: 180px;
+  margin-right: 180px;*/
+  font-size: 24px;
 }
-
-
-
-
-
 

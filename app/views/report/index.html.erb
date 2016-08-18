@@ -1,39 +1,76 @@
-<section class="container">
+<section id="farm-index" class="container ">
+
   <article id="report-pdf">
-  <h1>Activities Report</h1>
+  <div class="row header-container">
+    <h1>Activities Report</h1>
+  </div>
 
-  <% @farms.each do |farm| %>
+    <section class="row content-container">
+      <% @farms.each do |farm| %>
 
-    <% if(farm.sub_farm_activities.size > 0) %>
-      <h2><%= farm.name %></h2>
+        <% if(farm.sub_farm_activities.size > 0) %>
+          <h2>Farm : <%= farm.name %></h2>
 
-      <% farm.sub_farms.each do |subfarm| %>
+          <% farm.sub_farms.each do |subfarm| %>
 
-        <% if(subfarm.sub_farm_activities.size > 0) %>
-          <h3><%= subfarm.id %></h3>
+            <% if(subfarm.sub_farm_activities.size > 0) %>
+              <h3>Subfarm : <%= subfarm.id %></h3>
+              <table align="center" class="table">
+                <thead>
+                  <th>Activity</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                  <th>Title</th>
+                  <th width="30%">Note</th>
+                </thead>
+                <% subfarm.sub_farm_activities.order(date: :asc).each do |act| %>
+                  
+                  <tbody>
+                    <tr>
+                      <td align="left">
+                      <%= act.activity.name %>
+                      </td>
+                      <td align="left">
+                      <%= act.amount %>
+                      </td>
+                      <td align="left">
+                      <%= act.date.to_date %>
+                      </td>
+                      <td align="left">
+                      <%= act.title %>
+                      </td>
+                      
+                      <td colspan="4" align="left"><!-- 
+                      <strong>Note : </strong> -->
+                      <%= act.note %>
+                      </td>
+                      <!-- </tr> -->
+                    </tr>
+                  </tbody>
+                  </article>
+                <% end %>
+              </table>
+            <% end %>
 
-          <% subfarm.sub_farm_activities.order(date: :asc).each do |act| %>
-            
-              <%= act.activity.name %>
-              <%= act.amount %>
-              <%= act.date %>
-              <%= act.title %>
-              <%= act.note %>
           <% end %>
-
         <% end %>
-
       <% end %>
-    <% end %>
-  <% end %>
+    </section>
   </article>
+  <br>
+  <!-- <div class="pdf-btn"> -->
+    
+  <!-- </div> -->
+  <br>
+<button id="pdf-button" class='btn pull-right'>Download PDF</button>
 </section>
 
-<button id="pdf-button" class='btn'>generate PDF</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.0.16/jspdf.plugin.autotable.js"></script>
 
 <script>
 
-  var doc = new jsPDF();
+  var doc = new jsPDF('landscape');
 
   $('#pdf-button').click(function () {
     doc.fromHTML($('#report-pdf').html(), 15, 15, {
@@ -41,4 +78,13 @@
     });
     doc.save('sample-file.pdf');
   });
+
+
 </script>
+
+
+
+
+
+
+

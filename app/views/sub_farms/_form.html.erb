@@ -1,5 +1,5 @@
-<div class="container-fluid">
-  <div class="row">
+<div>
+  <div class="row content-container">
     <div class="col-md-7">
       <section class="draw-section">
 <!--         <canvas id="farm-layout-show" class="farm-layout" width="400" height="400" style="border:1px solid #000000;">
@@ -34,13 +34,13 @@
           </div>
         <% end %>
 
-        <table class="table">
+        <table class="table new-subfarm">
           <tr>
           <td>
               <%= f.label :farm_id %>
           </td>
           <td>
-              <%= f.text_field :farm_id, value: @farm.id, readonly: true %>
+              <%= f.text_field :farm_id, class: "form-control",value: @farm.id, readonly: true %>
           </td>
           </tr>
         
@@ -50,25 +50,25 @@
             <%= f.label :crop_id %>
           </td>
           <td>
-            <%= f.text_field :crop_id, value: '1' %>
+            <%= f.text_field :crop_id,class: "form-control", value: '1' %>
           </td>
           </tr>
 
           <tr>
           <td>
-            <%= f.label :size %>
+            <%= f.label :size, "Size (ha)" %>
           </td>
           <td>
-            <%= f.text_field :size %>
+            <%= f.text_field :size, class: "form-control"%>
           </td>
           </tr>
 
           <tr>
           <td>
-            <%= f.label :crop_weight %>
+            <%= f.label :crop_weight, "Seed weight (kg)" %>
           </td>
           <td>
-            <%= f.text_field :crop_weight %>
+            <%= f.text_field :crop_weight,class: "form-control" %>
           </td>
           </tr>
 
@@ -77,7 +77,7 @@
             <%= f.label :start_date %>
           </td>
           <td>
-          <%= f.date_select :start_date %>
+          <%= f.date_select :start_date, { use_short_month: true }, class:"form-control datetime-select" %>
           </td>
           </tr>
 
@@ -86,7 +86,7 @@
             <%= f.label :harvest_date %>
           </td>
           <td>
-          <%= f.date_select :harvest_date %>
+          <%= f.date_select :harvest_date, { use_short_month: true }, class:"form-control datetime-select" %>
           </td>
           </tr>
 
@@ -95,8 +95,14 @@
             <%= f.label 'Coordinate' %>
           </td>
           <td>
-          <%= f.text_field :x, readonly: true, class: "box-lat-lng" %>
-            <%= f.text_field :y, readonly: true, class: "box-lat-lng" %>
+          <div class="row">
+          <div class="col-md-6">
+            <%= f.text_field :x, readonly: true, class: "box-lat-lng form-control" %>
+          </div>
+          <div class="col-md-6">
+            <%= f.text_field :y, readonly: true, class: "box-lat-lng form-control" %>
+          </div>
+          </div>
           </td>
           </tr>
           <tr>
@@ -105,16 +111,22 @@
             <%= f.label 'Width/Height' %>
           </td>
           <td>
-            <%= f.text_field :width, readonly: true, class: "box-lat-lng" %>
-            <%= f.text_field :height, readonly: true, class: "box-lat-lng" %>
+            <div class="row">
+              <div class="col-md-6">
+                <%= f.text_field :width, readonly: true, class: "box-lat-lng form-control" %>
+              </div>
+              <div class="col-md-6">
+                <%= f.text_field :height, readonly: true, class: "box-lat-lng form-control" %>
+              </div>
           </td>
           </tr>
 
         </table>
             
 
-        <div class="actions">
-          <%= f.submit 'Submit', class: "btn btn-default center-block" %>
+        <div class="actions text-center">
+          <%= f.submit 'Submit', class: "btn btn-default" %>
+          <%= link_to 'Cancel', @farm, class: "btn cancel" %>
         </div>
       <% end %>
     </div>
@@ -128,9 +140,9 @@
     var ctx = farm.getContext("2d");
 
     <% @farm.sub_farms.each do |subfarm| %>
-      <% if subfarm.x and subfarm.y and subfarm.width and subfarm.height %>
+      <% if (subfarm.id != @sub_farm.id) and subfarm.x and subfarm.y and subfarm.width and subfarm.height %>
         
-        ctx.rect(<%= subfarm.x.to_f %>, <%= subfarm.y.to_f %>, <%= subfarm.x.to_f + subfarm.width.to_f %>, <%= subfarm.y.to_f + subfarm.height.to_f %>);
+        ctx.rect(<%= subfarm.x.to_f %>, <%= subfarm.y.to_f %>, <%= subfarm.width.to_f %>, <%= subfarm.height.to_f %>);
         ctx.stroke();
       <% end %>
     <% end %>

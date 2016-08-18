@@ -4,6 +4,11 @@
 
 $sample-size: 50px;
 $template-size: 300px;
+$dark-blue: #69d2e7;
+$medium-blue: #a7dbdb;
+$green-grey: #e0e4cc;
+$light-orange: #f38630;
+$dark-orange: #fa6900;
 
 [draggable=true] {
     cursor: move;
@@ -44,6 +49,7 @@ $template-size: 300px;
       position: absolute; 
       top: 20px; 
       left: 30px;
+      z-index: 1;
     }
   }
 
@@ -68,7 +74,7 @@ $template-size: 300px;
 }
 
 #farm-layout-show{
-  z-index: -1;
+  // z-index: -1;
 }
 
 .template-square {
@@ -86,11 +92,33 @@ $template-size: 300px;
   margin: auto;
 }
 
-.box-lat-lng{
+/*.box-lat-lng{
   width: 80px;
+}*/
+
+#farm-index .content-container table.new-subfarm tr td:first-child {
+  width: 50%;
+  font-size: 16px;
 }
 
+#farm-index .datetime-select {
+  width: 33%;
+  float: left;
+}
 
+#farm-index .content-container .btn-edit {
+  background-color: $light-orange;
+  color: white;
+}
+
+#farm-index .content-container .btn-delete {
+  background-color: black;
+  color: white;
+}
+
+/*#farm-index .btn.btn-edit {
+  background-color: #69d2e7;
+}*/
 
 .template-clicked{
   width: 80px;

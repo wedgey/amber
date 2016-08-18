@@ -21,7 +21,7 @@
       <h3>A farm management tool for system optimization</h3>
       <div id="homepage-row-div">
       <div class="row">
-        <div class="span4"><%= link_to 'Log in', farms_path, class: "btn btn-success" %></div>
+        <div class="span4"><%= link_to 'Log in', user_farms_path, class: "btn btn-success" %></div>
         <div class="span6"><%= link_to 'Users', users_path, id: "btn-user" %></div>
       </div>
       </div>
@@ -32,8 +32,10 @@
 
   <div id="home-desc">
     <h2 id="header-note">Why is it useful?</h2>
-    <div>
-    <h4 id="full-note">A user-friendly software that acts as a daily digital activity logbook and measure of future potential yield for farmers growing rice crops within a specific geographic location</h4>
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6">
+        <h4 id="full-note">A user-friendly software that acts as a daily digital activity logbook and measure of future potential yield for farmers growing rice crops within a specific geographic location</h4>
+      </div>
     </div>
   </div>
 

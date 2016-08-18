@@ -1,6 +1,17 @@
-<h1>Editing Farm</h1>
+<main id="farm-index" class="container text-center">
 
-<%= render 'form', farm: @farm %>
+  <div class="row header-container">
+    <div class='col-md-12'>
+      <h1>Edit Farm</h1>
+    </div>
+  </div>
 
-<%= link_to 'Show', @farm %> |
-<%= link_to 'Back', farms_path %>
+  <div class="row content-container">
+    <div class="col-md-12">
+      <%= render 'form', farm: @farm %>
+
+    </div>
+  </div>
+
+
+</main>

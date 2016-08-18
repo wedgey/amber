@@ -70,7 +70,9 @@ class SubFarmsController < ApplicationController
   # DELETE /sub_farms/1.json
   def destroy
     @farm = Farm.find(@sub_farm.farm_id)
-    @sub_farm.destroy
+    # @sub_farm.destroy
+    @sub_farm.active = false;
+    @sub_farm.save!
     
     respond_to do |format|
       format.html { redirect_to @farm, notice: 'Sub farm was successfully destroyed.' }

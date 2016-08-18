@@ -1,3 +1,22 @@
 // Place all the styles related to the Report controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$dark-orange: #fa6900;
+$medium-blue: #a7dbdb;
+
+.pdf-btn {
+  text-align: right;
+}
+
+#pdf-button {
+  margin-bottom: 40px;
+  margin-right: -15px;
+  background-color: $dark-orange;
+  color: white;
+}
+
+#pdf-button:hover {
+  background-color: $medium-blue;
+  color: white;
+}

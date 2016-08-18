@@ -6,7 +6,7 @@
   background-color: lightblue;
   height: 1000px;
   margin-left: 100px;
-  margin-top: 70px;
+  margin-top: 20px;
 }
 
 /*.logo {
@@ -55,6 +55,7 @@
   text-align: center;
   border-spacing: 25px;
   border-collapse: separate;
+  margin-bottom: 0px;
 }
 
 td {

@@ -1,10 +1,14 @@
-<section class="text-center">
+
+<section id="farm-index" class="container text-center">
+
   <p id="notice"><%= notice %></p>
+  
+  <div class="row header-container">
+    <h1><%= @farm.name %></h1>
+  </div>
 
-  <h1><%= @farm.name %></h1>
 
-
-<section class="container">
+<section class="row content-container">
   <div class="row">
     <div class="col-md-6">
 
@@ -18,32 +22,33 @@
 
       <table class="table">
         <tr>
-          <td><strong>Farm code:</strong></td>
+          <td><strong>Farm code</strong></td>
           <td><%= @farm.farm_code %></td>
         </tr>
 
         <tr>
-          <td><strong>Lat:</strong></td>
+          <td><strong>Latitude</strong></td>
           <td><%= @farm.lat %></td>
         </tr>
 
         <tr>
-          <td><strong>Lng:</strong></td>
+          <td><strong>Longitude</strong></td>
           <td><%= @farm.lng %></td>
         </tr>
 
 
         <tr>
-          <td><strong>Size:</strong></td>
+          <td><strong>Size</strong></td>
           <td><%= @farm.size %></td>
         </tr>
       </table>
 
       <hr>
 
+      <h3><%= "Sub Farm".pluralize(@farm.sub_farms.count) %></h3>
 <!-- start tabs -->
       <ul class="nav nav-pills sub_farm_tabs">
-        <li class='to-new-subfarm'><%= link_to 'Add Sub Farm', new_farm_sub_farm_path(@farm), class: 'btn btn-success', method: 'GET' %></li>
+        <li class='to-new-subfarm'><%= link_to raw('<i class="fa fa-plus" aria-hidden="true"></i>'), new_farm_sub_farm_path(@farm), class: 'btn', method: 'GET' %></li>
       </ul>
 
       <div class="tab-content sub_farm_content">
@@ -52,13 +57,11 @@
 
     </div>
   </div>
+    <%= link_to 'Edit', edit_farm_path(@farm)%>, |
+    <%= link_to 'Back', user_farms_path %>
 </section>
 
 
-
-
-  <%= link_to 'Edit', edit_farm_path(@farm) %> |
-  <%= link_to 'Back', farms_path %>
 </section>
 
 <script>
@@ -79,23 +82,22 @@
       var est_yield = $('<tr>').html('<td><strong>Estimated Yield:</strong></td> <td><%= subfarm.calculate_yield %></td>');
       var start = $('<tr>').html('<td><strong>Start date:</strong></td> <td><%= subfarm.start_date %></td>');
       var harvest = $('<tr>').html('<td><strong>Harvest date:</strong></td> <td><%= subfarm.harvest_date %></td>');
-      var btns = $('<tr>').html('<td><a class="btn btn-warning" data-method="get" href="/farms/<%= @farm.id %>/sub_farms/<%= subfarm.id %>/edit">Edit</a><a  class="btn btn-danger" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/farms/<%= @farm.id %>/sub_farms/<%= subfarm.id %>">Destroy</a></td>');
+      var btns = $('<tr>').html('<td></td><td class="text-right"><a class="btn btn-edit" data-method="get" href="/farms/<%= @farm.id %>/sub_farms/<%= subfarm.id %>/edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp<a  class="btn btn-delete" data-confirm="Are you sure?" rel="nofollow" data-method="delete" href="/farms/<%= @farm.id %>/sub_farms/<%= subfarm.id %>"><i class="fa fa-trash" aria-hidden="true"></i></a></td>');
 
 
 
-
-      var content = $('<table id="subfarm<%= subfarm.id %>" class="tab-pane fade in active table"></table>').append(crop).append(size).append(crop_w).append(est_yield).append(start).append(harvest).append(btns);
-
+      var content = $('<div class="tab-pane fade in active" id="subfarm<%= subfarm.id %>" >');
+      var table = $('<table class="table table-responsive"></table>').append(crop).append(size).append(crop_w).append(est_yield).append(start).append(harvest).append(btns);
+      content.append(table);
       $('.sub_farm_content').append(content);
 
       <% if subfarm.x and subfarm.y and subfarm.width and subfarm.height %>
-        
-        ctx.rect(<%= subfarm.x.to_f %>, <%= subfarm.y.to_f %>, <%= subfarm.x.to_f + subfarm.width.to_f %>, <%= subfarm.y.to_f + subfarm.height.to_f %>);
+        ctx.rect(<%= subfarm.x.to_f %>, <%= subfarm.y.to_f %>, <%= subfarm.width.to_f %>, <%= subfarm.height.to_f %>);
         ctx.stroke();
       <% end %>
     <% end %>
     $('.sub_farm_tabs li:first-child').addClass('active');
-    $('.sub_farm_content').children('table:not(:first-child)').removeClass('in active');
+    $('.sub_farm_content').children('div:not(:first-child)').removeClass('in active');
 
   });
 </script>

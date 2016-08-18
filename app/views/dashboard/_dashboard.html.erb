@@ -1,38 +1,22 @@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+
+
+
 <div class="row">
-  <%= farm.name %>
-  <div class="col-sm-8">
+  <div class="col-sm-12">
     <div class="col-md-12" id="<%= farm.id %>-timeline-container" class="farm-timeline">
     </div>
-    <div class="col-sm-12" id="actions-container">
-      <h3>Actions</h3>
-      <div class="col-sm-3">
-        <button type="button" class="btn btn-default btn-lg water-btn" data-toggle="modal" data-target="#actionsModal" data-action="Water Crops">
-          <i class="fa fa-tint" aria-hidden="true"></i><span class="hidden-sm"> Water Farm</span>
-        </button>
-      </div>
-      <div class="col-sm-3">
-        <button type="button" class="btn btn-default btn-lg fertilize-btn" data-toggle="modal" data-target="#actionsModal" data-action="Fertilize Farm">
-          <i class="fa fa-medkit" aria-hidden="true"></i><span class="hidden-sm"> Fertilize Farm</span>
-        </button>
-      </div>
-      <div class="col-sm-3">
-        <button type="button" class="btn btn-default btn-lg chemical-btn" data-toggle="modal" data-target="#actionsModal" data-action="Apply Chemicals">
-          <i class="fa fa-flask" aria-hidden="true"></i><span class="hidden-sm"> Apply Chemicals</span>
-        </button>
-      </div>
-      <div class="col-sm-3">
-        <button type="button" class="btn btn-default btn-lg miscellaneous-btn">
-          <i class="fa fa-flask" aria-hidden="true"></i><span class="hidden-sm"> Miscellaneous</span>
-        </button>
-      </div>
-    </div>
+
   </div>
-  
-  <div class="col-sm-4">
-    <div class="col-md-12" id="notifications-container">
+
+  <div class="col-md-12">
+    <div class="col-md-6" id="notifications-container">
       <div id="alert-not">
         <h3 id="align-nots">Notifications</h3>
-          <table id="alert-table">
+          <table id="alert-table" class="table table-responsive">
             <tr id="alert-date">
             <th>Date</th>
             </tr>
@@ -56,22 +40,56 @@
         </div>
       </div> -->
     </div>
-    <div class="col-md-12 farm-render-container">
-      <h3>3D Render</h3>
+    <div class="col-md-3 farm-render-container">
+      <h2>3D Render</h2>
       <canvas class="farmPlot"></canvas>
     </div>
+
+    <div class="col-md-3">
+      <h2> Harvest Tracker </h2>
+      <div style="width: 600px; height: 200px; margin: 0 auto">
+        <!-- <div id="container-speed" style="width: 300px; height: 200px; float: left"></div> -->
+        <div id="container-rpm" style="width: 300px; height: 200px; float: left"></div>
+    </div> 
+    </div>
   </div>
+     
+
+      <div class="col-sm-12" id="actions-container">
+      <h3>Actions</h3>
+      <div class="col-sm-3">
+        <button type="button" class="btn btn-default btn-lg water-btn" data-toggle="modal" data-target="#actionsModal" data-action="Water Crops">
+          <i class="fa fa-tint" aria-hidden="true"></i><span class="hidden-sm"> Water Farm</span>
+        </button>
+      </div>
+      <div class="col-sm-3">
+        <button type="button" class="btn btn-default btn-lg fertilize-btn" data-toggle="modal" data-target="#actionsModal" data-action="Fertilize Farm">
+          <i class="fa fa-medkit" aria-hidden="true"></i><span class="hidden-sm"> Fertilize Farm</span>
+        </button>
+      </div>
+      <div class="col-sm-3">
+        <button type="button" class="btn btn-default btn-lg chemical-btn" data-toggle="modal" data-target="#actionsModal" data-action="Apply Chemicals">
+          <i class="fa fa-flask" aria-hidden="true"></i><span class="hidden-sm"> Apply Chemicals</span>
+        </button>
+      </div>
+      <div class="col-sm-3">
+        <button type="button" class="btn btn-default btn-lg miscellaneous-btn">
+          <i class="fa fa-flask" aria-hidden="true"></i><span class="hidden-sm"> Miscellaneous</span>
+        </button>
+      </div>
+    </div>
 </div>
+
+
 <script>
-  var waterActivity = '<%= raw @water_activity %>';
-  var fertilizerActivity = '<%= raw @fertilizer_activity %>';
-  var chemicalActivity = '<%= raw @chemical_activity %>';
+  var lastActivity = '<%= raw @last_activities %>';
   var farmName = '<%= j farm.name %>';
 
   $(function() {
-    createTimeline($("#<%= farm.id %>-timeline-container"), farmName, waterActivity, fertilizerActivity, chemicalActivity);
+    createTimeline($("#<%= farm.id %>-timeline-container"), '', lastActivity);
     // $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     //   $($("#<%= farm.id %>-timeline-container")).highcharts().reflow();
     // });
   });
 </script>
+

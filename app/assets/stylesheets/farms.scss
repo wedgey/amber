@@ -3,15 +3,72 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-
+$dark-blue: #69d2e7;
+$medium-blue: #a7dbdb;
+$green-grey: #e0e4cc;
+$light-orange: #f38630;
+$dark-orange: #fa6900;
 
 #map {
-  height: 400px;
-  width: 400px;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  /*height: 400px;*/
+  min-height: 500px;
+  /*min-width: 500px;*/
+/*  margin-top: 15px;
+  margin-bottom: 15px;*/
 }
 
 .farm-show-info {
   text-align: left;
+}
+
+#farm-index .header-container {
+  /*background-color: lightgrey;*/
+  text-align: center;
+  color: $dark-orange;
+  font-weight: 700;
+}
+
+#farm-index .content-container {
+  background-color: #f3f3f3;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+#farm-index .content-container .btn {
+  background-color: $dark-orange;
+  color: white;
+}
+
+#farm-index .content-container .btn:hover {
+  background-color: $dark-blue;
+}
+
+#farm-index .content-container .btn.cancel {
+  background-color: $green-grey;
+  color: black;
+}
+
+#farm-index .content-container .btn.cancel:hover {
+  background-color: lightgrey;
+}
+
+#farm-index .content-container .fa-map-marker {
+  color: #f34f47;
+}
+
+#farm-index .content-container table {
+  background-color: white;
+}
+
+#farm-index .content-container table th {
+  font-weight: 700;
+}
+
+#farm-index .content-container .new-farm table tr td:first-child {
+  width: 50%;
+}
+
+#farm-index .content-container .new-farm table tr td label {
+  font-size: 16px;
+  line-height: 30px;
 }

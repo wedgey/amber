@@ -1,4 +1,4 @@
-function createTimeline(ele, farmName, waterActivity, fertilizerActivity, chemicalActivity) {
+function createTimeline(ele, farmName, lastActivity) {
   $.ajax({
     url: "http://api.wunderground.com/api/<%= Rails.application.secrets.wunderground_api_key %>/forecast10day/q/4.944,114.928.json",
     dataType: 'jsonp',
@@ -7,147 +7,49 @@ function createTimeline(ele, farmName, waterActivity, fertilizerActivity, chemic
     }
   });
 
-  var generateActivity = function(activity, type, offset = 0) {
-    if(activity) {
-      var date = new Date(activity.date);
-      date.setDate(date.getDate() + 5);
+  var generateColor = function(arr) {
+    var stops = [];
+    var colorLegend = ['#a1a1a1', '#69d2e7', '#fa6900', '#000000'];
+    if (arr.length == 1) {
+      stops.push([0, colorLegend[arr[0]]]);
     } else {
-      var date = new Date();
+      arr.forEach(function(ele, idx) {
+        arr2 = [(Number(idx)/(arr.length-1)), colorLegend[ele]];
+        stops.push(arr2);
+      });
     }
-    var color = "";
-    switch(type) {
-      case 'w':
-        color = "#69d2e7";
-        break;
-      case 'f':
-        color = "#fa6900";
-        break;
-      case 'c':
-        color = "#000000";
-        break;
-      default:
-        color = '#a1a1a1'; 
+    return {
+        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+        stops: stops
+      }
+  }
+
+  var generatePlotBands = function() {
+    var lastActivities = JSON.parse(lastActivity);
+    console.log(JSON.parse(lastActivity));
+    var offsets = [0, 432000000, 864000000, 1210000000];
+    var result = [];
+    for (var key in lastActivities) {
+      var date = key.split("-");
+      result.push({
+        color: generateColor(lastActivities[key]),
+        from: Date.UTC(date[0],date[1] - 1,date[2]) - 43200000,
+        to: Date.UTC(date[0],date[1] - 1,date[2]) + 43200000
+      });
     }
-    var result = {
-      color: color,
-      from: date.getTime() + offset - 43200000,
-      to: date.getTime() + offset + 43200000
-    };
     return result;
-  }
-
-  var generateActivities = function(wActivity, fActivity, cActivity) {
-    if (wActivity) {
-      var wDate = new Date(wActivity.date);
-      wDate.setDate(wDate.getDate() + 5);
-    } else {
-      var wDate = new Date();
-      wDate.setDate(wDate.getDate());
-    }
-
-    if (fActivity) {
-      var fDate = new Date(fActivity.date);
-      fDate.setDate(fDate.getDate() + 5);
-    } else {
-      var fDate = new Date();
-      fDate.setDate(fDate.getDate());
-    }
-
-    if (cActivity) {
-      var cDate = new Date(cActivity.date);
-      cDate.setDate(cDate.getDate() + 5)
-    } else {
-      var cDate = new Date();
-      cDate.setDate(cDate.getDate());
-    }
-
-    if(wDate.getDate() == fDate.getDate() && wDate.getDate() == cDate.getDate()) {
-      var color = {
-        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
-        stops: [
-          [0, '#69d2e7'],
-          [0.5, '#fa6900'],
-          [1, '#000000']
-        ]
-      }
-      return [{
-        color: color,
-        from: wDate.getTime() - 43200000,
-        to: wDate.getTime() + 43200000
-      }, {
-        color: color,
-        from: wDate.getTime() + 432000000 - 43200000,
-        to: wDate.getTime() + 432000000 + 43200000
-      }]
-    } else if (wDate.getDate() == fDate.getDate()) {
-      var color = {
-        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
-        stops: [
-          [0, '#69d2e7'],
-          [1, '#fa6900']
-        ]
-      }
-      return [{
-        color: color,
-        from: wDate.getTime() - 43200000,
-        to: wDate.getTime() + 43200000
-      }, {
-        color: color,
-        from: wDate.getTime() + 432000000 - 43200000,
-        to: wDate.getTime() + 432000000 + 43200000
-      }, generateActivity(cActivity, 'c'), generateActivity(cActivity, 'c', 432000000)];
-    } else if (wDate.getDate() == cDate.getDate()) {
-      var color = {
-        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
-        stops: [
-          [0, '#69d2e7'],
-          [1, '#000000']
-        ]
-      }
-      return [{
-        color: color,
-        from: wDate.getTime() - 43200000,
-        to: wDate.getTime() + 43200000
-      }, {
-        color: color,
-        from: wDate.getTime() + 432000000 - 43200000,
-        to: wDate.getTime() + 432000000 + 43200000
-      }, generateActivity(fActivity, 'f'), generateActivity(fActivity, 'f', 432000000)]
-    } else if (fDate.getDate() == cDate.getDate()) {
-      var color = {
-        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
-        stops: [
-          [0, '#fa6900'],
-          [1, '#000000']
-        ]
-      }
-      return [{
-        color: color,
-        from: fDate.getTime() - 43200000,
-        to: fDate.getTime() + 43200000
-      }, {
-        color: color,
-        from: fDate.getTime() + 432000000 - 43200000,
-        to: fDate.getTime() + 432000000 + 43200000
-      }, generateActivity(wActivity, 'w'), generateActivity(wActivity, 'w', 432000000)]
-    } else {
-      return [generateActivity(wActivity, 'w'),generateActivity(wActivity, 'w', 432000000), generateActivity(fActivity, 'f'), generateActivity(fActivity, 'f', 432000000), generateActivity(cActivity, 'c'), generateActivity(cActivity, 'c', 432000000)];
-    }
-  }
-
-  var generatePlotBands = function(weatherData) {
-    return generateActivities(JSON.parse(waterActivity), JSON.parse(fertilizerActivity), JSON.parse(chemicalActivity));
-    // var date = weatherData.simpleforecast.forecastday[0].date;
-    // return [generateActivity(JSON.parse(waterActivity),'w'), generateActivity(JSON.parse(fertilizerActivity),'f'), generateActivity(JSON.parse(chemicalActivity), 'c')];
   }
 
   var createtimeline = function(weatherData) { 
     var date = weatherData.simpleforecast.forecastday[0].date;
-    // var activities = generateActivities();
     ele.highcharts({
+      charts: {
+        spacingTop: 20
+      },
       credits: {enabled: false},
       title: {
-        text: farmName + " Timeline"
+        // text: farmName + " Timeline"
+        text: ""
       },
       xAxis: {
         plotBands: generatePlotBands(),
