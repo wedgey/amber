@@ -9,13 +9,13 @@ default: &default
   encoding: unicode
   pool: 5
   timeout: 5000
-  host: localhost
-  username: amber
-  password: amberisthebest
 
 development:
   <<: *default
   database: amber_development
+  host: localhost
+  username: amber
+  password: amberisthebest
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -26,4 +26,3 @@ test:
 
 production:
   <<: *default
-  database: amber
