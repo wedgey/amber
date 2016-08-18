@@ -26,7 +26,6 @@ function createTimeline(ele, farmName, lastActivity) {
 
   var generatePlotBands = function() {
     var lastActivities = JSON.parse(lastActivity);
-    console.log(JSON.parse(lastActivity));
     var offsets = [0, 432000000, 864000000, 1210000000];
     var result = [];
     for (var key in lastActivities) {

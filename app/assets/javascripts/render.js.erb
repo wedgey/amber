@@ -122,7 +122,7 @@ function run_render(ele, subfarms, dayToWater) {
   // Create a Free Camera. It's a camera that is like a fps game camerea and allows you to freely move throughout the scene.
   function createFreeCamera(scene) {
     var camera = new BABYLON.ArcRotateCamera(
-      "cam", 1.5, 1.5 , 80, new BABYLON.Vector3(-10,-10,0), scene); // Set the camera's initial position to 1.7 meters above the ground (y axis)
+      "cam", 1.5, 3 , 60, new BABYLON.Vector3(-10,-10,0), scene); // Set the camera's initial position to 1.7 meters above the ground (y axis)
       // "player camera", BABYLON.Vector3.Zero(), scene); // Creates a camera called 'player camera' at location 0,0,0 of the scene
     // camera.setPosition(new BABYLON.Vector3(0,-10,80));
     return camera;

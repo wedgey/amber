@@ -23,7 +23,7 @@ class SubFarm < ApplicationRecord
     
     third_prob = calculate_differential(stages.third.tmax, stages.third.tmin, forecasts[:forecasts][:avgs][:third][:avg_tmax], forecasts[:forecasts][:avgs][:third][:avg_tmin])
 
-    p "#{first_prob} and #{second_prob} and #{third_prob}"
+    # p "#{first_prob} and #{second_prob} and #{third_prob}"
 
     survival_rate = MAX_PROB * first_prob * second_prob * third_prob
 
@@ -58,9 +58,9 @@ class SubFarm < ApplicationRecord
     tmin_prob = (tmin_prob - 2).abs if tmin_prob > 1
 
     # {tmax: tmax_prob, tmin: tmin_prob}
-    p "First ideal_tmax: #{(ideal_tmax * 9)/5 + 32}, First ideal_tmin: #{(ideal_tmin * 9)/5 + 32}"
-    p "First Tmax: #{tmax_prob}, First tmin: #{tmin_prob}"
-    p "Prob = #{(tmax_prob + tmin_prob) / 2}"
+    # p "First ideal_tmax: #{(ideal_tmax * 9)/5 + 32}, First ideal_tmin: #{(ideal_tmin * 9)/5 + 32}"
+    # p "First Tmax: #{tmax_prob}, First tmin: #{tmin_prob}"
+    # p "Prob = #{(tmax_prob + tmin_prob) / 2}"
     (tmax_prob + tmin_prob) / 2
   end
 end

@@ -54,10 +54,10 @@ class DashboardController < ApplicationController
       result[10.days.since(activity[:date].to_date)] << activity[:activity_id] if activity[:activity_id] == 1
     end 
 
-    result[DateTime.now.to_date] << 1 unless watered
-    result[5.days.since(DateTime.now.to_date)] << 1 unless watered
-    result[DateTime.now.to_date] << 2 unless fertilized
-    result[DateTime.now.to_date] << 3 unless chemicalled
+    result[DateTime.now.in_time_zone(ActiveSupport::TimeZone[8.hours]).to_date] << 1 unless watered
+    result[5.days.since(DateTime.now.in_time_zone(ActiveSupport::TimeZone[8.hours]).to_date)] << 1 unless watered
+    result[DateTime.now.in_time_zone(ActiveSupport::TimeZone[8.hours]).to_date] << 2 unless fertilized
+    result[DateTime.now.in_time_zone(ActiveSupport::TimeZone[8.hours]).to_date] << 3 unless chemicalled
 
     @day_to_water = @day_to_water.to_json
     @last_activities = result.to_json
