@@ -53,11 +53,12 @@
 #footer-homepage {
   background-color: white;
   border-top: 2px, red, solid;
-  height: 100px;
+  height: 60px;
   padding-top: 0px;
   /*padding: 40px;
   /*text-align: center;*/
   color: grey;
+
 }
 
 
