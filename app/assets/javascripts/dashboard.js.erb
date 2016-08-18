@@ -1,6 +1,6 @@
 function createTimeline(ele, farmName, lastActivity) {
   $.ajax({
-    url: "http://api.wunderground.com/api/<%= get_wunderground_key %>/forecast10day/q/4.944,114.928.json",
+    url: "http://api.wunderground.com/api/<%= ENV['WUNDERGROUND_API_KEY'] %>/forecast10day/q/4.944,114.928.json",
     dataType: 'jsonp',
     success: function(data) {
       createtimeline(data.forecast);

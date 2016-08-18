@@ -145,6 +145,6 @@
 }
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= get_ggmap_key %>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GGMAP_APP_KEY'] %>
 &callback=initMap"
 async defer></script>
