@@ -62,6 +62,10 @@ class DashboardController < ApplicationController
     @day_to_water = @day_to_water.to_json
     @last_activities = result.to_json
     @subfarms = @farm.sub_farms.to_ary.to_json
+    next_harvest_farm = @farm.sub_farms.order(harvest_date: :desc).first
+
+    @days_to_harvest = next_harvest_farm.to_json
+    @potential_yield = next_harvest_farm.calculate_yield.to_json
 
   end
 

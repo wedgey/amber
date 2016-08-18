@@ -33,7 +33,6 @@ class SubFarm < ApplicationRecord
     crop_yield = num_products * survival_rate
 
     # crop_yield.to_f # yield is in grams
-    p size
     ((crop_yield / 1000) / size).to_f.round(2) # yield in kg
   end
 

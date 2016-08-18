@@ -77,13 +77,38 @@ function createTimeline(ele, farmName, lastActivity) {
   }
 }
 
-function createHarvestTracker(ele) {
+function createHarvestTracker(ele,subFarm, potentialYield) {
+  function calculateDaysDiff() {
+    var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+    var firstDate = new Date(subFarm.harvest_date);
+    var secondDate = new Date();
+
+    var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+    return diffDays;
+  }
+
   ele.highcharts({
     chart: {
-      type: 'solidgauge'
+      type: 'solidgauge',
+      marginTop: 15,
+      marginBottom: 15
     },
     title: {
-      text: ''
+      text: 'Subfarm ' + subFarm.id,
+      useHTML: true,
+      margin: 10,
+      verticalAlign: "top",
+      style: {
+        "fontSize": "12px"
+      }
+    },
+    subtitle: {
+      useHTML: true,
+      text: 'Forecasted Yield: <strong>' + potentialYield + '</strong> kg/ha',
+      verticalAlign: "bottom",
+      style: {
+        "fontSize": "12px"
+      }
     },
     credits: {
       enabled: false
@@ -92,11 +117,14 @@ function createHarvestTracker(ele) {
       startAngle: 0,
       endAngle: 360,
       background: [{
-        outerRadius: '69%',
-        innerRadius: '38%',
-        backgroundColor: '#f38630',
+        outerRadius: '100%',
+        innerRadius: '60%',
+        backgroundColor: 'rgba(105, 210, 231, 0.35)',
         borderWidth: 0
       }]
+    },
+    tooltip: {
+      enabled: false
     },
     yAxis: {
       min: 0,
@@ -106,11 +134,13 @@ function createHarvestTracker(ele) {
     },
     plotOptions: {
       solidgauge: {
-        borderWidth: '34px',
+        borderWidth: '30px',
         dataLabels: {
-          enabled: false
+          y: 5,
+          borderWidth: 0,
+          useHTML: true
         },
-        linecap: 'round',
+        linecap: 'square',
         stickTracking: true
       }
     },
@@ -119,10 +149,16 @@ function createHarvestTracker(ele) {
       borderColor: '#fa6900',
       data: [{
         color: '#fa6900',
-        radius: '50%',
-        innerRadius: '50%',
-        y: 50
-      }]
+        radius: '80%',
+        innerRadius: '80%',
+        y: (100 - calculateDaysDiff())
+      }],
+      dataLabels: {
+        formatter: function() {
+          return '<div style="text-align:center; margin-top:-30px; margin-left:-2px;"><span style="font-size: 20px">' + (100 - this.y) + '</span><br>days</div>'
+        }
+        // format: '<div style="text-align:center; margin-top:-30px; margin-left:-2px;"><span style="font-size: 20px">' + (100 - this.y) + '</span><br>days</div>'
+      }
     }]
   });
 }
