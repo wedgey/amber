@@ -3,6 +3,7 @@
 Farm management app built on Rails.
 
 Online demo : http://amberfarm.herokuapp.com/
+ERD : https://drive.google.com/open?id=0B3JBN1ee_2kqT2tCRlhNbTBrZWs
 
 Install :
 1. clone
