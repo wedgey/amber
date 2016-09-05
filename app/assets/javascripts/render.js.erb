@@ -6,7 +6,7 @@ function run_render(ele, subfarms, dayToWater) {
     var firstDate = new Date(dayToWater);
     var secondDate = new Date();
 
-    var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+    var diffDays = Math.round((firstDate.getTime() - secondDate.getTime())/(oneDay));
     return diffDays;
   }
 
@@ -39,11 +39,13 @@ function run_render(ele, subfarms, dayToWater) {
     // pl.specular = new BABYLON.Color3(1, 1, 1);
     // pl.intensity = 0.8;
 
-    var farmbase = createFarmBase(scene, (5 - calculateWaterRatio()));
+    var waterDiffDays = calculateWaterRatio();
+    var waterToSoilRatio = (waterDiffDays > -1) ? waterDiffDays : 0;
+    var farmbase = createFarmBase(scene, (5 - waterToSoilRatio));
     farmbase.position.x = -10;
     farmbase.position.y = -10;
 
-    var waterbase = createWaterBase(scene, calculateWaterRatio());
+    var waterbase = createWaterBase(scene, waterToSoilRatio);
     waterbase.position.x = -10;
     waterbase.position.y = -10;
     waterbase.position.z = -3;

@@ -4,28 +4,6 @@ class DashboardController < ApplicationController
     @user = User.find(current_user)
     @farm = @user.farms.exists?(params[:id]) ? @user.farms.find(params[:id]) : @user.farms.first
     @activities = Activity.all
-    # @water_activity = {}
-    # @farm.last_watered.each do |ele|
-    #   @water_activity[ele.sub_farm_id] = ele.date
-    # end
-
-    # @fertilizer_activity = {}
-    # @farm.last_fertilized.each do |ele|
-    #   @fertilizer_activity[ele.sub_farm_id] = ele.date
-    # end
-
-    # @chemical_activity = {}
-    # @farm.last_chemicalled.each do |ele|
-    #   @chemical_activity[ele.sub_farm_id] = ele.date
-    # end
-
-    # @water_activity = @farm.last_watered.first
-    # @chemical_activity = @farm.last_chemicalled.first
-    # @fertilizer_activity = @farm.last_fertilized.first
-
-    # @water_activity = @water_activity.to_json
-    # @chemical_activity = @chemical_activity.to_json
-    # @fertilizer_activity = @fertilizer_activity.to_json
 
     result = Hash.new { |hash, key| hash[key] =  Array.new }
 
@@ -66,10 +44,5 @@ class DashboardController < ApplicationController
 
     @days_to_harvest = next_harvest_farm.to_json
     @potential_yield = next_harvest_farm.calculate_yield.to_json
-
-  end
-
-  def new
-    @sub_farm_activity = SubFarmActivity.new
   end
 end

@@ -65,6 +65,12 @@ class WeatherLogsController < ApplicationController
     end
   end
 
+  def get_weather
+    current = open("http://api.wunderground.com/api/#{ENV['WUNDERGROUND_API_KEY']}/forecast10day/q/#{4.944.to_f},#{114.928.to_f}.json")
+    forecast = JSON.parse(current.read)
+    render json: forecast.to_json
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_weather_log
