@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   get 'user/farms', to: 'farms#user_show'
-  get '/weather/forecast', to: 'weather_logs#get_weather'
+  post '/weather/forecast', to: 'weather_logs#get_weather'
   # get 'user/report', to: 'report#show'
 
   resources :weather_logs

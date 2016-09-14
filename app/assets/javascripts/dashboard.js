@@ -194,7 +194,6 @@ AMBER.DASHBOARD.createNotifications = function(datavalue) {
     }
   }
 
-  console.log('get_crop_weather_forecast');
   forecast_array = datavalue.forecast.simpleforecast.forecastday;
   for (var i=0; i < FORECAST_DAYS ; i++) {
     var max_temp = (forecast_array[i].high.celsius);

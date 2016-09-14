@@ -66,7 +66,11 @@ class WeatherLogsController < ApplicationController
   end
 
   def get_weather
-    current = open("http://api.wunderground.com/api/#{get_wunderground_key}/forecast10day/q/#{4.944.to_f},#{114.928.to_f}.json")
+    lat = forecast_params[:lat]
+    lng = forecast_params[:lng]
+    p lat
+    p lng
+    current = open("http://api.wunderground.com/api/#{get_wunderground_key}/forecast10day/q/#{lat},#{lng}.json")
     forecast = JSON.parse(current.read)
     render json: forecast.to_json
   end
@@ -80,5 +84,9 @@ class WeatherLogsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def weather_log_params
       params.require(:weather_log).permit(:lat, :lng, :tmax, :tmin, :precip, :date)
+    end
+
+    def forecast_params
+      params.require(:forecast).permit(:lat, :lng)
     end
 end
