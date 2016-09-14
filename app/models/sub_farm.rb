@@ -1,7 +1,7 @@
 class SubFarm < ApplicationRecord
   belongs_to :farm
   belongs_to :crop
-  has_many :sub_farm_activities
+  has_many :sub_farm_activities, dependent: :destroy
 
   validates :size, numericality: true
   validates :crop_weight, numericality: true
