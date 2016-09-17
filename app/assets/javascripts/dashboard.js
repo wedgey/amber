@@ -1,12 +1,14 @@
-function createTimeline(ele, farmName, lastActivity) {
-  $.ajax({
-    url: "http://api.wunderground.com/api/<%= ENV['WUNDERGROUND_API_KEY'] %>/forecast10day/q/4.944,114.928.json",
-    dataType: 'jsonp',
-    success: function(data) {
-      createtimeline(data.forecast);
-    }
-  });
+AMBER.DASHBOARD = AMBER.DASHBOARD || {};
 
+AMBER.DASHBOARD.init = function(timeLineEle, farmName, lastActivity, harvestTrackerEle, subFarm, potentialYield) {
+  AMBER.getForecast(AMBER.CONST.lat, AMBER.CONST.lng, function(data) {
+    AMBER.DASHBOARD.createTimeline(timeLineEle, farmName, lastActivity, data.forecast);
+    AMBER.DASHBOARD.createNotifications(data);
+  });
+  AMBER.DASHBOARD.createHarvestTracker(harvestTrackerEle, subFarm, potentialYield);
+}
+
+AMBER.DASHBOARD.createTimeline = function(ele, farmName, lastActivity, weatherData) {
   var generateColor = function(arr) {
     var stops = [];
     var colorLegend = ['#a1a1a1', '#69d2e7', '#fa6900', '#000000'];
@@ -19,9 +21,9 @@ function createTimeline(ele, farmName, lastActivity) {
       });
     }
     return {
-        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
-        stops: stops
-      }
+      linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+      stops: stops
+    }
   }
 
   var generatePlotBands = function() {
@@ -39,44 +41,42 @@ function createTimeline(ele, farmName, lastActivity) {
     return result;
   }
 
-  var createtimeline = function(weatherData) { 
-    var date = weatherData.simpleforecast.forecastday[0].date;
-    ele.highcharts({
-      chart: {
-        spacingTop: 50
-      },
-      credits: {enabled: false},
-      title: {
-        // text: farmName + " Timeline"
-        text: ""
-      },
-      xAxis: {
-        plotBands: generatePlotBands(),
-        tickInterval: 24 * 3600 * 1000, // one day
-        type: 'datetime',
-        min: Date.UTC(date.year, date.month-1, date.day) - 43200000,
-        max: Date.UTC(date.year, date.month-1, date.day+9) + 43200000
-      },
-      series: [{
-        name: "Date",
-        data: (function() {
-          var data = [];
-          weatherData.simpleforecast.forecastday.forEach(function(weather) {
-            data.push({
-              y: (Number(weather.high.celsius) + Number(weather.low.celsius)) / 2,
-              marker: { symbol: "url(" + weather.icon_url + ")" }
+  console.log('createTimeline');
+  var date = weatherData.simpleforecast.forecastday[0].date;
+  ele.highcharts({
+    chart: {
+      spacingTop: 50
+    },
+    credits: {enabled: false},
+    title: {
+      text: ""
+    },
+    xAxis: {
+      plotBands: generatePlotBands(),
+          tickInterval: 24 * 3600 * 1000, // one day
+          type: 'datetime',
+          min: Date.UTC(date.year, date.month-1, date.day) - 43200000,
+          max: Date.UTC(date.year, date.month-1, date.day+9) + 43200000
+        },
+        series: [{
+          name: "Date",
+          data: (function() {
+            var data = [];
+            weatherData.simpleforecast.forecastday.forEach(function(weather) {
+              data.push({
+                y: (Number(weather.high.celsius) + Number(weather.low.celsius)) / 2,
+                marker: { symbol: "url(" + weather.icon_url + ")" }
+              });
             });
-          });
-          return data;
-        }()),
-        pointStart: Date.UTC(date.year,date.month-1,date.day),
-        pointInterval: 24 * 3600 * 1000
-      }]
-    });
-  }
+            return data;
+          }()),
+          pointStart: Date.UTC(date.year,date.month-1,date.day),
+          pointInterval: 24 * 3600 * 1000
+        }]
+      });
 }
 
-function createHarvestTracker(ele,subFarm, potentialYield) {
+AMBER.DASHBOARD.createHarvestTracker = function(ele, subFarm, potentialYield) {
   function calculateDaysDiff() {
     var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
     var firstDate = new Date(subFarm.harvest_date);
@@ -162,14 +162,74 @@ function createHarvestTracker(ele,subFarm, potentialYield) {
   });
 }
 
+AMBER.DASHBOARD.createNotifications = function(datavalue) {
+  var HIGH_PRECIP_THRESHOLD = 1
+  var HIGH_WIND_THRESHOLD = 1
+  var FORECAST_DAYS = 3
+
+  function createDateString(forecast_date){
+
+    return  ' on ' + 
+    forecast_date.monthname_short 
+    + " " + 
+    forecast_date.day;
+  }
+
+  function constructRainCell(precip){
+    if (precip > HIGH_PRECIP_THRESHOLD){
+      var rain_warn = "Warning"
+      
+      return $('<td></td>').text(rain_warn).addClass('warning');
+    } else {
+      return $('<td></td>');
+    }
+  }
+
+  function constructWindCell(wind_val){
+    if (wind_val > HIGH_PRECIP_THRESHOLD){
+      var wind_warn = "Warning";
+      return $('<td></td>').text(wind_warn).addClass('warning');
+    } else {
+      return $('<td></td>');
+    }
+  }
+
+  forecast_array = datavalue.forecast.simpleforecast.forecastday;
+  for (var i=0; i < FORECAST_DAYS ; i++) {
+    var max_temp = (forecast_array[i].high.celsius);
+    var low_temp = (forecast_array[i].low.celsius);
+    var average_temp = ((parseInt(max_temp) + parseInt(low_temp)) / 2.0);
+    var wind_val = (forecast_array[i].avewind.kph);
+
+    var date_string = createDateString(forecast_array[i].date);
+
+    var precip = (forecast_array[i].qpf_allday.mm);
+
+    var date_value = 
+    forecast_array[i].date.monthname_short 
+    + " " + 
+    forecast_array[i].date.day;
+
+    var date_cell = $('<td></td>').text(date_value);
+    $('#alert-date').append(date_cell);
+
+    var rain_cell = constructRainCell(precip);
+    $('#alert-rain').append(rain_cell);
+
+    var wind_cell = constructWindCell(wind_val);
+    $('#alert-wind').append(wind_cell);
+
+  }
+}
+
 $(function() {
   $(document).on('click', '#modal-submit', function() {
     event.preventDefault();
     $('#actionsModal form').submit().bind('ajax:complete', function() {
       $('#actionsModal').modal('hide').promise().done(function() {
-        $('#actionsModal form').trigger("reset");
-        $('#actionsModal .ajax-loader').hide();
-        $('#actionsModal form').show();
+        // $('#actionsModal form').trigger("reset");
+        // $('#actionsModal .ajax-loader').hide();
+        // $('#actionsModal form').show();
         location.reload();
       });
     });
@@ -185,19 +245,4 @@ $(function() {
     $(this).find('.modal-body select#sub_farm_activity_activity_id option:contains('+action+')').prop('selected', true);
 
   });
-
-  // $(document).on('submit', '#actionsModal form', function() {
-  //   event.preventDefault();
-  //   $('#actionsModal form').submit().bind('ajax:complete', function() {
-  //     $('#actionsModal').modal('hide').promise().done(function() {
-  //       $('#actionsModal form').trigger("reset");
-  //       $('#actionsModal .ajax-loader').hide();
-  //       $('#actionsModal form').show();
-  //     });
-  //   });
-  //   $('#actionsModal .ajax-loader').show();
-  //   $('#actionsModal form').hide();
-  // });
-
-
 });
